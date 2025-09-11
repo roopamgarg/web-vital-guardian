@@ -31,7 +31,7 @@ export async function runWebVitalsGuardian(config: GuardianConfig): Promise<Guar
     for (const filePath of scenarioFiles) {
       try {
         console.log(`Running scenario: ${filePath}`);
-        const scenario = loadScenarioFile(filePath);
+        const scenario = loadScenarioFile(filePath, config.variables);
         const report = await runScenario(browser, scenario, config);
         reports.push(report);
         

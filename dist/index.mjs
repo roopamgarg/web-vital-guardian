@@ -1,6 +1,50 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { chromium } from "playwright";
+function interpolateVariables(text, variables) {
+  if (!text || typeof text !== "string") {
+    return text;
+  }
+  return text.replace(/\$\{([^}]+)\}/g, (match, variableName) => {
+    const trimmedName = variableName.trim();
+    if (variables.hasOwnProperty(trimmedName)) {
+      return String(variables[trimmedName]);
+    }
+    console.warn(`Variable '${trimmedName}' not found in variables`);
+    return match;
+  });
+}
+function interpolateObject(obj, variables) {
+  if (obj === null || obj === void 0) {
+    return obj;
+  }
+  if (typeof obj === "string") {
+    return interpolateVariables(obj, variables);
+  }
+  if (typeof obj === "number" || typeof obj === "boolean") {
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map((item) => interpolateObject(item, variables));
+  }
+  if (typeof obj === "object") {
+    const result = {};
+    for (const [key, value] of Object.entries(obj)) {
+      result[key] = interpolateObject(value, variables);
+    }
+    return result;
+  }
+  return obj;
+}
+function interpolateScenario(scenario, variables) {
+  return interpolateObject(scenario, variables);
+}
+function mergeVariables(globalVariables = {}, scenarioVariables = {}) {
+  return {
+    ...globalVariables,
+    ...scenarioVariables
+  };
+}
 function findScenarioFiles(directory) {
   const scenarioFiles = [];
   function scanDirectory(dir) {
@@ -22,7 +66,7 @@ function findScenarioFiles(directory) {
   scanDirectory(directory);
   return scenarioFiles;
 }
-function loadScenarioFile(filePath) {
+function loadScenarioFile(filePath, globalVariables = {}) {
   try {
     const content = readFileSync(filePath, "utf-8");
     let scenario;
@@ -52,7 +96,9 @@ function loadScenarioFile(filePath) {
     if (!scenario.steps || !Array.isArray(scenario.steps)) {
       throw new Error(`Scenario file ${filePath} is missing required field 'steps'`);
     }
-    return scenario;
+    const mergedVariables = mergeVariables(globalVariables, scenario.variables || {});
+    const interpolatedScenario = interpolateScenario(scenario, mergedVariables);
+    return interpolatedScenario;
   } catch (error) {
     throw new Error(`Failed to load scenario file ${filePath}: ${error}`);
   }
@@ -564,7 +610,7 @@ async function runWebVitalsGuardian(config) {
     for (const filePath of scenarioFiles) {
       try {
         console.log(`Running scenario: ${filePath}`);
-        const scenario = loadScenarioFile(filePath);
+        const scenario = loadScenarioFile(filePath, config.variables);
         const report = await runScenario(browser, scenario, config);
         reports.push(report);
         const budgets = { ...config.budgets, ...scenario.webVitals?.budgets };
@@ -593,11 +639,15 @@ export {
   runWebVitalsGuardian as default,
   executeScenarioStep,
   findScenarioFiles,
+  interpolateObject,
+  interpolateScenario,
+  interpolateVariables,
   loadScenarioFile,
   loadWebVitalsPackage,
   measurePerformanceMetrics,
   measureWebVitals,
   measureWebVitalsWithObserver,
+  mergeVariables,
   runScenario,
   runWebVitalsGuardian,
   startVitalsObservation

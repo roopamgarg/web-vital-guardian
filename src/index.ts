@@ -1,6 +1,7 @@
 // Main exports - re-export everything from modules for backward compatibility
 export * from './types';
 export * from './utils/fileUtils';
+export * from './utils/variableUtils';
 export * from './measurements/webVitals';
 export * from './scenarios/runner';
 export * from './guardian';

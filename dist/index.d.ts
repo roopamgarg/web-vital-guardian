@@ -39,6 +39,7 @@ export declare interface GuardianConfig {
         usePerformanceObserver?: boolean;
         fallbackToPackage?: boolean;
     };
+    variables?: Record<string, string | number | boolean>;
 }
 
 export declare interface GuardianResult {
@@ -52,12 +53,37 @@ export declare interface GuardianResult {
 }
 
 /**
+ * Recursively interpolates variables in an object
+ * @param obj - Object to interpolate variables in
+ * @param variables - Object containing variable values
+ * @returns Object with interpolated values
+ */
+export declare function interpolateObject(obj: any, variables: Record<string, string | number | boolean>): any;
+
+/**
+ * Interpolates variables in a scenario file
+ * @param scenario - Scenario file to interpolate
+ * @param variables - Global variables to use for interpolation
+ * @returns Scenario file with interpolated values
+ */
+export declare function interpolateScenario(scenario: ScenarioFile, variables: Record<string, string | number | boolean>): ScenarioFile;
+
+/**
+ * Interpolates variables in a string using ${variableName} syntax
+ * @param text - Text containing variable references
+ * @param variables - Object containing variable values
+ * @returns Interpolated string
+ */
+export declare function interpolateVariables(text: string, variables: Record<string, string | number | boolean>): string;
+
+/**
  * Loads and validates a scenario file (JSON or JavaScript)
  * @param filePath - Path to the scenario file
- * @returns Parsed and validated scenario file
+ * @param globalVariables - Global variables to use for interpolation
+ * @returns Parsed and validated scenario file with interpolated variables
  * @throws Error if file cannot be loaded or is invalid
  */
-export declare function loadScenarioFile(filePath: string): ScenarioFile;
+export declare function loadScenarioFile(filePath: string, globalVariables?: Record<string, string | number | boolean>): ScenarioFile;
 
 /**
  * Load web-vitals package and register metrics (for package approach)
@@ -89,6 +115,15 @@ export declare function measureWebVitals(page: Page, options?: {
  * @returns Promise resolving to Web Vitals metrics
  */
 export declare function measureWebVitalsWithObserver(page: Page): Promise<WebVitalsReport['metrics']>;
+
+/**
+ * Merges global and scenario-specific variables
+ * Scenario-specific variables take precedence over global ones
+ * @param globalVariables - Global variables from config
+ * @param scenarioVariables - Scenario-specific variables
+ * @returns Merged variables object
+ */
+export declare function mergeVariables(globalVariables?: Record<string, string | number | boolean>, scenarioVariables?: Record<string, string | number | boolean>): Record<string, string | number | boolean>;
 
 /**
  * Runs a complete scenario and measures Web Vitals
@@ -124,6 +159,7 @@ export declare interface ScenarioFile {
             TTFB?: number;
         };
     };
+    variables?: Record<string, string | number | boolean>;
 }
 
 export declare interface ScenarioStep {

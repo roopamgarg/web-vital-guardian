@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import type { ScenarioFile } from '../types';
+import { interpolateScenario, mergeVariables } from './variableUtils';
 
 /**
  * Recursively finds all *.scenario.json and *.scenario.js files in a directory
@@ -36,10 +37,11 @@ export function findScenarioFiles(directory: string): string[] {
 /**
  * Loads and validates a scenario file (JSON or JavaScript)
  * @param filePath - Path to the scenario file
- * @returns Parsed and validated scenario file
+ * @param globalVariables - Global variables to use for interpolation
+ * @returns Parsed and validated scenario file with interpolated variables
  * @throws Error if file cannot be loaded or is invalid
  */
-export function loadScenarioFile(filePath: string): ScenarioFile {
+export function loadScenarioFile(filePath: string, globalVariables: Record<string, string | number | boolean> = {}): ScenarioFile {
   try {
     const content = readFileSync(filePath, 'utf-8');
     let scenario: ScenarioFile;
@@ -85,7 +87,13 @@ export function loadScenarioFile(filePath: string): ScenarioFile {
       throw new Error(`Scenario file ${filePath} is missing required field 'steps'`);
     }
     
-    return scenario;
+    // Merge global and scenario-specific variables
+    const mergedVariables = mergeVariables(globalVariables, scenario.variables || {});
+    
+    // Interpolate variables in the scenario
+    const interpolatedScenario = interpolateScenario(scenario, mergedVariables);
+    
+    return interpolatedScenario;
   } catch (error) {
     throw new Error(`Failed to load scenario file ${filePath}: ${error}`);
   }

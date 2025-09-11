@@ -24,6 +24,7 @@
     "example:ci": "node examples/ci-integration.js",
     "example:csp": "node examples/csp-safe-example.js",
     "example:package": "node examples/web-vitals-package-example.js",
+    "example:variables": "node examples/variable-example.js",
     "debug": "node examples/debug-web-vitals.js"
   },
   "author": "Roopam Garg",

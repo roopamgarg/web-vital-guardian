@@ -44,6 +44,8 @@ export interface ScenarioFile {
       TTFB?: number;
     };
   };
+  // Scenario-specific variables (takes precedence over global variables)
+  variables?: Record<string, string | number | boolean>;
 }
 
 // Configuration for the guardian
@@ -65,6 +67,8 @@ export interface GuardianConfig {
     usePerformanceObserver?: boolean; // Force using PerformanceObserver (CSP-safe)
     fallbackToPackage?: boolean;      // Allow fallback to web-vitals package
   };
+  // Global variables that can be used in scenario files
+  variables?: Record<string, string | number | boolean>;
 }
 
 // Guardian execution result
