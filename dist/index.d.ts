@@ -16,7 +16,7 @@ export declare function collectVitals(page: Page): Promise<WebVitalsReport['metr
 export declare function executeScenarioStep(page: Page, step: ScenarioStep): Promise<void>;
 
 /**
- * Recursively finds all *.scenario.json files in a directory
+ * Recursively finds all *.scenario.json and *.scenario.js files in a directory
  * @param directory - Directory path to scan
  * @returns Array of file paths
  */
@@ -52,7 +52,7 @@ export declare interface GuardianResult {
 }
 
 /**
- * Loads and validates a scenario file
+ * Loads and validates a scenario file (JSON or JavaScript)
  * @param filePath - Path to the scenario file
  * @returns Parsed and validated scenario file
  * @throws Error if file cannot be loaded or is invalid

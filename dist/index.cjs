@@ -13,7 +13,7 @@ function findScenarioFiles(directory) {
         const stat = node_fs.statSync(fullPath);
         if (stat.isDirectory()) {
           scanDirectory(fullPath);
-        } else if (stat.isFile() && item.endsWith(".scenario.json")) {
+        } else if (stat.isFile() && (item.endsWith(".scenario.json") || item.endsWith(".scenario.js"))) {
           scenarioFiles.push(fullPath);
         }
       }
@@ -27,7 +27,24 @@ function findScenarioFiles(directory) {
 function loadScenarioFile(filePath) {
   try {
     const content = node_fs.readFileSync(filePath, "utf-8");
-    const scenario = JSON.parse(content);
+    let scenario;
+    if (filePath.endsWith(".scenario.js")) {
+      const moduleExports = {};
+      const moduleRequire = (id) => {
+        throw new Error(`require('${id}') is not supported in scenario files. Use only built-in JavaScript features.`);
+      };
+      const moduleObj = {
+        exports: moduleExports,
+        require: moduleRequire,
+        filename: filePath,
+        dirname: node_path.dirname(filePath)
+      };
+      const scenarioFunction = new Function("exports", "require", "module", "__filename", "__dirname", content);
+      scenarioFunction(moduleExports, moduleRequire, moduleObj, filePath, node_path.dirname(filePath));
+      scenario = moduleObj.exports.default || moduleObj.exports;
+    } else {
+      scenario = JSON.parse(content);
+    }
     if (!scenario.name) {
       throw new Error(`Scenario file ${filePath} is missing required field 'name'`);
     }
