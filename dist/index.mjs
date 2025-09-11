@@ -120,8 +120,8 @@ async function loadWebVitalsPackage(page) {
     });
     await page.waitForTimeout(1e3);
     await page.evaluate(() => {
-      if (window["web-vitals"] && window.__wvg) {
-        const wv = window["web-vitals"];
+      if (window["webVitals"] && window.__wvg) {
+        const wv = window["webVitals"];
         window.__wvg.packageLoaded = true;
         wv.onFCP((metric) => {
           window.__wvg.results.FCP = metric.value;
@@ -360,13 +360,13 @@ async function measureWebVitalsWithPackage(page) {
             resolve(results);
           }
         };
-        if (!("web-vitals" in window)) {
-          console.warn("web-vitals library not loaded");
+        if (!("webVitals" in window)) {
+          console.warn("webVitals library not loaded");
           clearTimeout(timeout);
           resolve(results);
           return;
         }
-        const webVitals = window["web-vitals"];
+        const webVitals = window["webVitals"];
         try {
           webVitals.onFCP((metric) => {
             results.FCP = metric.value;
