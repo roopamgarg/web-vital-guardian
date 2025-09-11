@@ -1,0 +1,38 @@
+{
+  "name": "@roopamgarg/web-vitals-guardian",
+  "version": "0.1.1",
+  "description": "Run scripted interactions, compute INP, and fail builds on budget breach.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build",
+    "example": "node examples/example-usage.js",
+    "example:modular": "node examples/example-modular-usage.js",
+    "example:budgets": "node examples/custom-budgets.js",
+    "example:ci": "node examples/ci-integration.js",
+    "example:csp": "node examples/csp-safe-example.js",
+    "debug": "node examples/debug-web-vitals.js"
+  },
+  "author": "Roopam Garg",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "typescript": "5.8.2",
+    "vite": "^6.3.6",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
