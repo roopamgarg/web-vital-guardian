@@ -2,6 +2,7 @@
   "name": "@roopamgarg/web-vitals-guardian",
   "version": "0.1.2",
   "description": "Run scripted interactions, compute INP, and fail builds on budget breach.",
+  "repository": "https://github.com/roopamgarg/web-vital-guardian",
   "type": "module",
   "files": [
     "dist"
@@ -22,6 +23,7 @@
     "example:budgets": "node examples/custom-budgets.js",
     "example:ci": "node examples/ci-integration.js",
     "example:csp": "node examples/csp-safe-example.js",
+    "example:package": "node examples/web-vitals-package-example.js",
     "debug": "node examples/debug-web-vitals.js"
   },
   "author": "Roopam Garg",

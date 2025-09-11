@@ -1,0 +1,55 @@
+{
+  "name": "Blog Navigation and Reading",
+  "description": "Test blog navigation, article reading, and comment interaction",
+  "url": "https://app-e2e.observe.ai/signin",
+  "timeout": 30000,
+  "steps": [
+    {
+      "type": "wait",
+      "waitFor": "#ACCOUNT",
+      "timeout": 10000
+    },
+    {
+      "type": "type",
+      "selector": "#ACCOUNT",
+      "text": "demo-health",
+      "timeout": 5000
+    },
+    {
+      "type": "click",
+      "selector": ".oai-btn.css-1h1l9ra.oai-key-1.oai-btn-primary.oai-btn.acss-0.full-width",
+      "timeout": 10000
+    },
+    {
+      "type": "wait",
+      "selector": "#userName",
+      "timeout": 10000
+    },
+    {
+        "type": "type",
+        "selector": "#userName",
+        "text": "roopam.garg@observe.ai",
+        "timeout": 10000
+      },
+      {
+        "type": "type",
+        "selector": "#password",
+        "text": "Observe@123",
+        "timeout": 10000
+      },
+      {
+        "type": "click",
+        "selector": ".oai-btn.css-1h1l9ra.oai-key-1.oai-btn-primary.oai-btn.acss-0.full-width",
+        "timeout": 10000
+      }
+  ],
+  "webVitals": {
+    "budgets": {
+      "FCP": 1500,
+      "LCP": 2500,
+      "CLS": 0.1,
+      "INP": 200,
+      "TTFB": 500
+    }
+  }
+}
