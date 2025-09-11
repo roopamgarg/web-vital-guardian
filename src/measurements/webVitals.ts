@@ -103,8 +103,8 @@ export async function loadWebVitalsPackage(page: Page): Promise<void> {
     
     // Register all metrics
     await page.evaluate(() => {
-      if ((window as any)['web-vitals'] && (window as any).__wvg) {
-        const wv = (window as any)['web-vitals'];
+      if ((window as any)['webVitals'] && (window as any).__wvg) {
+        const wv = (window as any)['webVitals'];
         (window as any).__wvg.packageLoaded = true;
         
         // Register all metrics
@@ -425,14 +425,14 @@ async function measureWebVitalsWithPackage(page: Page): Promise<WebVitalsReport[
         };
         
         // Check if web-vitals is available
-        if (!('web-vitals' in window)) {
-          console.warn('web-vitals library not loaded');
+        if (!('webVitals' in window)) {
+          console.warn('webVitals library not loaded');
           clearTimeout(timeout);
           resolve(results);
           return;
         }
         
-        const webVitals = (window as any)['web-vitals'];
+        const webVitals = (window as any)['webVitals'];
         
         // Measure FCP (First Contentful Paint)
         try {
