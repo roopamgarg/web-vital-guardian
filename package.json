@@ -1,6 +1,6 @@
 {
   "name": "@roopamgarg/web-vitals-guardian",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Run scripted interactions, compute INP, and fail builds on budget breach.",
   "repository": "https://github.com/roopamgarg/web-vital-guardian",
   "type": "module",
