@@ -12,35 +12,16 @@ export async function startVitalsObservation(
   const useObserver = options?.usePerformanceObserver ?? true;
   const allowPackage = options?.fallbackToPackage ?? false;
 
-  // Install web-vitals package if requested
+  // For web-vitals package, we'll load it after navigation but before steps
   if (!useObserver && allowPackage) {
-    const webVitalsScript = `
+    // Just initialize the results object for now
+    const initScript = `
       (function(){
         if (window.__wvg && window.__wvg.started) return;
         window.__wvg = { started: true, results: {}, packageLoaded: false };
-        
-        // Load web-vitals package
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.iife.js';
-        script.onload = function() {
-          window.__wvg.packageLoaded = true;
-          if (window['web-vitals']) {
-            const wv = window['web-vitals'];
-            
-            // Register all metrics
-            wv.onFCP((metric) => { window.__wvg.results.FCP = metric.value; });
-            wv.onLCP((metric) => { window.__wvg.results.LCP = metric.value; });
-            wv.onCLS((metric) => { window.__wvg.results.CLS = metric.value; });
-            wv.onINP((metric) => { window.__wvg.results.INP = metric.value; });
-          }
-        };
-        script.onerror = function() {
-          console.warn('Failed to load web-vitals package');
-        };
-        document.head.appendChild(script);
       })();
     `;
-    await page.addInitScript({ content: webVitalsScript });
+    await page.addInitScript({ content: initScript });
     return;
   }
 
@@ -104,6 +85,52 @@ export async function startVitalsObservation(
     })();
   `;
   await page.addInitScript({ content: initScript });
+}
+
+/**
+ * Load web-vitals package and register metrics (for package approach)
+ * Call AFTER navigation but BEFORE scenario steps
+ */
+export async function loadWebVitalsPackage(page: Page): Promise<void> {
+  try {
+    // Load the web-vitals package
+    await page.addScriptTag({
+      url: 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.iife.js'
+    });
+    
+    // Wait a moment for the script to load
+    await page.waitForTimeout(1000);
+    
+    // Register all metrics
+    await page.evaluate(() => {
+      if ((window as any)['web-vitals'] && (window as any).__wvg) {
+        const wv = (window as any)['web-vitals'];
+        (window as any).__wvg.packageLoaded = true;
+        
+        // Register all metrics
+        wv.onFCP((metric: any) => { 
+          (window as any).__wvg.results.FCP = metric.value; 
+          console.log('FCP measured (web-vitals package):', metric.value);
+        });
+        wv.onLCP((metric: any) => { 
+          (window as any).__wvg.results.LCP = metric.value; 
+          console.log('LCP measured (web-vitals package):', metric.value);
+        });
+        wv.onCLS((metric: any) => { 
+          (window as any).__wvg.results.CLS = metric.value; 
+          console.log('CLS measured (web-vitals package):', metric.value);
+        });
+        wv.onINP((metric: any) => { 
+          (window as any).__wvg.results.INP = metric.value; 
+          console.log('INP measured (web-vitals package):', metric.value);
+        });
+      }
+    });
+    
+    console.log('✅ Web-vitals package loaded and metrics registered');
+  } catch (error) {
+    console.warn('⚠️  Failed to load web-vitals package:', error);
+  }
 }
 
 /**

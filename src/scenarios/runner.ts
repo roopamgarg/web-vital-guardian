@@ -1,6 +1,6 @@
 import type { Browser, Page } from 'playwright';
 import type { ScenarioStep, ScenarioFile, WebVitalsReport, GuardianConfig } from '../types';
-import { measureWebVitals, measurePerformanceMetrics, startVitalsObservation, collectVitals } from '../measurements/webVitals';
+import { measureWebVitals, measurePerformanceMetrics, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
 
 /**
  * Executes a single scenario step
@@ -78,7 +78,13 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     // Start Web Vitals observation BEFORE navigation
     await startVitalsObservation(page, config?.webVitals);
     
+    // Navigate to the initial URL
     await page.goto(scenario.url, { waitUntil: 'networkidle' });
+    
+    // Load web-vitals package if needed (after navigation, before steps)
+    if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
+      await loadWebVitalsPackage(page);
+    }
     
     // Execute all scenario steps
     for (const step of scenario.steps) {

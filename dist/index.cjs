@@ -46,33 +46,13 @@ async function startVitalsObservation(page, options) {
   const useObserver = options?.usePerformanceObserver ?? true;
   const allowPackage = options?.fallbackToPackage ?? false;
   if (!useObserver && allowPackage) {
-    const webVitalsScript = `
+    const initScript2 = `
       (function(){
         if (window.__wvg && window.__wvg.started) return;
         window.__wvg = { started: true, results: {}, packageLoaded: false };
-        
-        // Load web-vitals package
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.iife.js';
-        script.onload = function() {
-          window.__wvg.packageLoaded = true;
-          if (window['web-vitals']) {
-            const wv = window['web-vitals'];
-            
-            // Register all metrics
-            wv.onFCP((metric) => { window.__wvg.results.FCP = metric.value; });
-            wv.onLCP((metric) => { window.__wvg.results.LCP = metric.value; });
-            wv.onCLS((metric) => { window.__wvg.results.CLS = metric.value; });
-            wv.onINP((metric) => { window.__wvg.results.INP = metric.value; });
-          }
-        };
-        script.onerror = function() {
-          console.warn('Failed to load web-vitals package');
-        };
-        document.head.appendChild(script);
       })();
     `;
-    await page.addInitScript({ content: webVitalsScript });
+    await page.addInitScript({ content: initScript2 });
     return;
   }
   if (!useObserver) return;
@@ -134,6 +114,39 @@ async function startVitalsObservation(page, options) {
     })();
   `;
   await page.addInitScript({ content: initScript });
+}
+async function loadWebVitalsPackage(page) {
+  try {
+    await page.addScriptTag({
+      url: "https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.iife.js"
+    });
+    await page.waitForTimeout(1e3);
+    await page.evaluate(() => {
+      if (window["web-vitals"] && window.__wvg) {
+        const wv = window["web-vitals"];
+        window.__wvg.packageLoaded = true;
+        wv.onFCP((metric) => {
+          window.__wvg.results.FCP = metric.value;
+          console.log("FCP measured (web-vitals package):", metric.value);
+        });
+        wv.onLCP((metric) => {
+          window.__wvg.results.LCP = metric.value;
+          console.log("LCP measured (web-vitals package):", metric.value);
+        });
+        wv.onCLS((metric) => {
+          window.__wvg.results.CLS = metric.value;
+          console.log("CLS measured (web-vitals package):", metric.value);
+        });
+        wv.onINP((metric) => {
+          window.__wvg.results.INP = metric.value;
+          console.log("INP measured (web-vitals package):", metric.value);
+        });
+      }
+    });
+    console.log("✅ Web-vitals package loaded and metrics registered");
+  } catch (error) {
+    console.warn("⚠️  Failed to load web-vitals package:", error);
+  }
 }
 async function collectVitals(page) {
   const results = await page.evaluate(() => {
@@ -476,6 +489,9 @@ async function runScenario(browser, scenario, config) {
   try {
     await startVitalsObservation(page, config?.webVitals);
     await page.goto(scenario.url, { waitUntil: "networkidle" });
+    if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
+      await loadWebVitalsPackage(page);
+    }
     for (const step of scenario.steps) {
       await executeScenarioStep(page, step);
     }
@@ -562,6 +578,7 @@ exports.default = runWebVitalsGuardian;
 exports.executeScenarioStep = executeScenarioStep;
 exports.findScenarioFiles = findScenarioFiles;
 exports.loadScenarioFile = loadScenarioFile;
+exports.loadWebVitalsPackage = loadWebVitalsPackage;
 exports.measurePerformanceMetrics = measurePerformanceMetrics;
 exports.measureWebVitals = measureWebVitals;
 exports.measureWebVitalsWithObserver = measureWebVitalsWithObserver;

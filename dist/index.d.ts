@@ -60,6 +60,12 @@ export declare interface GuardianResult {
 export declare function loadScenarioFile(filePath: string): ScenarioFile;
 
 /**
+ * Load web-vitals package and register metrics (for package approach)
+ * Call AFTER navigation but BEFORE scenario steps
+ */
+export declare function loadWebVitalsPackage(page: Page): Promise<void>;
+
+/**
  * Measures additional performance metrics using the Performance API
  * @param page - Playwright page instance
  * @returns Promise resolving to performance metrics
