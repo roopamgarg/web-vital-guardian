@@ -1,6 +1,7 @@
 import type { Browser, Page } from 'playwright';
 import type { ScenarioStep, ScenarioFile, WebVitalsReport, GuardianConfig } from '../types';
 import { measureWebVitals, measurePerformanceMetrics, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
+import { profileJs } from '../measurements/performanceObserver';
 
 /**
  * Executes a single scenario step
@@ -59,6 +60,12 @@ export async function executeScenarioStep(page: Page, step: ScenarioStep): Promi
   }
 }
 
+async function runProfile(page: Page, scenario: ScenarioFile): Promise<void> {
+    for (const step of scenario.steps) {
+      await executeScenarioStep(page, step);
+    }
+}
+
 /**
  * Runs a complete scenario and measures Web Vitals
  * @param browser - Playwright browser instance
@@ -85,11 +92,13 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
       await loadWebVitalsPackage(page);
     }
-    
-    // Execute all scenario steps
-    for (const step of scenario.steps) {
-      await executeScenarioStep(page, step);
+    let profileResponse = null;
+    if (config?.enableProfile) {
+      profileResponse = await profileJs(page, () => runProfile(page, scenario));
+    } else {
+      await runProfile(page, scenario);
     }
+
     
     // Wait a bit for any final interactions to settle
     await page.waitForTimeout(2000);
@@ -105,7 +114,8 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
       url: scenario.url,
       timestamp: new Date().toISOString(),
       metrics: webVitals,
-      performance
+      performance,
+      profile: profileResponse?.profile || null,
     };
     
     return report;

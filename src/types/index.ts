@@ -16,6 +16,7 @@ export interface WebVitalsReport {
     domContentLoaded: number;
     firstPaint: number;
   };
+  profile: any;
 }
 
 // Scenario file structure
@@ -67,6 +68,7 @@ export interface GuardianConfig {
     usePerformanceObserver?: boolean; // Force using PerformanceObserver (CSP-safe)
     fallbackToPackage?: boolean;      // Allow fallback to web-vitals package
   };
+  enableProfile?: boolean;
   // Global variables that can be used in scenario files
   variables?: Record<string, string | number | boolean>;
 }

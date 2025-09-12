@@ -1,11 +1,48 @@
 import { Browser } from 'playwright';
 import { Page } from 'playwright';
+import { Page as Page_2 } from '@playwright/test';
+import { Protocol } from 'playwright-core/types/protocol';
+
+/**
+ * Analyzes profile data and returns function performance statistics
+ */
+export declare function analyzeProfile(profile: EnhancedProfile): {
+    originalFunctionName: string;
+    originalSource: string;
+    originalLine: number;
+    totalTime: number;
+    hitCount: number;
+    samples: number;
+}[];
 
 /**
  * Disconnect observers and collect measured metrics.
  * Call AFTER scenario steps and a short settle delay.
  */
 export declare function collectVitals(page: Page): Promise<WebVitalsReport['metrics']>;
+
+export declare interface EnhancedProfile {
+    nodes: EnhancedProfileNode[];
+    samples: any[];
+    startTime: number;
+    endTime: number;
+}
+
+/**
+ * Utility functions for analyzing enhanced profile data with source map information
+ */
+export declare interface EnhancedProfileNode {
+    callFrame: {
+        functionName: string;
+        originalFunctionName?: string;
+        originalSource?: string;
+        originalLine?: number;
+        originalColumn?: number;
+        url: string;
+    };
+    hitCount?: number;
+    children?: number[];
+}
 
 /**
  * Executes a single scenario step
@@ -16,11 +53,52 @@ export declare function collectVitals(page: Page): Promise<WebVitalsReport['metr
 export declare function executeScenarioStep(page: Page, step: ScenarioStep): Promise<void>;
 
 /**
+ * Exports profile data in a readable format
+ */
+export declare function exportProfileData(profile: EnhancedProfile, format?: 'json' | 'csv'): string;
+
+/**
  * Recursively finds all *.scenario.json and *.scenario.js files in a directory
  * @param directory - Directory path to scan
  * @returns Array of file paths
  */
 export declare function findScenarioFiles(directory: string): string[];
+
+/**
+ * Formats profile analysis for console output
+ */
+export declare function formatProfileAnalysis(profile: EnhancedProfile): {
+    originalFunctionName: string;
+    originalSource: string;
+    originalLine: number;
+    totalTime: number;
+    hitCount: number;
+    samples: number;
+}[];
+
+/**
+ * Filters functions by source file
+ */
+export declare function getFunctionsBySource(profile: EnhancedProfile, sourcePattern: string): {
+    originalFunctionName: string;
+    originalSource: string;
+    originalLine: number;
+    totalTime: number;
+    hitCount: number;
+    samples: number;
+}[];
+
+/**
+ * Gets the top N most expensive functions
+ */
+export declare function getTopExpensiveFunctions(profile: EnhancedProfile, limit?: number): {
+    originalFunctionName: string;
+    originalSource: string;
+    originalLine: number;
+    totalTime: number;
+    hitCount: number;
+    samples: number;
+}[];
 
 export declare interface GuardianConfig {
     scenariosPath: string;
@@ -39,6 +117,7 @@ export declare interface GuardianConfig {
         usePerformanceObserver?: boolean;
         fallbackToPackage?: boolean;
     };
+    enableProfile?: boolean;
     variables?: Record<string, string | number | boolean>;
 }
 
@@ -125,6 +204,11 @@ export declare function measureWebVitalsWithObserver(page: Page): Promise<WebVit
  */
 export declare function mergeVariables(globalVariables?: Record<string, string | number | boolean>, scenarioVariables?: Record<string, string | number | boolean>): Record<string, string | number | boolean>;
 
+export declare function profileJs<T>(page: Page_2, run: () => Promise<T>): Promise<{
+    profile: Protocol.Profiler.Profile;
+    error: unknown;
+}>;
+
 /**
  * Runs a complete scenario and measures Web Vitals
  * @param browser - Playwright browser instance
@@ -197,6 +281,7 @@ export declare interface WebVitalsReport {
         domContentLoaded: number;
         firstPaint: number;
     };
+    profile: any;
 }
 
 export { }

@@ -16,7 +16,7 @@ A Node.js library that automatically runs user interaction scenarios and measure
 ## Installation
 
 ```bash
-npm install @roopamgarg/web-vitals-guardian
+npm install web-vitals-guardian
 ```
 
 ## Quick Start

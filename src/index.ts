@@ -2,7 +2,9 @@
 export * from './types';
 export * from './utils/fileUtils';
 export * from './utils/variableUtils';
+export * from './utils/profileAnalyzer';
 export * from './measurements/webVitals';
+export * from './measurements/performanceObserver';
 export * from './scenarios/runner';
 export * from './guardian';
 

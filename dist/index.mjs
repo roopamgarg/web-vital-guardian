@@ -103,6 +103,70 @@ function loadScenarioFile(filePath, globalVariables = {}) {
     throw new Error(`Failed to load scenario file ${filePath}: ${error}`);
   }
 }
+function analyzeProfile(profile) {
+  const functionStats = /* @__PURE__ */ new Map();
+  profile.nodes.forEach((node, index) => {
+    const callFrame = node.callFrame;
+    const functionName = callFrame.originalFunctionName || callFrame.functionName;
+    const source = callFrame.originalSource || callFrame.url;
+    const line = callFrame.originalLine || 0;
+    if (!functionStats.has(functionName)) {
+      functionStats.set(functionName, {
+        originalFunctionName: functionName,
+        originalSource: source,
+        originalLine: line,
+        totalTime: 0,
+        hitCount: 0,
+        samples: 0
+      });
+    }
+    const stats = functionStats.get(functionName);
+    stats.hitCount += node.hitCount || 0;
+  });
+  profile.samples.forEach((sample) => {
+    if (sample.stackId !== void 0 && profile.nodes[sample.stackId]) {
+      const node = profile.nodes[sample.stackId];
+      const functionName = node.callFrame.originalFunctionName || node.callFrame.functionName;
+      if (functionStats.has(functionName)) {
+        functionStats.get(functionName).samples++;
+      }
+    }
+  });
+  return Array.from(functionStats.values()).sort((a, b) => b.samples - a.samples);
+}
+function getTopExpensiveFunctions(profile, limit = 10) {
+  const analysis = analyzeProfile(profile);
+  return analysis.slice(0, limit);
+}
+function getFunctionsBySource(profile, sourcePattern) {
+  const analysis = analyzeProfile(profile);
+  return analysis.filter(
+    (func) => func.originalSource.includes(sourcePattern)
+  );
+}
+function formatProfileAnalysis(profile) {
+  const topFunctions = getTopExpensiveFunctions(profile, 10);
+  console.log("\n📊 Profile Analysis - Top 10 Most Expensive Functions:");
+  console.log("=".repeat(80));
+  topFunctions.forEach((func, index) => {
+    console.log(`${index + 1}. ${func.originalFunctionName}`);
+    console.log(`   Source: ${func.originalSource}:${func.originalLine}`);
+    console.log(`   Samples: ${func.samples}, Hits: ${func.hitCount}`);
+    console.log("");
+  });
+  return topFunctions;
+}
+function exportProfileData(profile, format = "json") {
+  const analysis = analyzeProfile(profile);
+  if (format === "csv") {
+    const headers = "Function Name,Source File,Line,Samples,Hit Count";
+    const rows = analysis.map(
+      (func) => `"${func.originalFunctionName}","${func.originalSource}",${func.originalLine},${func.samples},${func.hitCount}`
+    );
+    return [headers, ...rows].join("\n");
+  }
+  return JSON.stringify(analysis, null, 2);
+}
 async function startVitalsObservation(page, options) {
   const useObserver = options?.usePerformanceObserver ?? true;
   const allowPackage = options?.fallbackToPackage ?? false;
@@ -501,6 +565,20 @@ async function measurePerformanceMetrics(page) {
   });
   return performanceMetrics;
 }
+async function profileJs(page, run) {
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Profiler.enable");
+  await cdp.send("Profiler.start");
+  let error;
+  try {
+    await run();
+  } catch (e) {
+    error = e;
+  }
+  const { profile } = await cdp.send("Profiler.stop");
+  await cdp.send("Profiler.disable");
+  return { profile, error };
+}
 async function executeScenarioStep(page, step) {
   const timeout = step.timeout || 3e4;
   switch (step.type) {
@@ -544,6 +622,11 @@ async function executeScenarioStep(page, step) {
       throw new Error(`Unknown step type: ${step.type}`);
   }
 }
+async function runProfile(page, scenario) {
+  for (const step of scenario.steps) {
+    await executeScenarioStep(page, step);
+  }
+}
 async function runScenario(browser, scenario, config) {
   const context = await browser.newContext({ bypassCSP: true });
   const page = await context.newPage();
@@ -553,8 +636,11 @@ async function runScenario(browser, scenario, config) {
     if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
       await loadWebVitalsPackage(page);
     }
-    for (const step of scenario.steps) {
-      await executeScenarioStep(page, step);
+    let profileResponse = null;
+    if (config?.enableProfile) {
+      profileResponse = await profileJs(page, () => runProfile(page, scenario));
+    } else {
+      await runProfile(page, scenario);
     }
     await page.waitForTimeout(2e3);
     const webVitals = await collectVitals(page);
@@ -564,7 +650,8 @@ async function runScenario(browser, scenario, config) {
       url: scenario.url,
       timestamp: (/* @__PURE__ */ new Date()).toISOString(),
       metrics: webVitals,
-      performance: performance2
+      performance: performance2,
+      profile: profileResponse?.profile || null
     };
     return report;
   } finally {
@@ -635,10 +722,15 @@ async function runWebVitalsGuardian(config) {
   }
 }
 export {
+  analyzeProfile,
   collectVitals,
   runWebVitalsGuardian as default,
   executeScenarioStep,
+  exportProfileData,
   findScenarioFiles,
+  formatProfileAnalysis,
+  getFunctionsBySource,
+  getTopExpensiveFunctions,
   interpolateObject,
   interpolateScenario,
   interpolateVariables,
@@ -648,6 +740,7 @@ export {
   measureWebVitals,
   measureWebVitalsWithObserver,
   mergeVariables,
+  profileJs,
   runScenario,
   runWebVitalsGuardian,
   startVitalsObservation
