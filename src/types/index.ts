@@ -106,6 +106,9 @@ export interface GuardianConfig {
   enableProfile?: boolean;
   // Global variables that can be used in scenario files
   variables?: Record<string, string | number | boolean>;
+  // HTML report generation options
+  generateHTMLReport?: boolean;
+  htmlReportPath?: string;
 }
 
 // Guardian execution result

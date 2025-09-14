@@ -3,6 +3,7 @@ import type { GuardianConfig, GuardianResult } from '../types';
 import { findScenarioFiles, loadScenarioFile } from '../utils/fileUtils';
 import { runScenario } from '../scenarios/runner';
 import { checkBudgetViolations } from './budgetChecker';
+import { generateHTMLReport } from '../utils/reportGenerator';
 
 /**
  * Main function that runs all scenarios and generates Web Vitals reports
@@ -56,7 +57,16 @@ export async function runWebVitalsGuardian(config: GuardianConfig): Promise<Guar
       budgetViolations
     };
     
-    return { reports, summary };
+    const result = { reports, summary };
+    
+    // Generate HTML report if requested
+    if (config.generateHTMLReport) {
+      const htmlReportPath = config.htmlReportPath || 
+        (config.outputPath ? `${config.outputPath}/web-vitals-report.html` : 'web-vitals-report.html');
+      generateHTMLReport(result, htmlReportPath);
+    }
+    
+    return result;
     
   } finally {
     await browser.close();

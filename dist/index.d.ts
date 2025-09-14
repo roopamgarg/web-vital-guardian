@@ -77,6 +77,13 @@ export declare function formatProfileAnalysis(profile: EnhancedProfile): {
 }[];
 
 /**
+ * Generates an elegant HTML report for Web Vitals Guardian results
+ * @param result - Guardian execution result
+ * @param outputPath - Path to save the HTML report
+ */
+export declare function generateHTMLReport(result: GuardianResult, outputPath: string): void;
+
+/**
  * Filters functions by source file
  */
 export declare function getFunctionsBySource(profile: EnhancedProfile, sourcePattern: string): {
@@ -119,6 +126,8 @@ export declare interface GuardianConfig {
     };
     enableProfile?: boolean;
     variables?: Record<string, string | number | boolean>;
+    generateHTMLReport?: boolean;
+    htmlReportPath?: string;
 }
 
 export declare interface GuardianResult {

@@ -1,0 +1,1482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Vitals Guardian Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 5px solid #667eea;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.success {
+        border-left-color: #10b981;
+    }
+
+    .stat-card.error {
+        border-left-color: #ef4444;
+    }
+
+    .stat-card.warning {
+        border-left-color: #f59e0b;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .budget-violations {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .budget-violations h2 {
+        color: #ef4444;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+
+    .violation-item {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        color: #dc2626;
+    }
+
+    .scenarios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 30px;
+    }
+
+    .scenario-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .scenario-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .scenario-header {
+        margin-bottom: 25px;
+    }
+
+    .scenario-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #1f2937;
+    }
+
+    .scenario-url {
+        color: #6b7280;
+        font-size: 0.9rem;
+        word-break: break-all;
+    }
+
+    .scenario-timestamp {
+        color: #9ca3af;
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+
+    .metrics-section {
+        margin-bottom: 25px;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #374151;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+    }
+
+    .metric-card {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+        border-color: #667eea;
+        background: #f1f5f9;
+    }
+
+    .metric-name {
+        font-size: 0.8rem;
+        color: #6b7280;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .metric-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .metric-unit {
+        font-size: 0.7rem;
+        color: #9ca3af;
+    }
+
+    .network-section {
+        margin-bottom: 25px;
+    }
+
+    .network-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .network-stat {
+        background: #f0f9ff;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        border-left: 4px solid #0ea5e9;
+    }
+
+    .network-stat-label {
+        font-size: 0.8rem;
+        color: #0369a1;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .network-stat-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0c4a6e;
+    }
+
+    .requests-by-type {
+        margin-bottom: 20px;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .requests-table {
+        background: #f8fafc;
+        border-radius: 10px;
+        overflow: hidden;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .requests-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .requests-table th,
+    .requests-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .requests-table th {
+        background: #f3f4f6;
+        font-weight: 600;
+        color: #374151;
+        position: sticky;
+        top: 0;
+    }
+
+    .requests-table tr:hover {
+        background: #f9fafb;
+    }
+
+    .resource-type-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .resource-type-script { background: #dbeafe; color: #1e40af; }
+    .resource-type-stylesheet { background: #fce7f3; color: #be185d; }
+    .resource-type-image { background: #dcfce7; color: #166534; }
+    .resource-type-font { background: #fef3c7; color: #92400e; }
+    .resource-type-api { background: #e0e7ff; color: #3730a3; }
+    .resource-type-other { background: #f3f4f6; color: #374151; }
+
+    .performance-section {
+        margin-bottom: 25px;
+    }
+
+    .profile-section {
+        margin-bottom: 25px;
+    }
+
+    .profile-info {
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 15px;
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+
+    .toggle-button {
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+        transition: background 0.3s ease;
+    }
+
+    .toggle-button:hover {
+        background: #5a67d8;
+    }
+
+    .collapsible-content {
+        display: none;
+    }
+
+    .collapsible-content.active {
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+        }
+        
+        .scenarios-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .summary-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+  
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚀 Web Vitals Guardian Report</h1>
+            <div class="summary-stats">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Total Scenarios</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Passed</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Budget Violations</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            
+    <div class="budget-violations">
+        <h2>⚠️ Budget Violations</h2>
+        
+            <div class="violation-item">Blog Navigation and Reading: FCP: 2176ms > 1500ms</div>
+        
+            <div class="violation-item">Blog Navigation and Reading: FCP: 2716ms > 1500ms, LCP: 2816ms > 2500ms</div>
+        
+    </div>
+  
+            
+            <div class="scenarios-grid">
+                
+    <div class="scenario-card">
+        <div class="scenario-header">
+            <div class="scenario-title">Blog Navigation and Reading</div>
+            <div class="scenario-url">https://app-e2e.observe.ai/signin</div>
+            <div class="scenario-timestamp">9/14/2025, 12:01:22 PM</div>
+        </div>
+
+        
+    <div class="metrics-section">
+        <div class="section-title">
+            📊 Web Vitals
+        </div>
+        <div class="metrics-grid">
+            
+        <div class="metric-card" style="border-color: #f59e0b">
+            <div class="metric-name">FCP</div>
+            <div class="metric-value">2176.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">LCP</div>
+            <div class="metric-value">2292.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">CLS</div>
+            <div class="metric-value">0.00</div>
+            <div class="metric-unit"></div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">TTFB</div>
+            <div class="metric-value">439.40</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        </div>
+    </div>
+  
+        
+    <div class="performance-section">
+        <div class="section-title">
+            ⚡ Performance Metrics
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-name">Load Time</div>
+                <div class="metric-value">4771.30</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">DOM Content Loaded</div>
+                <div class="metric-value">1759.20</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">First Paint</div>
+                <div class="metric-value">2176.00</div>
+                <div class="metric-unit">ms</div>
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="network-section">
+        <div class="section-title">
+            🌐 Network Requests
+        </div>
+        
+        <div class="network-summary">
+            <div class="network-stat">
+                <div class="network-stat-label">Total Requests</div>
+                <div class="network-stat-value">35</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Total Size</div>
+                <div class="network-stat-value">347.02 KB</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Avg Response</div>
+                <div class="network-stat-value">4543.67ms</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Failed</div>
+                <div class="network-stat-value">0</div>
+            </div>
+        </div>
+
+        
+            <div class="network-stat" style="margin-bottom: 20px;">
+                <div class="network-stat-label">Slowest Request</div>
+                <div class="network-stat-value" style="font-size: 0.9rem; word-break: break-all;">
+                    https://kong-e2e.observe.ai/v1/auth/login
+                </div>
+                <div style="color: #ef4444; font-weight: 600; margin-top: 5px;">
+                    18810.50ms
+                </div>
+            </div>
+        
+
+        <div class="requests-by-type">
+            <div class="section-title">📈 Requests by Type</div>
+            <div class="chart-container">
+                <canvas data-chart-data='{"other":13,"script":19,"stylesheet":2,"image":1}'></canvas>
+            </div>
+        </div>
+
+        <button class="toggle-button">Show Detailed Requests</button>
+        <div class="collapsible-content">
+            <div class="requests-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>URL</th>
+                            <th>Response Time</th>
+                            <th>Size</th>
+                            <th>Domain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-other">
+                                        other
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+                                </td>
+                                <td>1.00ms</td>
+                                <td>926 B</td>
+                                <td>fonts.googleapis.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js
+                                </td>
+                                <td>1548.50ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-other">
+                                        other
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=3.111.0&features=Array.prototype.flat%2CArray.prototype.flatMap%2CObject.entries%2CObject.values%2CPromise%2CPromise.prototype.finally%2CPromise.allSettled%2CResizeObserver%2CString.prototype.trimEnd%2CSymbol%2Ces2015%2CrequestIdleCallback%2CElement.prototype.scrollBy
+                                </td>
+                                <td>1318.50ms</td>
+                                <td>0 B</td>
+                                <td>cdnjs.cloudflare.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelicConfig-v1.js
+                                </td>
+                                <td>1508.90ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://localize.observe.ai/localize.js
+                                </td>
+                                <td>1290.90ms</td>
+                                <td>0 B</td>
+                                <td>localize.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/index.98e8d8f8.js
+                                </td>
+                                <td>1729.40ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/9481.835e685f.js
+                                </td>
+                                <td>1739.50ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js
+                                </td>
+                                <td>2037.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/2050.017ad17f.js
+                                </td>
+                                <td>1985.60ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js
+                                </td>
+                                <td>2062.00ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js
+                                </td>
+                                <td>2054.70ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js
+                                </td>
+                                <td>1849.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7304.8bcb3a28.js
+                                </td>
+                                <td>2051.60ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js
+                                </td>
+                                <td>1843.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-stylesheet">
+                                        stylesheet
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/css/async/4094.1969be29.css
+                                </td>
+                                <td>1836.80ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4094.ef965dbb.js
+                                </td>
+                                <td>2055.00ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js
+                                </td>
+                                <td>1835.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js
+                                </td>
+                                <td>1854.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4730.db59980d.js
+                                </td>
+                                <td>1835.60ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-stylesheet">
+                                        stylesheet
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/css/async/LoginSignIn.882398f5.css
+                                </td>
+                                <td>2217.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+                    <div style="padding: 15px; text-align: center; color: #6b7280;">
+                        ... and 15 more requests
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="profile-section">
+        <div class="section-title">📊 Profile</div>
+        <div class="profile-info">
+            Profile data collected: 641 nodes
+        </div>
+    </div>
+  
+    </div>
+  
+    <div class="scenario-card">
+        <div class="scenario-header">
+            <div class="scenario-title">Blog Navigation and Reading</div>
+            <div class="scenario-url">https://app-e2e.observe.ai/signin</div>
+            <div class="scenario-timestamp">9/14/2025, 12:01:41 PM</div>
+        </div>
+
+        
+    <div class="metrics-section">
+        <div class="section-title">
+            📊 Web Vitals
+        </div>
+        <div class="metrics-grid">
+            
+        <div class="metric-card" style="border-color: #f59e0b">
+            <div class="metric-name">FCP</div>
+            <div class="metric-value">2716.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #f59e0b">
+            <div class="metric-name">LCP</div>
+            <div class="metric-value">2816.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">CLS</div>
+            <div class="metric-value">0.00</div>
+            <div class="metric-unit"></div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">TTFB</div>
+            <div class="metric-value">340.30</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        </div>
+    </div>
+  
+        
+    <div class="performance-section">
+        <div class="section-title">
+            ⚡ Performance Metrics
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-name">Load Time</div>
+                <div class="metric-value">5323.30</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">DOM Content Loaded</div>
+                <div class="metric-value">1373.80</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">First Paint</div>
+                <div class="metric-value">2716.00</div>
+                <div class="metric-unit">ms</div>
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="network-section">
+        <div class="section-title">
+            🌐 Network Requests
+        </div>
+        
+        <div class="network-summary">
+            <div class="network-stat">
+                <div class="network-stat-label">Total Requests</div>
+                <div class="network-stat-value">35</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Total Size</div>
+                <div class="network-stat-value">347.02 KB</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Avg Response</div>
+                <div class="network-stat-value">4549.07ms</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Failed</div>
+                <div class="network-stat-value">0</div>
+            </div>
+        </div>
+
+        
+            <div class="network-stat" style="margin-bottom: 20px;">
+                <div class="network-stat-label">Slowest Request</div>
+                <div class="network-stat-value" style="font-size: 0.9rem; word-break: break-all;">
+                    https://kong-e2e.observe.ai/v1/auth/login
+                </div>
+                <div style="color: #ef4444; font-weight: 600; margin-top: 5px;">
+                    19016.10ms
+                </div>
+            </div>
+        
+
+        <div class="requests-by-type">
+            <div class="section-title">📈 Requests by Type</div>
+            <div class="chart-container">
+                <canvas data-chart-data='{"other":13,"script":19,"stylesheet":2,"image":1}'></canvas>
+            </div>
+        </div>
+
+        <button class="toggle-button">Show Detailed Requests</button>
+        <div class="collapsible-content">
+            <div class="requests-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>URL</th>
+                            <th>Response Time</th>
+                            <th>Size</th>
+                            <th>Domain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-other">
+                                        other
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap
+                                </td>
+                                <td>0.40ms</td>
+                                <td>926 B</td>
+                                <td>fonts.googleapis.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js
+                                </td>
+                                <td>1127.60ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://localize.observe.ai/localize.js
+                                </td>
+                                <td>1011.30ms</td>
+                                <td>0 B</td>
+                                <td>localize.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelicConfig-v1.js
+                                </td>
+                                <td>1123.00ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-other">
+                                        other
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=3.111.0&features=Array.prototype.flat%2CArray.prototype.flatMap%2CObject.entries%2CObject.values%2CPromise%2CPromise.prototype.finally%2CPromise.allSettled%2CResizeObserver%2CString.prototype.trimEnd%2CSymbol%2Ces2015%2CrequestIdleCallback%2CElement.prototype.scrollBy
+                                </td>
+                                <td>1123.80ms</td>
+                                <td>0 B</td>
+                                <td>cdnjs.cloudflare.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/index.98e8d8f8.js
+                                </td>
+                                <td>1348.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/9481.835e685f.js
+                                </td>
+                                <td>1356.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js
+                                </td>
+                                <td>1617.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/2050.017ad17f.js
+                                </td>
+                                <td>1617.30ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js
+                                </td>
+                                <td>1641.00ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js
+                                </td>
+                                <td>1641.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7304.8bcb3a28.js
+                                </td>
+                                <td>1455.70ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js
+                                </td>
+                                <td>1630.30ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js
+                                </td>
+                                <td>1444.10ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-stylesheet">
+                                        stylesheet
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/css/async/4094.1969be29.css
+                                </td>
+                                <td>1446.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4094.ef965dbb.js
+                                </td>
+                                <td>2591.90ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js
+                                </td>
+                                <td>1642.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js
+                                </td>
+                                <td>2592.20ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-script">
+                                        script
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4730.db59980d.js
+                                </td>
+                                <td>2592.40ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-stylesheet">
+                                        stylesheet
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://assets-e2e.observe.ai/prod-4.0.0.1705/static/css/async/LoginSignIn.882398f5.css
+                                </td>
+                                <td>2751.60ms</td>
+                                <td>0 B</td>
+                                <td>assets-e2e.observe.ai</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+                    <div style="padding: 15px; text-align: center; color: #6b7280;">
+                        ... and 15 more requests
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="profile-section">
+        <div class="section-title">📊 Profile</div>
+        <div class="profile-info">
+            Profile data collected: 595 nodes
+        </div>
+    </div>
+  
+    </div>
+  
+    <div class="scenario-card">
+        <div class="scenario-header">
+            <div class="scenario-title">Simple Test Page</div>
+            <div class="scenario-url">https://example.com</div>
+            <div class="scenario-timestamp">9/14/2025, 12:01:48 PM</div>
+        </div>
+
+        
+    <div class="metrics-section">
+        <div class="section-title">
+            📊 Web Vitals
+        </div>
+        <div class="metrics-grid">
+            
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">FCP</div>
+            <div class="metric-value">1020.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">LCP</div>
+            <div class="metric-value">1020.00</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        <div class="metric-card" style="border-color: #10b981">
+            <div class="metric-name">TTFB</div>
+            <div class="metric-value">296.50</div>
+            <div class="metric-unit">ms</div>
+        </div>
+      
+        </div>
+    </div>
+  
+        
+    <div class="performance-section">
+        <div class="section-title">
+            ⚡ Performance Metrics
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-name">Load Time</div>
+                <div class="metric-value">968.10</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">DOM Content Loaded</div>
+                <div class="metric-value">967.90</div>
+                <div class="metric-unit">ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-name">First Paint</div>
+                <div class="metric-value">1020.00</div>
+                <div class="metric-unit">ms</div>
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="network-section">
+        <div class="section-title">
+            🌐 Network Requests
+        </div>
+        
+        <div class="network-summary">
+            <div class="network-stat">
+                <div class="network-stat-label">Total Requests</div>
+                <div class="network-stat-value">1</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Total Size</div>
+                <div class="network-stat-value">1.52 KB</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Avg Response</div>
+                <div class="network-stat-value">0.50ms</div>
+            </div>
+            <div class="network-stat">
+                <div class="network-stat-label">Failed</div>
+                <div class="network-stat-value">0</div>
+            </div>
+        </div>
+
+        
+            <div class="network-stat" style="margin-bottom: 20px;">
+                <div class="network-stat-label">Slowest Request</div>
+                <div class="network-stat-value" style="font-size: 0.9rem; word-break: break-all;">
+                    https://example.com/favicon.ico
+                </div>
+                <div style="color: #ef4444; font-weight: 600; margin-top: 5px;">
+                    0.50ms
+                </div>
+            </div>
+        
+
+        <div class="requests-by-type">
+            <div class="section-title">📈 Requests by Type</div>
+            <div class="chart-container">
+                <canvas data-chart-data='{"image":1}'></canvas>
+            </div>
+        </div>
+
+        <button class="toggle-button">Show Detailed Requests</button>
+        <div class="collapsible-content">
+            <div class="requests-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>URL</th>
+                            <th>Response Time</th>
+                            <th>Size</th>
+                            <th>Domain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>
+                                    <span class="resource-type-badge resource-type-image">
+                                        image
+                                    </span>
+                                </td>
+                                <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                    https://example.com/favicon.ico
+                                </td>
+                                <td>0.50ms</td>
+                                <td>1.52 KB</td>
+                                <td>example.com</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+  
+        
+    <div class="profile-section">
+        <div class="section-title">📊 Profile</div>
+        <div class="profile-info">
+            Profile data collected: 3 nodes
+        </div>
+    </div>
+  
+    </div>
+  
+            </div>
+        </main>
+    </div>
+
+    <script>
+        
+    // Toggle collapsible sections
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const isActive = content.classList.contains('active');
+                
+                if (isActive) {
+                    content.classList.remove('active');
+                    this.textContent = this.textContent.replace('Hide', 'Show');
+                } else {
+                    content.classList.add('active');
+                    this.textContent = this.textContent.replace('Show', 'Hide');
+                }
+            });
+        });
+
+        // Initialize charts for network requests
+        initializeCharts();
+    });
+
+    function initializeCharts() {
+        const chartContainers = document.querySelectorAll('.chart-container');
+        
+        chartContainers.forEach(container => {
+            const canvas = container.querySelector('canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const data = JSON.parse(canvas.dataset.chartData);
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        data: Object.values(data),
+                        backgroundColor: [
+                            '#667eea',
+                            '#764ba2',
+                            '#f093fb',
+                            '#f5576c',
+                            '#4facfe',
+                            '#00f2fe',
+                            '#43e97b',
+                            '#38f9d7'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    }
+  
+    </script>
+</body>
+</html>

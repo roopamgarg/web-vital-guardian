@@ -1,0 +1,1338 @@
+[
+  {
+    "originalFunctionName": "(root)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "(program)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 98,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "(idle)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 7830,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 20,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "InjectedScript",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "evaluate",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_promiseAwareJsonValueNoThrow",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "safeJson",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "jsonValue",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "serializeAsCallArgument",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "serialize",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "innerSerialize",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "isTypedArray",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "querySelectorAll",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_queryEngineAll",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "queryAll",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "query",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_cached",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_queryEngine",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_callQuery",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_querySimple",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "_queryCSS",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "fill",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "selectText",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "select",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nrWrapper",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 4,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "i",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 4,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "emit",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 6,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "r",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 7,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "tH",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "Q",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "le",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.unstable_runWithPriority",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "tj",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "tK",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ln",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "lr",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aI",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aW",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "c",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iA",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "l4",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ry",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.Z",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "g",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eS",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eb",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 6,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "q",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "$",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "H",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rf",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "B",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "tc",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "extractEvents",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nw",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "te",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nv",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ng",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nh",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iF",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rL",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rh",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eD",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "en",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "et",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iv",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aP",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iW",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "lQ",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eQ",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ki.yZ",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 4,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "setTimeout",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "U",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "requestIdleCallback",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "onAppearEnd",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "v",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "e",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "l",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "r.value",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "p",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.unmountComponentAtNode",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ou",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aR",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "oc",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "or",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iI",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "n",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iu",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ii",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "J",
+    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "Y",
+    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "v.checkFinish",
+    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "v._resetFinishCheck",
+    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "m",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 13,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "b",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "R",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.on.getCtx.r.getCtx",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "d",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "X",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.validate",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/2050.017ad17f.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "onMetaChange",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aQ",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "o",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t1",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nt",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "onFinish",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "s",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/9481.835e685f.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "w.setState",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "enqueueSetState",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "tt",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/LoginSignIn.4dac86ea.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "r.reset",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/LoginSignIn.4dac86ea.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "j_",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aY",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ZO",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "u6",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "j_.render",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "appendChild",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.unstable_getCurrentPriorityLevel",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.useMemo",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "useMemo",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "j",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ab",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "es",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "y",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "lO",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "el",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "setAttribute",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aB",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aj",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "i4",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "i1",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "value",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "removeChild",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "i0",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "h",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eR",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "T",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "S",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "forEach.e.<computed>",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "w.forceUpdate",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "enqueueForceUpdate",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "V.U",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "XC.dispose",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "M.o",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "pi.done.o",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.qr",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.jx",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "w_",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ki.PL",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "sG.YY",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.cA",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "timeRemaining",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "listener",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "expectHitTarget",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "elementsFromPoint",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "(garbage collector)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 10,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.render",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aN",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aK",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a$",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iJ",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "e.onreadystatechange",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a.emit",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "v.finish",
+    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "set c-qypjojjil1cz",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 3,
+    "samples": 0
+  }
+]

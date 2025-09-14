@@ -1,0 +1,26 @@
+[
+  {
+    "originalFunctionName": "(root)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "(program)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "(idle)",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2376,
+    "samples": 0
+  }
+]
