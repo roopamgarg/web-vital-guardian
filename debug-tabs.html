@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Tabs</title>
+    <style>
+        .network-tabs {
+            display: flex;
+            border-bottom: 1px solid #e1e5e9;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .network-tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .network-tab:hover {
+            color: #374151;
+            background: #f8f9fa;
+            transform: translateY(-1px);
+        }
+
+        .network-tab:active {
+            transform: translateY(0);
+            background: #e5e7eb;
+        }
+
+        .network-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .network-tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+        }
+
+        .network-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Network Tabs</h1>
+    
+    <div class="network-tabs">
+        <button class="network-tab active" data-tab="overview">Overview</button>
+        <button class="network-tab" data-tab="scenario-0">Blog Navigation</button>
+        <button class="network-tab" data-tab="scenario-1">Dynamic Login</button>
+        <button class="network-tab" data-tab="scenario-2">Simple Test</button>
+    </div>
+
+    <div class="network-tab-content active" id="network-overview">
+        <h2>Overview Content</h2>
+        <p>This is the overview tab content.</p>
+    </div>
+
+    <div class="network-tab-content" id="network-scenario-0">
+        <h2>Blog Navigation Content</h2>
+        <p>This is the blog navigation scenario content.</p>
+    </div>
+
+    <div class="network-tab-content" id="network-scenario-1">
+        <h2>Dynamic Login Content</h2>
+        <p>This is the dynamic login scenario content.</p>
+    </div>
+
+    <div class="network-tab-content" id="network-scenario-2">
+        <h2>Simple Test Content</h2>
+        <p>This is the simple test scenario content.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing tabs...');
+            
+            const networkTabs = document.querySelectorAll('.network-tab');
+            console.log('Found tabs:', networkTabs.length);
+            
+            networkTabs.forEach((tab, index) => {
+                console.log('Setting up tab:', index, tab.textContent);
+                
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Tab clicked:', this.textContent);
+                    
+                    const tabName = this.getAttribute('data-tab');
+                    console.log('Tab name:', tabName);
+                    
+                    // Remove active class from all tabs
+                    networkTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Hide all tab contents
+                    const tabContents = document.querySelectorAll('.network-tab-content');
+                    console.log('Found tab contents:', tabContents.length);
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show selected tab content
+                    const targetContent = document.getElementById('network-' + tabName);
+                    console.log('Target content:', targetContent);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        console.log('Activated tab content:', tabName);
+                    } else {
+                        console.error('Could not find target content for tab:', tabName);
+                    }
+                });
+            });
+            
+            console.log('Tabs initialized successfully');
+        });
+    </script>
+</body>
+</html>
