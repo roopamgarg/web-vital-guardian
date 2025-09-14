@@ -871,6 +871,9 @@ function getCSS(): string {
         max-width: 100%;
         box-sizing: border-box;
         max-height: 500px;
+        pointer-events: auto;
+        position: relative;
+        z-index: 1;
     }
 
     .tabulator-row-expanded-content > div {
@@ -1111,6 +1114,26 @@ function getCSS(): string {
         color: #374151;
     }
 
+    .view-btn {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        padding: 0.375rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .view-btn:hover {
+        background: #2563eb;
+    }
+
+    .view-btn:active {
+        background: #1d4ed8;
+    }
+
     /* JavaScript Profiler Section */
     .js-profiler {
         background: white;
@@ -1318,6 +1341,7 @@ function getJavaScript(): string {
     function initializeNetworkTables() {
         // Initialize overview network table
         const overviewTable = document.querySelector('[id^="networkTable-"]');
+        
         if (overviewTable && window.dashboardData) {
             const allRequests = [];
             window.dashboardData.forEach(report => {
@@ -1345,57 +1369,6 @@ function getJavaScript(): string {
                 theme: "default",
                 headerFilterPlaceholder: "Search...",
                 placeholder: "No network requests found",
-                rowFormatter: function(row) {
-                    const data = row.getData();
-                    const element = row.getElement();
-                    
-                    // Add expandable row functionality
-                    element.style.cursor = "pointer";
-                    element.addEventListener("click", function(e) {
-                        // Don't expand if clicking on the expand icon
-                        if (e.target.classList.contains('expand-icon')) {
-                            e.stopPropagation();
-                            return;
-                        }
-                        
-                        const isExpanded = element.classList.contains('tabulator-row-expanded');
-                        
-                        if (isExpanded) {
-                            // Collapse
-                            element.classList.remove('tabulator-row-expanded');
-                            const expandIcon = element.querySelector('.expand-icon');
-                            if (expandIcon) {
-                                expandIcon.textContent = '▶';
-                                expandIcon.style.transform = 'rotate(0deg)';
-                            }
-                            // Remove expanded content
-                            const expandedRow = element.nextElementSibling;
-                            if (expandedRow && expandedRow.classList.contains('tabulator-row-expanded-content')) {
-                                expandedRow.remove();
-                            }
-                        } else {
-                            // Expand
-                            element.classList.add('tabulator-row-expanded');
-                            const expandIcon = element.querySelector('.expand-icon');
-                            if (expandIcon) {
-                                expandIcon.textContent = '▼';
-                                expandIcon.style.transform = 'rotate(90deg)';
-                            }
-                            
-                            // Create expanded content row
-                            const expandedRow = document.createElement('div');
-                            expandedRow.className = 'tabulator-row-expanded-content';
-                            expandedRow.innerHTML = \`
-                                <div style="background: #f8fafc; border-top: 1px solid #e5e7eb; overflow: hidden; word-wrap: break-word;">
-                                    \${createNetworkRequestDetailsHTML(data)}
-                                </div>
-                            \`;
-                            
-                            // Insert after current row
-                            element.parentNode.insertBefore(expandedRow, element.nextSibling);
-                        }
-                    });
-                },
                 columns: [
                     {
                         title: "URL Short Name",
@@ -1403,7 +1376,7 @@ function getJavaScript(): string {
                         width: 200,
                         sorter: "string",
                         formatter: function(cell, formatterParams, onRendered) {
-                            return '<span class="expand-icon">▶</span>' + cell.getValue();
+                            return cell.getValue();
                         }
                     },
                     {
@@ -1453,6 +1426,14 @@ function getJavaScript(): string {
                         formatter: function(cell, formatterParams, onRendered) {
                             return '<span class="priority-badge priority-high">' + cell.getValue() + '</span>';
                         }
+                    },
+                    {
+                        title: "Actions",
+                        field: "actions",
+                        width: 80,
+                        formatter: function(cell, formatterParams, onRendered) {
+                            return '<button class="view-btn" onclick="showNetworkDetailsModal(' + JSON.stringify(cell.getRow().getData()).replace(/"/g, '&quot;') + ')">View</button>';
+                        }
                     }
                 ]
             });
@@ -1460,6 +1441,7 @@ function getJavaScript(): string {
         
         // Initialize scenario network tables
         const scenarioTables = document.querySelectorAll('[id^="scenarioNetworkTable-"]');
+        
         scenarioTables.forEach((table, index) => {
             if (window.dashboardData && window.dashboardData[index]?.network?.requests) {
                 const requests = window.dashboardData[index].network.requests.map(req => ({
@@ -1478,62 +1460,12 @@ function getJavaScript(): string {
                     paginationSize: 10,
                     paginationSizeSelector: [5, 10, 20, 50],
                     movableColumns: true,
-                    resizableRows: true,
+                    resizableRows: false,
                     tooltips: true,
                     theme: "default",
                     headerFilterPlaceholder: "Search...",
                     placeholder: "No network requests found",
-                    rowFormatter: function(row) {
-                        const data = row.getData();
-                        const element = row.getElement();
-                        
-                        // Add expandable row functionality
-                        element.style.cursor = "pointer";
-                        element.addEventListener("click", function(e) {
-                            // Don't expand if clicking on the expand icon
-                            if (e.target.classList.contains('expand-icon')) {
-                                e.stopPropagation();
-                                return;
-                            }
-                            
-                            const isExpanded = element.classList.contains('tabulator-row-expanded');
-                            
-                            if (isExpanded) {
-                                // Collapse
-                                element.classList.remove('tabulator-row-expanded');
-                                const expandIcon = element.querySelector('.expand-icon');
-                                if (expandIcon) {
-                                    expandIcon.textContent = '▶';
-                                    expandIcon.style.transform = 'rotate(0deg)';
-                                }
-                                // Remove expanded content
-                                const expandedRow = element.nextElementSibling;
-                                if (expandedRow && expandedRow.classList.contains('tabulator-row-expanded-content')) {
-                                    expandedRow.remove();
-                                }
-                            } else {
-                                // Expand
-                                element.classList.add('tabulator-row-expanded');
-                                const expandIcon = element.querySelector('.expand-icon');
-                                if (expandIcon) {
-                                    expandIcon.textContent = '▼';
-                                    expandIcon.style.transform = 'rotate(90deg)';
-                                }
-                                
-                                // Create expanded content row
-                                const expandedRow = document.createElement('div');
-                                expandedRow.className = 'tabulator-row-expanded-content';
-                                expandedRow.innerHTML = \`
-                                    <div style="background: #f8fafc; border-top: 1px solid #e5e7eb; overflow: hidden; word-wrap: break-word;">
-                                        \${createNetworkRequestDetailsHTML(data)}
-                                    </div>
-                                \`;
-                                
-                                // Insert after current row
-                                element.parentNode.insertBefore(expandedRow, element.nextSibling);
-                            }
-                        });
-                    },
+
                     columns: [
                         {
                             title: "URL Short Name",
@@ -1541,7 +1473,7 @@ function getJavaScript(): string {
                             width: 200,
                             sorter: "string",
                             formatter: function(cell, formatterParams, onRendered) {
-                                return '<span class="expand-icon">▶</span>' + cell.getValue();
+                                return cell.getValue();
                             }
                         },
                         {
@@ -1591,14 +1523,29 @@ function getJavaScript(): string {
                             formatter: function(cell, formatterParams, onRendered) {
                                 return '<span class="priority-badge priority-high">' + cell.getValue() + '</span>';
                             }
+                        },
+                        {
+                            title: "Actions",
+                            field: "actions",
+                            width: 80,
+                            formatter: function(cell, formatterParams, onRendered) {
+                                return '<button class="view-btn" onclick="showNetworkDetailsModal(' + JSON.stringify(cell.getRow().getData()).replace(/"/g, '&quot;') + ')">View</button>';
+                            }
                         }
-                    ]
+                    ],
+
                 });
             }
         });
     }
     
-    function showNetworkDetails(requestData) {
+    function showNetworkDetailsModal(requestData) {
+        // Remove any existing modal
+        const existingModal = document.querySelector('.network-details-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
         const modal = document.createElement('div');
         modal.className = 'network-details-modal';
         modal.innerHTML = \`
@@ -1614,6 +1561,19 @@ function getJavaScript(): string {
             </div>
         \`;
         document.body.appendChild(modal);
+        
+        // Add escape key listener
+        const handleEscape = function(e) {
+            if (e.key === 'Escape') {
+                modal.remove();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    }
+    
+    function showNetworkDetails(requestData) {
+        showNetworkDetailsModal(requestData);
     }
     
     function createNetworkRequestDetailsHTML(request) {
