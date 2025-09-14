@@ -1,6 +1,6 @@
 import type { Browser, Page } from 'playwright';
 import type { ScenarioStep, ScenarioFile, WebVitalsReport, GuardianConfig } from '../types';
-import { measureWebVitals, measurePerformanceMetrics, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
+import { measureWebVitals, measurePerformanceMetrics, measureNetworkRequests, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
 import { profileJs } from '../measurements/performanceObserver';
 
 /**
@@ -104,9 +104,9 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     await page.waitForTimeout(2000);
     const webVitals = await collectVitals(page);
     
-    
     // const webVitals = await webVitalsPromise;
     const performance = await measurePerformanceMetrics(page);
+    const network = await measureNetworkRequests(page);
 
     // Generate report
     const report: WebVitalsReport = {
@@ -115,6 +115,7 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
       timestamp: new Date().toISOString(),
       metrics: webVitals,
       performance,
+      network,
       profile: profileResponse?.profile || null,
     };
     

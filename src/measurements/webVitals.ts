@@ -1,5 +1,5 @@
 import type { Page } from 'playwright';
-import type { WebVitalsReport } from '../types';
+import type { WebVitalsReport, NetworkRequest, NetworkSummary } from '../types';
 
 /**
  * Install Web Vitals collectors at the earliest script time.
@@ -526,4 +526,114 @@ export async function measurePerformanceMetrics(page: Page): Promise<WebVitalsRe
   });
   
   return performanceMetrics;
+}
+
+
+
+/**
+ * Measures network requests using the Performance API
+ * @param page - Playwright page instance
+ * @returns Promise resolving to network request data
+ */
+export async function measureNetworkRequests(page: Page): Promise<WebVitalsReport['network']> {
+  const networkData = await page.evaluate((): WebVitalsReport['network'] => {
+
+    /**
+ * Helper function to determine resource type from URL
+ */
+function getResourceType(url: string): string {
+  const extension = url.split('.').pop()?.toLowerCase();
+  const pathname = new URL(url).pathname.toLowerCase();
+  
+  if (pathname.includes('/api/') || pathname.includes('/graphql')) {
+    return 'api';
+  }
+  
+  switch (extension) {
+    case 'js':
+      return 'script';
+    case 'css':
+      return 'stylesheet';
+    case 'png':
+    case 'jpg':
+    case 'jpeg':
+    case 'gif':
+    case 'svg':
+    case 'webp':
+    case 'ico':
+      return 'image';
+    case 'woff':
+    case 'woff2':
+    case 'ttf':
+    case 'otf':
+      return 'font';
+    case 'mp4':
+    case 'webm':
+    case 'ogg':
+      return 'media';
+    case 'json':
+      return 'json';
+    case 'xml':
+      return 'xml';
+    default:
+      return 'other';
+  }
+}
+
+    const entries = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
+    
+    const requests: NetworkRequest[] = entries.map(entry => {
+      const url = new URL(entry.name);
+      const domain = url.hostname;
+      const protocol = url.protocol.replace(':', '');
+      
+      return {
+        url: entry.name,
+        method: 'GET', // Performance API doesn't provide method, defaulting to GET
+        status: 200, // Performance API doesn't provide status, defaulting to 200
+        statusText: 'OK',
+        responseTime: entry.responseEnd - entry.responseStart,
+        transferSize: entry.transferSize || 0,
+        encodedBodySize: entry.encodedBodySize || 0,
+        decodedBodySize: entry.decodedBodySize || 0,
+        startTime: entry.startTime,
+        endTime: entry.responseEnd,
+        duration: entry.duration,
+        resourceType: getResourceType(entry.name),
+        fromCache: entry.transferSize === 0 && entry.encodedBodySize > 0,
+        protocol,
+        domain
+      };
+    });
+
+    // Calculate summary statistics
+    const summary: NetworkSummary = {
+      totalRequests: requests.length,
+      totalTransferSize: requests.reduce((sum, req) => sum + req.transferSize, 0),
+      totalEncodedSize: requests.reduce((sum, req) => sum + req.encodedBodySize, 0),
+      totalDecodedSize: requests.reduce((sum, req) => sum + req.decodedBodySize, 0),
+      averageResponseTime: requests.length > 0 
+        ? requests.reduce((sum, req) => sum + req.responseTime, 0) / requests.length 
+        : 0,
+      slowestRequest: requests.length > 0 
+        ? requests.reduce((slowest, req) => req.responseTime > slowest.responseTime ? req : slowest)
+        : null,
+      failedRequests: requests.filter(req => req.status >= 400).length,
+      requestsByType: {},
+      requestsByDomain: {}
+    };
+
+    // Count requests by type and domain
+    requests.forEach(req => {
+      summary.requestsByType[req.resourceType] = (summary.requestsByType[req.resourceType] || 0) + 1;
+      summary.requestsByDomain[req.domain] = (summary.requestsByDomain[req.domain] || 0) + 1;
+    });
+
+    return {
+      requests,
+      summary
+    };
+  });
+
+  return networkData;
 }

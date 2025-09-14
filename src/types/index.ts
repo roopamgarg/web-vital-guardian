@@ -1,3 +1,34 @@
+// Network request information
+export interface NetworkRequest {
+  url: string;
+  method: string;
+  status: number;
+  statusText: string;
+  responseTime: number;
+  transferSize: number;
+  encodedBodySize: number;
+  decodedBodySize: number;
+  startTime: number;
+  endTime: number;
+  duration: number;
+  resourceType: string;
+  fromCache: boolean;
+  protocol: string;
+  domain: string;
+}
+
+export interface NetworkSummary {
+  totalRequests: number;
+  totalTransferSize: number;
+  totalEncodedSize: number;
+  totalDecodedSize: number;
+  averageResponseTime: number;
+  slowestRequest: NetworkRequest | null;
+  failedRequests: number;
+  requestsByType: Record<string, number>;
+  requestsByDomain: Record<string, number>;
+}
+
 // Web Vitals measurement results
 export interface WebVitalsReport {
   scenario: string;
@@ -15,6 +46,10 @@ export interface WebVitalsReport {
     loadTime: number;
     domContentLoaded: number;
     firstPaint: number;
+  };
+  network: {
+    requests: NetworkRequest[];
+    summary: NetworkSummary;
   };
   profile: any;
 }

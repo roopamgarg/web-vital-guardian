@@ -171,6 +171,13 @@ export declare function loadScenarioFile(filePath: string, globalVariables?: Rec
 export declare function loadWebVitalsPackage(page: Page): Promise<void>;
 
 /**
+ * Measures network requests using the Performance API
+ * @param page - Playwright page instance
+ * @returns Promise resolving to network request data
+ */
+export declare function measureNetworkRequests(page: Page): Promise<WebVitalsReport['network']>;
+
+/**
  * Measures additional performance metrics using the Performance API
  * @param page - Playwright page instance
  * @returns Promise resolving to performance metrics
@@ -203,6 +210,36 @@ export declare function measureWebVitalsWithObserver(page: Page): Promise<WebVit
  * @returns Merged variables object
  */
 export declare function mergeVariables(globalVariables?: Record<string, string | number | boolean>, scenarioVariables?: Record<string, string | number | boolean>): Record<string, string | number | boolean>;
+
+export declare interface NetworkRequest {
+    url: string;
+    method: string;
+    status: number;
+    statusText: string;
+    responseTime: number;
+    transferSize: number;
+    encodedBodySize: number;
+    decodedBodySize: number;
+    startTime: number;
+    endTime: number;
+    duration: number;
+    resourceType: string;
+    fromCache: boolean;
+    protocol: string;
+    domain: string;
+}
+
+export declare interface NetworkSummary {
+    totalRequests: number;
+    totalTransferSize: number;
+    totalEncodedSize: number;
+    totalDecodedSize: number;
+    averageResponseTime: number;
+    slowestRequest: NetworkRequest | null;
+    failedRequests: number;
+    requestsByType: Record<string, number>;
+    requestsByDomain: Record<string, number>;
+}
 
 export declare function profileJs<T>(page: Page_2, run: () => Promise<T>): Promise<{
     profile: Protocol.Profiler.Profile;
@@ -280,6 +317,10 @@ export declare interface WebVitalsReport {
         loadTime: number;
         domContentLoaded: number;
         firstPaint: number;
+    };
+    network: {
+        requests: NetworkRequest[];
+        summary: NetworkSummary;
     };
     profile: any;
 }
