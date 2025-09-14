@@ -577,56 +577,110 @@ function getCSS(): string {
 
     .network-details {
         margin-bottom: 1.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        max-width: 100%;
     }
 
-    .detail-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.75rem 0;
-        border-bottom: 1px solid #f3f4f6;
+    .detail-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease;
+        max-width: 100%;
+        overflow: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
-    .detail-group:last-child {
-        border-bottom: none;
+    .detail-card:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .detail-label {
         font-weight: 600;
-        color: #374151;
-        font-size: 0.875rem;
+        color: #6b7280;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        display: block;
     }
 
     .detail-value {
         color: #1f2937;
         font-size: 0.875rem;
-        word-break: break-all;
-        text-align: right;
-        max-width: 60%;
+        font-weight: 500;
+        word-break: break-word;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        line-height: 1.4;
+        max-width: 100%;
     }
 
     .timing-breakdown {
         background: #f9fafb;
         border-radius: 8px;
         padding: 1rem;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
     }
 
-    .timing-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0;
+    .timing-breakdown h4 {
+        margin: 0 0 1rem 0;
+        color: #374151;
         font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .timing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.75rem;
+        max-width: 100%;
+    }
+
+    .timing-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.75rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.2s ease;
+        max-width: 100%;
+        overflow: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .timing-card:hover {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .timing-label {
         color: #6b7280;
         font-weight: 500;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+        display: block;
     }
 
     .timing-value {
         color: #1f2937;
         font-weight: 600;
+        font-size: 0.875rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
     }
 
     /* Tabulator Custom Styling to Match Dashboard */
@@ -795,6 +849,65 @@ function getCSS(): string {
         color: #6b7280;
     }
 
+    /* Expandable Row Styling */
+    .tabulator .tabulator-row-expanded {
+        background: #f1f5f9 !important;
+        border-left: 3px solid #3b82f6;
+    }
+
+    .tabulator .tabulator-row-expanded .tabulator-cell {
+        background: #f1f5f9 !important;
+    }
+
+    .tabulator-row-expanded-content {
+        background: #f8fafc;
+        border-left: 3px solid #3b82f6;
+        border-bottom: 1px solid #e5e7eb;
+        animation: expandRow 0.3s ease-out;
+        overflow-x: hidden;
+        overflow-y: auto;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        box-sizing: border-box;
+        max-height: 500px;
+    }
+
+    .tabulator-row-expanded-content > div {
+        max-width: 100%;
+        overflow: visible;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+    }
+
+    @keyframes expandRow {
+        from {
+            opacity: 0;
+            max-height: 0;
+            padding: 0;
+        }
+        to {
+            opacity: 1;
+            max-height: 1000px;
+            padding: 1rem;
+        }
+    }
+
+    .expand-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 0.5rem;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .expand-icon:hover {
+        color: #3b82f6;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
         .tabulator .tabulator-cell {
@@ -805,6 +918,152 @@ function getCSS(): string {
         .tabulator .tabulator-header .tabulator-col {
             font-size: 0.8rem;
             padding: 0.5rem 0.75rem;
+        }
+
+        /* Mobile responsive expanded rows */
+        .tabulator-row-expanded-content {
+            padding: 0.75rem;
+            max-height: 800px;
+            max-width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .tabulator-row-expanded-content > div {
+            max-width: 100%;
+            overflow: visible;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .network-details {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .detail-card {
+            padding: 0.75rem;
+        }
+
+        .detail-label {
+            font-size: 0.7rem;
+        }
+
+        .detail-value {
+            font-size: 0.8rem;
+        }
+
+        .timing-grid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .timing-card {
+            padding: 0.5rem;
+        }
+
+        .timing-label {
+            font-size: 0.7rem;
+        }
+
+        .timing-value {
+            font-size: 0.8rem;
+        }
+
+        .timing-breakdown {
+            padding: 0.75rem;
+            max-width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timing-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+            padding: 0.4rem 0;
+            max-width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timing-label {
+            min-width: auto;
+            font-size: 0.8rem;
+            max-width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timing-value {
+            text-align: left;
+            font-size: 0.8rem;
+            max-width: 100%;
+            overflow: hidden;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tabulator-row-expanded-content {
+            padding: 0.5rem;
+            max-height: 600px;
+            max-width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .tabulator-row-expanded-content > div {
+            max-width: 100%;
+            overflow: visible;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .network-details {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        .detail-card {
+            padding: 0.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.65rem;
+        }
+
+        .detail-value {
+            font-size: 0.75rem;
+        }
+
+        .timing-grid {
+            grid-template-columns: 1fr;
+            gap: 0.4rem;
+        }
+
+        .timing-card {
+            padding: 0.4rem;
+        }
+
+        .timing-label {
+            font-size: 0.65rem;
+        }
+
+        .timing-value {
+            font-size: 0.75rem;
+        }
+
+        .timing-breakdown {
+            padding: 0.5rem;
         }
     }
 
@@ -1086,6 +1345,57 @@ function getJavaScript(): string {
                 theme: "default",
                 headerFilterPlaceholder: "Search...",
                 placeholder: "No network requests found",
+                rowFormatter: function(row) {
+                    const data = row.getData();
+                    const element = row.getElement();
+                    
+                    // Add expandable row functionality
+                    element.style.cursor = "pointer";
+                    element.addEventListener("click", function(e) {
+                        // Don't expand if clicking on the expand icon
+                        if (e.target.classList.contains('expand-icon')) {
+                            e.stopPropagation();
+                            return;
+                        }
+                        
+                        const isExpanded = element.classList.contains('tabulator-row-expanded');
+                        
+                        if (isExpanded) {
+                            // Collapse
+                            element.classList.remove('tabulator-row-expanded');
+                            const expandIcon = element.querySelector('.expand-icon');
+                            if (expandIcon) {
+                                expandIcon.textContent = '▶';
+                                expandIcon.style.transform = 'rotate(0deg)';
+                            }
+                            // Remove expanded content
+                            const expandedRow = element.nextElementSibling;
+                            if (expandedRow && expandedRow.classList.contains('tabulator-row-expanded-content')) {
+                                expandedRow.remove();
+                            }
+                        } else {
+                            // Expand
+                            element.classList.add('tabulator-row-expanded');
+                            const expandIcon = element.querySelector('.expand-icon');
+                            if (expandIcon) {
+                                expandIcon.textContent = '▼';
+                                expandIcon.style.transform = 'rotate(90deg)';
+                            }
+                            
+                            // Create expanded content row
+                            const expandedRow = document.createElement('div');
+                            expandedRow.className = 'tabulator-row-expanded-content';
+                            expandedRow.innerHTML = \`
+                                <div style="background: #f8fafc; border-top: 1px solid #e5e7eb; overflow: hidden; word-wrap: break-word;">
+                                    \${createNetworkRequestDetailsHTML(data)}
+                                </div>
+                            \`;
+                            
+                            // Insert after current row
+                            element.parentNode.insertBefore(expandedRow, element.nextSibling);
+                        }
+                    });
+                },
                 columns: [
                     {
                         title: "URL Short Name",
@@ -1144,10 +1454,7 @@ function getJavaScript(): string {
                             return '<span class="priority-badge priority-high">' + cell.getValue() + '</span>';
                         }
                     }
-                ],
-                rowClick: function(e, row) {
-                    showNetworkDetails(row.getData());
-                }
+                ]
             });
         }
         
@@ -1176,6 +1483,57 @@ function getJavaScript(): string {
                     theme: "default",
                     headerFilterPlaceholder: "Search...",
                     placeholder: "No network requests found",
+                    rowFormatter: function(row) {
+                        const data = row.getData();
+                        const element = row.getElement();
+                        
+                        // Add expandable row functionality
+                        element.style.cursor = "pointer";
+                        element.addEventListener("click", function(e) {
+                            // Don't expand if clicking on the expand icon
+                            if (e.target.classList.contains('expand-icon')) {
+                                e.stopPropagation();
+                                return;
+                            }
+                            
+                            const isExpanded = element.classList.contains('tabulator-row-expanded');
+                            
+                            if (isExpanded) {
+                                // Collapse
+                                element.classList.remove('tabulator-row-expanded');
+                                const expandIcon = element.querySelector('.expand-icon');
+                                if (expandIcon) {
+                                    expandIcon.textContent = '▶';
+                                    expandIcon.style.transform = 'rotate(0deg)';
+                                }
+                                // Remove expanded content
+                                const expandedRow = element.nextElementSibling;
+                                if (expandedRow && expandedRow.classList.contains('tabulator-row-expanded-content')) {
+                                    expandedRow.remove();
+                                }
+                            } else {
+                                // Expand
+                                element.classList.add('tabulator-row-expanded');
+                                const expandIcon = element.querySelector('.expand-icon');
+                                if (expandIcon) {
+                                    expandIcon.textContent = '▼';
+                                    expandIcon.style.transform = 'rotate(90deg)';
+                                }
+                                
+                                // Create expanded content row
+                                const expandedRow = document.createElement('div');
+                                expandedRow.className = 'tabulator-row-expanded-content';
+                                expandedRow.innerHTML = \`
+                                    <div style="background: #f8fafc; border-top: 1px solid #e5e7eb; overflow: hidden; word-wrap: break-word;">
+                                        \${createNetworkRequestDetailsHTML(data)}
+                                    </div>
+                                \`;
+                                
+                                // Insert after current row
+                                element.parentNode.insertBefore(expandedRow, element.nextSibling);
+                            }
+                        });
+                    },
                     columns: [
                         {
                             title: "URL Short Name",
@@ -1234,10 +1592,7 @@ function getJavaScript(): string {
                                 return '<span class="priority-badge priority-high">' + cell.getValue() + '</span>';
                             }
                         }
-                    ],
-                    rowClick: function(e, row) {
-                        showNetworkDetails(row.getData());
-                    }
+                    ]
                 });
             }
         });
@@ -1267,69 +1622,71 @@ function getJavaScript(): string {
         
         return \`
             <div class="network-details">
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Full URL</div>
                     <div class="detail-value">\${request.url}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Method</div>
                     <div class="detail-value">\${request.method || 'GET'}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Status Code</div>
                     <div class="detail-value">\${request.status || 'N/A'}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Domain</div>
                     <div class="detail-value">\${request.domain || 'N/A'}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Protocol</div>
                     <div class="detail-value">\${request.protocol || 'N/A'}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Cache Status</div>
                     <div class="detail-value">\${request.cacheStatus || 'N/A'}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Transfer Size</div>
                     <div class="detail-value">\${formatBytes(request.transferSize || 0)}</div>
                 </div>
-                <div class="detail-group">
+                <div class="detail-card">
                     <div class="detail-label">Encoded Size</div>
                     <div class="detail-value">\${formatBytes(request.encodedSize || 0)}</div>
                 </div>
             </div>
             
             <div class="timing-breakdown">
-                <h4 style="margin-bottom: 0.5rem; color: #374151; font-size: 0.875rem;">Timing Breakdown</h4>
-                <div class="timing-item">
-                    <span class="timing-label">DNS Lookup</span>
-                    <span class="timing-value">\${(timing.dnsLookup || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item">
-                    <span class="timing-label">TCP Connect</span>
-                    <span class="timing-value">\${(timing.tcpConnect || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item">
-                    <span class="timing-label">SSL Handshake</span>
-                    <span class="timing-value">\${(timing.sslHandshake || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item">
-                    <span class="timing-label">Request Send</span>
-                    <span class="timing-value">\${(timing.requestSend || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item">
-                    <span class="timing-label">Wait Time</span>
-                    <span class="timing-value">\${(timing.waitTime || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item">
-                    <span class="timing-label">Response Receive</span>
-                    <span class="timing-value">\${(timing.responseReceive || 0).toFixed(2)}ms</span>
-                </div>
-                <div class="timing-item" style="border-top: 2px solid #e2e8f0; margin-top: 0.5rem; padding-top: 0.5rem;">
-                    <span class="timing-label" style="font-weight: 600;">Total Time</span>
-                    <span class="timing-value" style="font-weight: 700;">\${(request.responseTime || 0).toFixed(2)}ms</span>
+                <h4>Timing Breakdown</h4>
+                <div class="timing-grid">
+                    <div class="timing-card">
+                        <div class="timing-label">DNS Lookup</div>
+                        <div class="timing-value">\${(timing.dnsLookup || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card">
+                        <div class="timing-label">TCP Connect</div>
+                        <div class="timing-value">\${(timing.tcpConnect || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card">
+                        <div class="timing-label">SSL Handshake</div>
+                        <div class="timing-value">\${(timing.sslHandshake || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card">
+                        <div class="timing-label">Request Send</div>
+                        <div class="timing-value">\${(timing.requestSend || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card">
+                        <div class="timing-label">Wait Time</div>
+                        <div class="timing-value">\${(timing.waitTime || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card">
+                        <div class="timing-label">Response Receive</div>
+                        <div class="timing-value">\${(timing.responseReceive || 0).toFixed(2)}ms</div>
+                    </div>
+                    <div class="timing-card" style="border: 2px solid #3b82f6; background: #f0f9ff;">
+                        <div class="timing-label" style="color: #1e40af; font-weight: 600;">Total Time</div>
+                        <div class="timing-value" style="color: #1e40af; font-weight: 700; font-size: 1rem;">\${(request.responseTime || 0).toFixed(2)}ms</div>
+                    </div>
                 </div>
             </div>
         \`;
