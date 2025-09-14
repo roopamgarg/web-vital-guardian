@@ -184,7 +184,9 @@ export declare function loadWebVitalsPackage(page: Page): Promise<void>;
  * @param page - Playwright page instance
  * @returns Promise resolving to network request data
  */
-export declare function measureNetworkRequests(page: Page): Promise<WebVitalsReport['network']>;
+export declare function measureNetworkRequests(page: Page, cdpSession?: any): Promise<WebVitalsReport['network']>;
+
+export declare function measureNetworkRequestsEnhanced(page: Page, cdpSession?: any): Promise<WebVitalsReport['network']>;
 
 /**
  * Measures additional performance metrics using the Performance API
@@ -220,6 +222,18 @@ export declare function measureWebVitalsWithObserver(page: Page): Promise<WebVit
  */
 export declare function mergeVariables(globalVariables?: Record<string, string | number | boolean>, scenarioVariables?: Record<string, string | number | boolean>): Record<string, string | number | boolean>;
 
+export declare interface NetworkConnection {
+    id: string;
+    remoteIP: string;
+    remotePort: number;
+    reused: boolean;
+}
+
+export declare interface NetworkHeaders {
+    request: Record<string, string>;
+    response: Record<string, string>;
+}
+
 export declare interface NetworkRequest {
     url: string;
     method: string;
@@ -236,6 +250,31 @@ export declare interface NetworkRequest {
     fromCache: boolean;
     protocol: string;
     domain: string;
+    timing?: NetworkTiming;
+    headers?: NetworkHeaders;
+    security?: NetworkSecurity;
+    connection?: NetworkConnection;
+    initiator?: any;
+    redirectChain?: any[];
+}
+
+export declare interface NetworkSecurity {
+    state: string;
+    details?: {
+        protocol: string;
+        keyExchange: string;
+        keyExchangeGroup: string;
+        cipher: string;
+        mac: string;
+        certificateId: number;
+        subjectName: string;
+        sanList: string[];
+        issuer: string;
+        validFrom: number;
+        validTo: number;
+        signedCertificateTimestampList: any[];
+        certificateTransparencyCompliance: string;
+    };
 }
 
 export declare interface NetworkSummary {
@@ -248,6 +287,21 @@ export declare interface NetworkSummary {
     failedRequests: number;
     requestsByType: Record<string, number>;
     requestsByDomain: Record<string, number>;
+}
+
+export declare interface NetworkTiming {
+    dnsLookup: number;
+    tcpConnect: number;
+    sslHandshake: number;
+    requestSend: number;
+    waitTime: number;
+    responseReceive: number;
+    redirectTime: number;
+    contentDownloadTime: number;
+    totalTime: number;
+    timingSum: number;
+    fromCache: boolean;
+    connectionReused: boolean;
 }
 
 export declare function profileJs<T>(page: Page_2, run: () => Promise<T>): Promise<{
@@ -300,6 +354,8 @@ export declare interface ScenarioStep {
     timeout?: number;
     waitFor?: string;
 }
+
+export declare function setupCDPNetworkMonitoring(page: Page): Promise<any>;
 
 /**
  * Install Web Vitals collectors at the earliest script time.

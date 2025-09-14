@@ -644,6 +644,123 @@ function getCSS() {
         font-weight: 600;
         color: #1f2937;
     }
+    
+    .timing-unavailable {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+    }
+    
+    .timing-unavailable .timing-value {
+        color: #6b7280;
+    }
+    
+    .timing-note {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+        font-style: italic;
+    }
+    
+    .cache-notice, .connection-notice {
+        background: #f0f9ff;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #1e40af;
+    }
+    
+    .connection-notice {
+        background: #f0fdf4;
+        border-color: #22c55e;
+        color: #15803d;
+    }
+    
+    .timing-discrepancy-notice {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #92400e;
+        line-height: 1.4;
+    }
+    
+    .headers-section, .security-section {
+        margin-top: 1.5rem;
+    }
+    
+    .headers-section h4, .security-section h4 {
+        color: #374151;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .headers-grid, .security-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .headers-card, .security-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+    
+    .headers-card h5 {
+        color: #374151;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+    
+    .headers-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .header-item {
+        display: flex;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .header-key {
+        color: #6b7280;
+        font-weight: 500;
+        min-width: 120px;
+        margin-right: 0.5rem;
+    }
+    
+    .header-value {
+        color: #1f2937;
+        word-break: break-all;
+    }
+    
+    .security-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .security-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+    
+    .security-value {
+        font-size: 0.875rem;
+        color: #1f2937;
+        font-weight: 600;
+        margin-top: 0.25rem;
+        word-break: break-all;
+    }
 
     .expand-icon {
         display: inline-block;
@@ -1612,6 +1729,7 @@ function getJavaScript() {
                     theme: "default",
                     headerFilterPlaceholder: "Search...",
                     placeholder: "No network requests found",
+
                     columns: [
                         {
                             title: "URL Short Name",
@@ -1758,43 +1876,148 @@ function getJavaScript() {
                 </div>
                 <div class="detail-card">
                     <div class="detail-label">Encoded Size</div>
-                    <div class="detail-value">\${formatBytes(request.encodedSize || 0)}</div>
+                    <div class="detail-value">\${formatBytes(request.encodedBodySize || 0)}</div>
                 </div>
+                \${request.connection ? \`
+                <div class="detail-card">
+                    <div class="detail-label">Remote IP</div>
+                    <div class="detail-value">\${request.connection.remoteIP}:\${request.connection.remotePort}</div>
+                </div>
+                \` : ''}
+                \${request.security ? \`
+                <div class="detail-card">
+                    <div class="detail-label">Security State</div>
+                    <div class="detail-value">\${request.security.state}</div>
+                </div>
+                \` : ''}
             </div>
             
             <div class="timing-breakdown">
                 <h4>Timing Breakdown</h4>
                 <div class="timing-grid">
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.dnsLookup > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">DNS Lookup</div>
-                        <div class="timing-value">\${(timing.dnsLookup || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.dnsLookup > 0 ? timing.dnsLookup.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.dnsLookup === 0 ? '<div class="timing-note">Connection reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.tcpConnect > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">TCP Connect</div>
-                        <div class="timing-value">\${(timing.tcpConnect || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.tcpConnect > 0 ? timing.tcpConnect.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.tcpConnect === 0 ? '<div class="timing-note">Connection reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.sslHandshake > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">SSL Handshake</div>
-                        <div class="timing-value">\${(timing.sslHandshake || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.sslHandshake > 0 ? timing.sslHandshake.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.sslHandshake === 0 ? '<div class="timing-note">HTTP or reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.requestSend > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">Request Send</div>
-                        <div class="timing-value">\${(timing.requestSend || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.requestSend > 0 ? timing.requestSend.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.requestSend === 0 ? '<div class="timing-note">Cached or fast</div>' : ''}
                     </div>
-                    <div class="timing-card">
-                        <div class="timing-label">Wait Time</div>
-                        <div class="timing-value">\${(timing.waitTime || 0).toFixed(2)}ms</div>
+                    <div class="timing-card \${timing.waitTime > 0 ? '' : 'timing-unavailable'}">
+                        <div class="timing-label">Server Wait</div>
+                        <div class="timing-value">\${timing.waitTime > 0 ? timing.waitTime.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.waitTime === 0 ? '<div class="timing-note">Instant response</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.responseReceive > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">Response Receive</div>
-                        <div class="timing-value">\${(timing.responseReceive || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.responseReceive > 0 ? timing.responseReceive.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.responseReceive === 0 ? '<div class="timing-note">Small payload</div>' : ''}
                     </div>
+                    <div class="timing-card \${timing.contentDownloadTime > 0 ? '' : 'timing-unavailable'}">
+                        <div class="timing-label">Content Download</div>
+                        <div class="timing-value">\${timing.contentDownloadTime > 0 ? timing.contentDownloadTime.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.contentDownloadTime === 0 ? '<div class="timing-note">Headers only</div>' : ''}
+                    </div>
+                    \${timing.redirectTime > 0 ? \`
+                    <div class="timing-card">
+                        <div class="timing-label">Redirect Time</div>
+                        <div class="timing-value">\${timing.redirectTime.toFixed(2)}ms</div>
+                    </div>
+                    \` : ''}
                     <div class="timing-card" style="border: 2px solid #3b82f6; background: #f0f9ff;">
                         <div class="timing-label" style="color: #1e40af; font-weight: 600;">Total Time</div>
                         <div class="timing-value" style="color: #1e40af; font-weight: 700; font-size: 1rem;">\${(request.responseTime || 0).toFixed(2)}ms</div>
                     </div>
+                    \${timing.timingSum && Math.abs(timing.totalTime - timing.timingSum) > 1 ? \`
+                    <div class="timing-card" style="border: 2px solid \${timing.timingSum > timing.totalTime ? '#dc2626' : '#f59e0b'}; background: \${timing.timingSum > timing.totalTime ? '#fef2f2' : '#fffbeb'};">
+                        <div class="timing-label" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; font-weight: 600;">Timing Sum</div>
+                        <div class="timing-value" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; font-weight: 700; font-size: 1rem;">\${timing.timingSum.toFixed(2)}ms</div>
+                        <div class="timing-note" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; margin-top: 0.25rem; font-size: 0.7rem;">
+                            \${timing.timingSum > timing.totalTime ? 'Overlapping operations' : 'Sum of breakdown components'}
+                        </div>
+                    </div>
+                    \` : ''}
+                </div>
+                \${timing.fromCache ? '<div class="cache-notice">📦 This resource was served from cache</div>' : ''}
+                \${timing.connectionReused ? '<div class="connection-notice">🔄 Connection was reused (faster)</div>' : ''}
+                \${timing.timingSum && Math.abs(timing.totalTime - timing.timingSum) > 1 ? \`
+                <div class="timing-discrepancy-notice">
+                    \${timing.timingSum > timing.totalTime ? \`
+                        ⚠️ Timing discrepancy: Timing sum (\${timing.timingSum.toFixed(2)}ms) > Total time (\${timing.totalTime.toFixed(2)}ms). 
+                        This indicates overlapping network operations or concurrent requests that share connection setup time.
+                    \` : \`
+                        ⚠️ Timing discrepancy: Total time (\${timing.totalTime.toFixed(2)}ms) includes response body download time, 
+                        while breakdown sum (\${timing.timingSum.toFixed(2)}ms) only includes headers received time.
+                    \`}
+                </div>
+                \` : ''}
+            </div>
+            
+            \${request.headers ? \`
+            <div class="headers-section">
+                <h4>Request & Response Headers</h4>
+                <div class="headers-grid">
+                    <div class="headers-card">
+                        <h5>Request Headers</h5>
+                        <div class="headers-list">
+                            \${Object.entries(request.headers.request || {}).map(([key, value]) => \`
+                                <div class="header-item">
+                                    <span class="header-key">\${key}:</span>
+                                    <span class="header-value">\${value}</span>
+                                </div>
+                            \`).join('')}
+                        </div>
+                    </div>
+                    <div class="headers-card">
+                        <h5>Response Headers</h5>
+                        <div class="headers-list">
+                            \${Object.entries(request.headers.response || {}).map(([key, value]) => \`
+                                <div class="header-item">
+                                    <span class="header-key">\${key}:</span>
+                                    <span class="header-value">\${value}</span>
+                                </div>
+                            \`).join('')}
+                        </div>
+                    </div>
                 </div>
             </div>
+            \` : ''}
+            
+            \${request.security?.details ? \`
+            <div class="security-section">
+                <h4>Security Details</h4>
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div class="security-label">Protocol</div>
+                        <div class="security-value">\${request.security.details.protocol}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Cipher</div>
+                        <div class="security-value">\${request.security.details.cipher}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Certificate Subject</div>
+                        <div class="security-value">\${request.security.details.subjectName}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Issuer</div>
+                        <div class="security-value">\${request.security.details.issuer}</div>
+                    </div>
+                </div>
+            </div>
+            \` : ''}
         \`;
     }
     
@@ -2693,8 +2916,110 @@ async function measurePerformanceMetrics(page) {
   });
   return performanceMetrics;
 }
-async function measureNetworkRequests(page) {
-  const networkData = await page.evaluate(() => {
+async function measureNetworkRequests(page, cdpSession) {
+  if (!cdpSession) {
+    return await measureNetworkRequestsFallback(page);
+  }
+  await page.waitForLoadState("networkidle");
+  const networkRequests = cdpSession.networkRequests;
+  const networkResponses = cdpSession.networkResponses;
+  const loadingFinished = cdpSession.loadingFinished;
+  const requests = [];
+  for (const [requestId, request] of networkRequests) {
+    const response = networkResponses.get(requestId);
+    const finished = loadingFinished.get(requestId);
+    if (response) {
+      const url = new URL(request.url);
+      const domain = url.hostname;
+      const protocol = url.protocol.replace(":", "");
+      const timing = response.timing || {};
+      const responseTime = finished?.timestamp ? (finished.timestamp - request.timestamp) * 1e3 : timing.receiveHeadersEnd || 0;
+      const dnsLookup = Math.max(0, (timing.dnsEnd || 0) - (timing.dnsStart || 0));
+      const tcpConnect = Math.max(0, (timing.connectEnd || 0) - (timing.connectStart || 0));
+      const sslHandshake = Math.max(0, (timing.sslEnd || 0) - (timing.sslStart || 0));
+      const requestSend = Math.max(0, (timing.sendEnd || 0) - (timing.sendStart || 0));
+      const waitTime = Math.max(0, (timing.receiveHeadersEnd || 0) - (timing.sendEnd || 0));
+      const responseReceive = Math.max(0, (timing.receiveHeadersEnd || 0) - (timing.receiveHeadersStart || 0));
+      const redirectTime = Math.max(0, (timing.redirectEnd || 0) - (timing.redirectStart || 0));
+      const contentDownloadTime = finished?.timestamp ? Math.max(0, (finished.timestamp - request.timestamp) * 1e3 - (timing.receiveHeadersEnd || 0)) : 0;
+      const timingSum = dnsLookup + tcpConnect + sslHandshake + requestSend + waitTime + responseReceive + redirectTime + contentDownloadTime;
+      requests.push({
+        url: request.url,
+        method: request.method,
+        status: response.status,
+        statusText: response.statusText,
+        responseTime,
+        transferSize: finished?.encodedDataLength || 0,
+        encodedBodySize: response.encodedDataLength || 0,
+        decodedBodySize: response.encodedDataLength || 0,
+        // CDP doesn't provide decoded size
+        startTime: request.timestamp || 0,
+        endTime: finished?.timestamp || request.timestamp,
+        duration: responseTime,
+        resourceType: request.type || "other",
+        fromCache: response.fromDiskCache || response.fromPrefetchCache || false,
+        protocol,
+        domain,
+        // Enhanced timing from CDP
+        timing: {
+          dnsLookup,
+          tcpConnect,
+          sslHandshake,
+          requestSend,
+          waitTime,
+          responseReceive,
+          redirectTime,
+          contentDownloadTime,
+          // Time to download response body
+          totalTime: responseTime,
+          // Use the actual wall clock time
+          timingSum,
+          // Sum of all timing components
+          fromCache: response.fromDiskCache || response.fromPrefetchCache || false,
+          connectionReused: response.connectionReused || false
+        },
+        // Additional CDP data
+        headers: {
+          request: request.headers,
+          response: response.headers
+        },
+        security: {
+          state: response.securityState,
+          details: response.securityDetails
+        },
+        connection: {
+          id: response.connectionId,
+          remoteIP: response.remoteIPAddress,
+          remotePort: response.remotePort,
+          reused: response.connectionReused
+        },
+        initiator: request.initiator,
+        redirectChain: request.redirectResponse ? [request.redirectResponse] : []
+      });
+    }
+  }
+  const summary = {
+    totalRequests: requests.length,
+    totalTransferSize: requests.reduce((sum, req) => sum + req.transferSize, 0),
+    totalEncodedSize: requests.reduce((sum, req) => sum + req.encodedBodySize, 0),
+    totalDecodedSize: requests.reduce((sum, req) => sum + req.decodedBodySize, 0),
+    averageResponseTime: requests.length > 0 ? requests.reduce((sum, req) => sum + req.responseTime, 0) / requests.length : 0,
+    slowestRequest: requests.length > 0 ? requests.reduce((slowest, req) => req.responseTime > slowest.responseTime ? req : slowest) : null,
+    failedRequests: requests.filter((req) => req.status >= 400).length,
+    requestsByType: {},
+    requestsByDomain: {}
+  };
+  requests.forEach((req) => {
+    summary.requestsByType[req.resourceType] = (summary.requestsByType[req.resourceType] || 0) + 1;
+    summary.requestsByDomain[req.domain] = (summary.requestsByDomain[req.domain] || 0) + 1;
+  });
+  return {
+    requests,
+    summary
+  };
+}
+async function measureNetworkRequestsFallback(page) {
+  const performanceData = await page.evaluate(() => {
     function getResourceType(url) {
       const extension = url.split(".").pop()?.toLowerCase();
       const pathname = new URL(url).pathname.toLowerCase();
@@ -2753,7 +3078,26 @@ async function measureNetworkRequests(page) {
         resourceType: getResourceType(entry.name),
         fromCache: entry.transferSize === 0 && entry.encodedBodySize > 0,
         protocol,
-        domain
+        domain,
+        timing: {
+          dnsLookup: Math.max(0, entry.domainLookupEnd - entry.domainLookupStart),
+          tcpConnect: Math.max(0, entry.connectEnd - entry.connectStart),
+          sslHandshake: entry.secureConnectionStart > 0 ? Math.max(0, entry.connectEnd - entry.secureConnectionStart) : 0,
+          requestSend: Math.max(0, entry.responseStart - entry.requestStart),
+          waitTime: Math.max(0, entry.responseStart - entry.requestStart),
+          responseReceive: Math.max(0, entry.responseEnd - entry.responseStart),
+          // Additional timing data
+          redirectTime: Math.max(0, entry.redirectEnd - entry.redirectStart),
+          contentDownloadTime: Math.max(0, entry.responseEnd - entry.responseStart),
+          // Performance API doesn't distinguish this
+          totalTime: Math.max(0, entry.responseEnd - entry.startTime),
+          timingSum: Math.max(0, entry.responseEnd - entry.startTime),
+          // Same as totalTime for Performance API
+          // Cache timing
+          fromCache: entry.transferSize === 0 && entry.encodedBodySize > 0,
+          // Connection reuse
+          connectionReused: entry.connectStart === 0 && entry.connectEnd === 0
+        }
       };
     });
     const summary = {
@@ -2776,7 +3120,83 @@ async function measureNetworkRequests(page) {
       summary
     };
   });
-  return networkData;
+  return performanceData;
+}
+async function setupCDPNetworkMonitoring(page) {
+  try {
+    const cdpSession = await page.context().newCDPSession(page);
+    await cdpSession.send("Network.enable");
+    const networkRequests = /* @__PURE__ */ new Map();
+    const networkResponses = /* @__PURE__ */ new Map();
+    const loadingFinished = /* @__PURE__ */ new Map();
+    cdpSession.on("Network.requestWillBeSent", (params) => {
+      const requestId = params.requestId;
+      networkRequests.set(requestId, {
+        requestId,
+        url: params.request.url,
+        method: params.request.method,
+        headers: params.request.headers,
+        postData: params.request.postData,
+        timestamp: params.timestamp,
+        wallTime: params.wallTime,
+        initiator: params.initiator,
+        redirectResponse: params.redirectResponse,
+        type: params.type,
+        frameId: params.frameId,
+        hasUserGesture: params.hasUserGesture,
+        documentURL: params.documentURL,
+        loaderId: params.loaderId
+      });
+    });
+    cdpSession.on("Network.responseReceived", (params) => {
+      const requestId = params.requestId;
+      networkResponses.set(requestId, {
+        requestId,
+        url: params.response.url,
+        status: params.response.status,
+        statusText: params.response.statusText,
+        headers: params.response.headers,
+        mimeType: params.response.mimeType,
+        connectionReused: params.response.connectionReused,
+        connectionId: params.response.connectionId,
+        remoteIPAddress: params.response.remoteIPAddress,
+        remotePort: params.response.remotePort,
+        fromDiskCache: params.response.fromDiskCache,
+        fromServiceWorker: params.response.fromServiceWorker,
+        fromPrefetchCache: params.response.fromPrefetchCache,
+        encodedDataLength: params.response.encodedDataLength,
+        timing: params.response.timing,
+        responseTime: params.timestamp,
+        protocol: params.response.protocol,
+        securityState: params.response.securityState,
+        securityDetails: params.response.securityDetails
+      });
+    });
+    cdpSession.on("Network.loadingFinished", (params) => {
+      const requestId = params.requestId;
+      loadingFinished.set(requestId, {
+        requestId,
+        timestamp: params.timestamp,
+        encodedDataLength: params.encodedDataLength,
+        shouldReportCorbBlocking: false
+      });
+    });
+    cdpSession.networkRequests = networkRequests;
+    cdpSession.networkResponses = networkResponses;
+    cdpSession.loadingFinished = loadingFinished;
+    return cdpSession;
+  } catch (error) {
+    console.warn("⚠️  Failed to set up CDP network monitoring:", error);
+    return null;
+  }
+}
+async function measureNetworkRequestsEnhanced(page, cdpSession) {
+  try {
+    return await measureNetworkRequests(page, cdpSession);
+  } catch (error) {
+    console.warn("⚠️  CDP Network analysis failed, falling back to Performance API:", error);
+    return await measureNetworkRequestsFallback(page);
+  }
 }
 async function profileJs(page, run) {
   const cdp = await page.context().newCDPSession(page);
@@ -2845,6 +3265,7 @@ async function runScenario(browser, scenario, config) {
   const page = await context.newPage();
   try {
     await startVitalsObservation(page, config?.webVitals);
+    const cdpSession = await setupCDPNetworkMonitoring(page);
     await page.goto(scenario.url, { waitUntil: "networkidle" });
     if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
       await loadWebVitalsPackage(page);
@@ -2858,7 +3279,7 @@ async function runScenario(browser, scenario, config) {
     await page.waitForTimeout(2e3);
     const webVitals = await collectVitals(page);
     const performance2 = await measurePerformanceMetrics(page);
-    const network = await measureNetworkRequests(page);
+    const network = await measureNetworkRequestsEnhanced(page, cdpSession);
     const report = {
       scenario: scenario.name,
       url: scenario.url,
@@ -2868,6 +3289,13 @@ async function runScenario(browser, scenario, config) {
       network,
       profile: profileResponse?.profile || null
     };
+    if (cdpSession) {
+      try {
+        await cdpSession.detach();
+      } catch (error) {
+        console.warn("⚠️  Error detaching CDP session:", error);
+      }
+    }
     return report;
   } finally {
     await page.close();
@@ -2958,6 +3386,7 @@ export {
   loadScenarioFile,
   loadWebVitalsPackage,
   measureNetworkRequests,
+  measureNetworkRequestsEnhanced,
   measurePerformanceMetrics,
   measureWebVitals,
   measureWebVitalsWithObserver,
@@ -2965,6 +3394,7 @@ export {
   profileJs,
   runScenario,
   runWebVitalsGuardian,
+  setupCDPNetworkMonitoring,
   startVitalsObservation
 };
 //# sourceMappingURL=index.mjs.map

@@ -535,8 +535,144 @@ export async function measurePerformanceMetrics(page: Page): Promise<WebVitalsRe
  * @param page - Playwright page instance
  * @returns Promise resolving to network request data
  */
-export async function measureNetworkRequests(page: Page): Promise<WebVitalsReport['network']> {
-  const networkData = await page.evaluate((): WebVitalsReport['network'] => {
+export async function measureNetworkRequests(page: Page, cdpSession?: any): Promise<WebVitalsReport['network']> {
+  // Use CDP Network domain for comprehensive network analysis
+  if (!cdpSession) {
+    // Fallback to Performance API if no CDP session provided
+    return await measureNetworkRequestsFallback(page);
+  }
+  
+  // Wait for page to load completely
+  await page.waitForLoadState('networkidle');
+  
+  // Get the collected network data from the CDP session
+  const networkRequests = (cdpSession as any).networkRequests;
+  const networkResponses = (cdpSession as any).networkResponses;
+  const loadingFinished = (cdpSession as any).loadingFinished;
+  
+  // Process collected network data
+  const requests: NetworkRequest[] = [];
+  
+  for (const [requestId, request] of networkRequests) {
+    const response = networkResponses.get(requestId);
+    const finished = loadingFinished.get(requestId);
+    
+    if (response) {
+      const url = new URL(request.url);
+      const domain = url.hostname;
+      const protocol = url.protocol.replace(':', '');
+      
+      // Calculate timing from CDP data
+      const timing = response.timing || {};
+      
+      // CDP timing values are in milliseconds relative to the request start
+      // Use the actual wall clock time for total response time
+      const responseTime = finished?.timestamp ? 
+        (finished.timestamp - request.timestamp) * 1000 : 
+        (timing.receiveHeadersEnd || 0);
+      
+      // Calculate the sum of all timing components for verification
+      const dnsLookup = Math.max(0, (timing.dnsEnd || 0) - (timing.dnsStart || 0));
+      const tcpConnect = Math.max(0, (timing.connectEnd || 0) - (timing.connectStart || 0));
+      const sslHandshake = Math.max(0, (timing.sslEnd || 0) - (timing.sslStart || 0));
+      const requestSend = Math.max(0, (timing.sendEnd || 0) - (timing.sendStart || 0));
+      const waitTime = Math.max(0, (timing.receiveHeadersEnd || 0) - (timing.sendEnd || 0));
+      const responseReceive = Math.max(0, (timing.receiveHeadersEnd || 0) - (timing.receiveHeadersStart || 0));
+      const redirectTime = Math.max(0, (timing.redirectEnd || 0) - (timing.redirectStart || 0));
+      
+      // Calculate content download time (time from headers received to response finished)
+      const contentDownloadTime = finished?.timestamp ? 
+        Math.max(0, (finished.timestamp - request.timestamp) * 1000 - (timing.receiveHeadersEnd || 0)) : 0;
+      
+      // The sum of timing components should match the total time
+      const timingSum = dnsLookup + tcpConnect + sslHandshake + requestSend + waitTime + responseReceive + redirectTime + contentDownloadTime;
+      
+      requests.push({
+        url: request.url,
+        method: request.method,
+        status: response.status,
+        statusText: response.statusText,
+        responseTime: responseTime,
+        transferSize: finished?.encodedDataLength || 0,
+        encodedBodySize: response.encodedDataLength || 0,
+        decodedBodySize: response.encodedDataLength || 0, // CDP doesn't provide decoded size
+        startTime: request.timestamp || 0,
+        endTime: finished?.timestamp || request.timestamp,
+        duration: responseTime,
+        resourceType: request.type || 'other',
+        fromCache: response.fromDiskCache || response.fromPrefetchCache || false,
+        protocol,
+        domain,
+        // Enhanced timing from CDP
+        timing: {
+          dnsLookup: dnsLookup,
+          tcpConnect: tcpConnect,
+          sslHandshake: sslHandshake,
+          requestSend: requestSend,
+          waitTime: waitTime,
+          responseReceive: responseReceive,
+          redirectTime: redirectTime,
+          contentDownloadTime: contentDownloadTime, // Time to download response body
+          totalTime: responseTime, // Use the actual wall clock time
+          timingSum: timingSum, // Sum of all timing components
+          fromCache: response.fromDiskCache || response.fromPrefetchCache || false,
+          connectionReused: response.connectionReused || false
+        },
+        // Additional CDP data
+        headers: {
+          request: request.headers,
+          response: response.headers
+        },
+        security: {
+          state: response.securityState,
+          details: response.securityDetails
+        },
+        connection: {
+          id: response.connectionId,
+          remoteIP: response.remoteIPAddress,
+          remotePort: response.remotePort,
+          reused: response.connectionReused
+        },
+        initiator: request.initiator,
+        redirectChain: request.redirectResponse ? [request.redirectResponse] : []
+      });
+    }
+  }
+  
+  // Calculate summary statistics
+  const summary: NetworkSummary = {
+    totalRequests: requests.length,
+    totalTransferSize: requests.reduce((sum, req) => sum + req.transferSize, 0),
+    totalEncodedSize: requests.reduce((sum, req) => sum + req.encodedBodySize, 0),
+    totalDecodedSize: requests.reduce((sum, req) => sum + req.decodedBodySize, 0),
+    averageResponseTime: requests.length > 0 
+      ? requests.reduce((sum, req) => sum + req.responseTime, 0) / requests.length 
+      : 0,
+    slowestRequest: requests.length > 0 
+      ? requests.reduce((slowest, req) => req.responseTime > slowest.responseTime ? req : slowest)
+      : null,
+    failedRequests: requests.filter(req => req.status >= 400).length,
+    requestsByType: {},
+    requestsByDomain: {}
+  };
+
+  // Count requests by type and domain
+  requests.forEach(req => {
+    summary.requestsByType[req.resourceType] = (summary.requestsByType[req.resourceType] || 0) + 1;
+    summary.requestsByDomain[req.domain] = (summary.requestsByDomain[req.domain] || 0) + 1;
+  });
+
+  // CDP session cleanup is handled by the caller
+
+  return {
+    requests,
+    summary
+  };
+}
+
+// Fallback function using Performance API
+async function measureNetworkRequestsFallback(page: Page): Promise<WebVitalsReport['network']> {
+  const performanceData = await page.evaluate((): WebVitalsReport['network'] => {
 
     /**
  * Helper function to determine resource type from URL
@@ -602,7 +738,24 @@ function getResourceType(url: string): string {
         resourceType: getResourceType(entry.name),
         fromCache: entry.transferSize === 0 && entry.encodedBodySize > 0,
         protocol,
-        domain
+        domain,
+        timing: {
+          dnsLookup: Math.max(0, entry.domainLookupEnd - entry.domainLookupStart),
+          tcpConnect: Math.max(0, entry.connectEnd - entry.connectStart),
+          sslHandshake: entry.secureConnectionStart > 0 ? Math.max(0, entry.connectEnd - entry.secureConnectionStart) : 0,
+          requestSend: Math.max(0, entry.responseStart - entry.requestStart),
+          waitTime: Math.max(0, entry.responseStart - entry.requestStart),
+          responseReceive: Math.max(0, entry.responseEnd - entry.responseStart),
+          // Additional timing data
+          redirectTime: Math.max(0, entry.redirectEnd - entry.redirectStart),
+          contentDownloadTime: Math.max(0, entry.responseEnd - entry.responseStart), // Performance API doesn't distinguish this
+          totalTime: Math.max(0, entry.responseEnd - entry.startTime),
+          timingSum: Math.max(0, entry.responseEnd - entry.startTime), // Same as totalTime for Performance API
+          // Cache timing
+          fromCache: entry.transferSize === 0 && entry.encodedBodySize > 0,
+          // Connection reuse
+          connectionReused: entry.connectStart === 0 && entry.connectEnd === 0
+        }
       };
     });
 
@@ -635,5 +788,95 @@ function getResourceType(url: string): string {
     };
   });
 
-  return networkData;
+  return performanceData;
+}
+
+// Set up CDP network monitoring before navigation
+export async function setupCDPNetworkMonitoring(page: Page): Promise<any> {
+  try {
+    const cdpSession = await page.context().newCDPSession(page);
+    await cdpSession.send('Network.enable');
+    
+    // Store network requests and responses
+    const networkRequests = new Map();
+    const networkResponses = new Map();
+    const loadingFinished = new Map();
+    
+    // Listen to network events
+    cdpSession.on('Network.requestWillBeSent', (params: any) => {
+      const requestId = params.requestId;
+      networkRequests.set(requestId, {
+        requestId,
+        url: params.request.url,
+        method: params.request.method,
+        headers: params.request.headers,
+        postData: params.request.postData,
+        timestamp: params.timestamp,
+        wallTime: params.wallTime,
+        initiator: params.initiator,
+        redirectResponse: params.redirectResponse,
+        type: params.type,
+        frameId: params.frameId,
+        hasUserGesture: params.hasUserGesture,
+        documentURL: params.documentURL,
+        loaderId: params.loaderId
+      });
+    });
+    
+    cdpSession.on('Network.responseReceived', (params: any) => {
+      const requestId = params.requestId;
+      networkResponses.set(requestId, {
+        requestId,
+        url: params.response.url,
+        status: params.response.status,
+        statusText: params.response.statusText,
+        headers: params.response.headers,
+        mimeType: params.response.mimeType,
+        connectionReused: params.response.connectionReused,
+        connectionId: params.response.connectionId,
+        remoteIPAddress: params.response.remoteIPAddress,
+        remotePort: params.response.remotePort,
+        fromDiskCache: params.response.fromDiskCache,
+        fromServiceWorker: params.response.fromServiceWorker,
+        fromPrefetchCache: params.response.fromPrefetchCache,
+        encodedDataLength: params.response.encodedDataLength,
+        timing: params.response.timing,
+        responseTime: params.timestamp,
+        protocol: params.response.protocol,
+        securityState: params.response.securityState,
+        securityDetails: params.response.securityDetails
+      });
+    });
+    
+    cdpSession.on('Network.loadingFinished', (params: any) => {
+      const requestId = params.requestId;
+      loadingFinished.set(requestId, {
+        requestId,
+        timestamp: params.timestamp,
+        encodedDataLength: params.encodedDataLength,
+        shouldReportCorbBlocking: false
+      });
+    });
+    
+    // Store the data maps on the session for later retrieval
+    (cdpSession as any).networkRequests = networkRequests;
+    (cdpSession as any).networkResponses = networkResponses;
+    (cdpSession as any).loadingFinished = loadingFinished;
+    
+    return cdpSession;
+  } catch (error) {
+    console.warn('⚠️  Failed to set up CDP network monitoring:', error);
+    return null;
+  }
+}
+
+// Enhanced main function with error handling
+export async function measureNetworkRequestsEnhanced(page: Page, cdpSession?: any): Promise<WebVitalsReport['network']> {
+  try {
+    // Try CDP first for comprehensive data
+    return await measureNetworkRequests(page, cdpSession);
+  } catch (error) {
+    console.warn('⚠️  CDP Network analysis failed, falling back to Performance API:', error);
+    return await measureNetworkRequestsFallback(page);
+  }
 }

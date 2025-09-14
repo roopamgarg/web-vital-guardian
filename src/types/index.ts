@@ -1,3 +1,51 @@
+// Network request timing breakdown
+export interface NetworkTiming {
+  dnsLookup: number;
+  tcpConnect: number;
+  sslHandshake: number;
+  requestSend: number;
+  waitTime: number;
+  responseReceive: number;
+  redirectTime: number;
+  contentDownloadTime: number; // Time to download response body
+  totalTime: number;
+  timingSum: number; // Sum of all timing components for verification
+  fromCache: boolean;
+  connectionReused: boolean;
+}
+
+// Enhanced network data from CDP
+export interface NetworkHeaders {
+  request: Record<string, string>;
+  response: Record<string, string>;
+}
+
+export interface NetworkSecurity {
+  state: string;
+  details?: {
+    protocol: string;
+    keyExchange: string;
+    keyExchangeGroup: string;
+    cipher: string;
+    mac: string;
+    certificateId: number;
+    subjectName: string;
+    sanList: string[];
+    issuer: string;
+    validFrom: number;
+    validTo: number;
+    signedCertificateTimestampList: any[];
+    certificateTransparencyCompliance: string;
+  };
+}
+
+export interface NetworkConnection {
+  id: string;
+  remoteIP: string;
+  remotePort: number;
+  reused: boolean;
+}
+
 // Network request information
 export interface NetworkRequest {
   url: string;
@@ -15,6 +63,13 @@ export interface NetworkRequest {
   fromCache: boolean;
   protocol: string;
   domain: string;
+  timing?: NetworkTiming;
+  // Enhanced CDP data
+  headers?: NetworkHeaders;
+  security?: NetworkSecurity;
+  connection?: NetworkConnection;
+  initiator?: any;
+  redirectChain?: any[];
 }
 
 export interface NetworkSummary {

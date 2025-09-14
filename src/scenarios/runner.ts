@@ -1,6 +1,6 @@
 import type { Browser, Page } from 'playwright';
 import type { ScenarioStep, ScenarioFile, WebVitalsReport, GuardianConfig } from '../types';
-import { measureWebVitals, measurePerformanceMetrics, measureNetworkRequests, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
+import { measureWebVitals, measurePerformanceMetrics, measureNetworkRequestsEnhanced, setupCDPNetworkMonitoring, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
 import { profileJs } from '../measurements/performanceObserver';
 
 /**
@@ -85,6 +85,9 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     // Start Web Vitals observation BEFORE navigation
     await startVitalsObservation(page, config?.webVitals);
     
+    // Set up CDP network monitoring before navigation
+    const cdpSession = await setupCDPNetworkMonitoring(page);
+    
     // Navigate to the initial URL
     await page.goto(scenario.url, { waitUntil: 'networkidle' });
     
@@ -106,7 +109,7 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     
     // const webVitals = await webVitalsPromise;
     const performance = await measurePerformanceMetrics(page);
-    const network = await measureNetworkRequests(page);
+    const network = await measureNetworkRequestsEnhanced(page, cdpSession);
 
     // Generate report
     const report: WebVitalsReport = {
@@ -118,6 +121,15 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
       network,
       profile: profileResponse?.profile || null,
     };
+    
+    // Clean up CDP session
+    if (cdpSession) {
+      try {
+        await cdpSession.detach();
+      } catch (error) {
+        console.warn('⚠️  Error detaching CDP session:', error);
+      }
+    }
     
     return report;
     

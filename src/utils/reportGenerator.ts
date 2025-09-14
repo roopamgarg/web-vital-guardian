@@ -493,6 +493,123 @@ function getCSS(): string {
         font-weight: 600;
         color: #1f2937;
     }
+    
+    .timing-unavailable {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+    }
+    
+    .timing-unavailable .timing-value {
+        color: #6b7280;
+    }
+    
+    .timing-note {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+        font-style: italic;
+    }
+    
+    .cache-notice, .connection-notice {
+        background: #f0f9ff;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #1e40af;
+    }
+    
+    .connection-notice {
+        background: #f0fdf4;
+        border-color: #22c55e;
+        color: #15803d;
+    }
+    
+    .timing-discrepancy-notice {
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #92400e;
+        line-height: 1.4;
+    }
+    
+    .headers-section, .security-section {
+        margin-top: 1.5rem;
+    }
+    
+    .headers-section h4, .security-section h4 {
+        color: #374151;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .headers-grid, .security-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .headers-card, .security-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+    
+    .headers-card h5 {
+        color: #374151;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+    
+    .headers-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .header-item {
+        display: flex;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .header-key {
+        color: #6b7280;
+        font-weight: 500;
+        min-width: 120px;
+        margin-right: 0.5rem;
+    }
+    
+    .header-value {
+        color: #1f2937;
+        word-break: break-all;
+    }
+    
+    .security-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .security-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        font-weight: 500;
+    }
+    
+    .security-value {
+        font-size: 0.875rem;
+        color: #1f2937;
+        font-weight: 600;
+        margin-top: 0.25rem;
+        word-break: break-all;
+    }
 
     .expand-icon {
         display: inline-block;
@@ -1612,43 +1729,148 @@ function getJavaScript(): string {
                 </div>
                 <div class="detail-card">
                     <div class="detail-label">Encoded Size</div>
-                    <div class="detail-value">\${formatBytes(request.encodedSize || 0)}</div>
+                    <div class="detail-value">\${formatBytes(request.encodedBodySize || 0)}</div>
                 </div>
+                \${request.connection ? \`
+                <div class="detail-card">
+                    <div class="detail-label">Remote IP</div>
+                    <div class="detail-value">\${request.connection.remoteIP}:\${request.connection.remotePort}</div>
+                </div>
+                \` : ''}
+                \${request.security ? \`
+                <div class="detail-card">
+                    <div class="detail-label">Security State</div>
+                    <div class="detail-value">\${request.security.state}</div>
+                </div>
+                \` : ''}
             </div>
             
             <div class="timing-breakdown">
                 <h4>Timing Breakdown</h4>
                 <div class="timing-grid">
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.dnsLookup > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">DNS Lookup</div>
-                        <div class="timing-value">\${(timing.dnsLookup || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.dnsLookup > 0 ? timing.dnsLookup.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.dnsLookup === 0 ? '<div class="timing-note">Connection reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.tcpConnect > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">TCP Connect</div>
-                        <div class="timing-value">\${(timing.tcpConnect || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.tcpConnect > 0 ? timing.tcpConnect.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.tcpConnect === 0 ? '<div class="timing-note">Connection reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.sslHandshake > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">SSL Handshake</div>
-                        <div class="timing-value">\${(timing.sslHandshake || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.sslHandshake > 0 ? timing.sslHandshake.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.sslHandshake === 0 ? '<div class="timing-note">HTTP or reused</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.requestSend > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">Request Send</div>
-                        <div class="timing-value">\${(timing.requestSend || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.requestSend > 0 ? timing.requestSend.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.requestSend === 0 ? '<div class="timing-note">Cached or fast</div>' : ''}
                     </div>
-                    <div class="timing-card">
-                        <div class="timing-label">Wait Time</div>
-                        <div class="timing-value">\${(timing.waitTime || 0).toFixed(2)}ms</div>
+                    <div class="timing-card \${timing.waitTime > 0 ? '' : 'timing-unavailable'}">
+                        <div class="timing-label">Server Wait</div>
+                        <div class="timing-value">\${timing.waitTime > 0 ? timing.waitTime.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.waitTime === 0 ? '<div class="timing-note">Instant response</div>' : ''}
                     </div>
-                    <div class="timing-card">
+                    <div class="timing-card \${timing.responseReceive > 0 ? '' : 'timing-unavailable'}">
                         <div class="timing-label">Response Receive</div>
-                        <div class="timing-value">\${(timing.responseReceive || 0).toFixed(2)}ms</div>
+                        <div class="timing-value">\${timing.responseReceive > 0 ? timing.responseReceive.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.responseReceive === 0 ? '<div class="timing-note">Small payload</div>' : ''}
                     </div>
+                    <div class="timing-card \${timing.contentDownloadTime > 0 ? '' : 'timing-unavailable'}">
+                        <div class="timing-label">Content Download</div>
+                        <div class="timing-value">\${timing.contentDownloadTime > 0 ? timing.contentDownloadTime.toFixed(2) + 'ms' : 'N/A'}</div>
+                        \${timing.contentDownloadTime === 0 ? '<div class="timing-note">Headers only</div>' : ''}
+                    </div>
+                    \${timing.redirectTime > 0 ? \`
+                    <div class="timing-card">
+                        <div class="timing-label">Redirect Time</div>
+                        <div class="timing-value">\${timing.redirectTime.toFixed(2)}ms</div>
+                    </div>
+                    \` : ''}
                     <div class="timing-card" style="border: 2px solid #3b82f6; background: #f0f9ff;">
                         <div class="timing-label" style="color: #1e40af; font-weight: 600;">Total Time</div>
                         <div class="timing-value" style="color: #1e40af; font-weight: 700; font-size: 1rem;">\${(request.responseTime || 0).toFixed(2)}ms</div>
                     </div>
+                    \${timing.timingSum && Math.abs(timing.totalTime - timing.timingSum) > 1 ? \`
+                    <div class="timing-card" style="border: 2px solid \${timing.timingSum > timing.totalTime ? '#dc2626' : '#f59e0b'}; background: \${timing.timingSum > timing.totalTime ? '#fef2f2' : '#fffbeb'};">
+                        <div class="timing-label" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; font-weight: 600;">Timing Sum</div>
+                        <div class="timing-value" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; font-weight: 700; font-size: 1rem;">\${timing.timingSum.toFixed(2)}ms</div>
+                        <div class="timing-note" style="color: \${timing.timingSum > timing.totalTime ? '#dc2626' : '#92400e'}; margin-top: 0.25rem; font-size: 0.7rem;">
+                            \${timing.timingSum > timing.totalTime ? 'Overlapping operations' : 'Sum of breakdown components'}
+                        </div>
+                    </div>
+                    \` : ''}
+                </div>
+                \${timing.fromCache ? '<div class="cache-notice">📦 This resource was served from cache</div>' : ''}
+                \${timing.connectionReused ? '<div class="connection-notice">🔄 Connection was reused (faster)</div>' : ''}
+                \${timing.timingSum && Math.abs(timing.totalTime - timing.timingSum) > 1 ? \`
+                <div class="timing-discrepancy-notice">
+                    \${timing.timingSum > timing.totalTime ? \`
+                        ⚠️ Timing discrepancy: Timing sum (\${timing.timingSum.toFixed(2)}ms) > Total time (\${timing.totalTime.toFixed(2)}ms). 
+                        This indicates overlapping network operations or concurrent requests that share connection setup time.
+                    \` : \`
+                        ⚠️ Timing discrepancy: Total time (\${timing.totalTime.toFixed(2)}ms) includes response body download time, 
+                        while breakdown sum (\${timing.timingSum.toFixed(2)}ms) only includes headers received time.
+                    \`}
+                </div>
+                \` : ''}
+            </div>
+            
+            \${request.headers ? \`
+            <div class="headers-section">
+                <h4>Request & Response Headers</h4>
+                <div class="headers-grid">
+                    <div class="headers-card">
+                        <h5>Request Headers</h5>
+                        <div class="headers-list">
+                            \${Object.entries(request.headers.request || {}).map(([key, value]) => \`
+                                <div class="header-item">
+                                    <span class="header-key">\${key}:</span>
+                                    <span class="header-value">\${value}</span>
+                                </div>
+                            \`).join('')}
+                        </div>
+                    </div>
+                    <div class="headers-card">
+                        <h5>Response Headers</h5>
+                        <div class="headers-list">
+                            \${Object.entries(request.headers.response || {}).map(([key, value]) => \`
+                                <div class="header-item">
+                                    <span class="header-key">\${key}:</span>
+                                    <span class="header-value">\${value}</span>
+                                </div>
+                            \`).join('')}
+                        </div>
+                    </div>
                 </div>
             </div>
+            \` : ''}
+            
+            \${request.security?.details ? \`
+            <div class="security-section">
+                <h4>Security Details</h4>
+                <div class="security-grid">
+                    <div class="security-card">
+                        <div class="security-label">Protocol</div>
+                        <div class="security-value">\${request.security.details.protocol}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Cipher</div>
+                        <div class="security-value">\${request.security.details.cipher}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Certificate Subject</div>
+                        <div class="security-value">\${request.security.details.subjectName}</div>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-label">Issuer</div>
+                        <div class="security-value">\${request.security.details.issuer}</div>
+                    </div>
+                </div>
+            </div>
+            \` : ''}
         \`;
     }
     
