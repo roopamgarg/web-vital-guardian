@@ -2186,12 +2186,12 @@ function createOverviewContent(reports) {
         <!-- Core Web Vitals Comparison -->
         <div class="core-web-vitals">
             <h2 class="section-title">Core Web Vitals Comparison</h2>
-            <div class="vitals-grid">
-                ${createVitalCard("First Contentful Paint", "FCP", reports, "Time when first text or image is painted")}
-                ${createVitalCard("Largest Contentful Paint", "LCP", reports, "Time when largest content element is painted")}
-                ${createVitalCard("Interaction to Next Paint", "INP", reports, "Responsiveness of page to user interactions")}
-                ${createVitalCard("Time to First Byte", "TTFB", reports, "Time between request and first byte received")}
-            </div>
+        <div class="vitals-grid">
+            ${createVitalCard("First Contentful Paint", "FCP", reports, "Time when first text or image is painted")}
+            ${createVitalCard("Largest Contentful Paint", "LCP", reports, "Time when largest content element is painted")}
+            ${createVitalCard("Cumulative Layout Shift", "CLS", reports, "Visual stability of the page")}
+            ${createVitalCard("Time to First Byte", "TTFB", reports, "Time between request and first byte received")}
+        </div>
         </div>
 
         <!-- Content Grid -->
@@ -2231,7 +2231,7 @@ function createScenarioContent(report, index) {
             <div class="vitals-grid">
                 ${createSingleVitalCard("First Contentful Paint", report.metrics?.FCP, "Time when first text or image is painted")}
                 ${createSingleVitalCard("Largest Contentful Paint", report.metrics?.LCP, "Time when largest content element is painted")}
-                ${createSingleVitalCard("Interaction to Next Paint", report.metrics?.INP, "Responsiveness of page to user interactions")}
+                ${createSingleVitalCard("Cumulative Layout Shift", report.metrics?.CLS, "Visual stability of the page")}
                 ${createSingleVitalCard("Time to First Byte", report.metrics?.TTFB, "Time between request and first byte received")}
             </div>
         </div>
@@ -2255,13 +2255,19 @@ function createVitalCard(name, metric, reports, description, threshold) {
   const values = reports.map((r) => r.metrics?.[metric]).filter((v) => v !== void 0);
   const average = values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0;
   const status = getVitalStatus(metric, average);
+  const formatValue = (value, metric2) => {
+    if (metric2 === "CLS") {
+      return value.toFixed(3);
+    }
+    return value.toFixed(0) + "ms";
+  };
   return `
         <div class="vital-card">
             <div class="vital-header">
                 <div class="vital-name">${name}</div>
                 <div class="vital-status">${status}</div>
             </div>
-            <div class="vital-value">${average.toFixed(0)}ms</div>
+            <div class="vital-value">${formatValue(average, metric)}</div>
             <div class="vital-description">${description}</div>
             <div class="vital-chart">
                 <div class="vital-chart-line"></div>
@@ -2285,14 +2291,21 @@ function createSingleVitalCard(name, value, description, threshold) {
             </div>
         `;
   }
-  const status = getVitalStatus(name.split(" ")[0], value);
+  const metric = name.split(" ")[0];
+  const status = getVitalStatus(metric, value);
+  const formatValue = (value2, metric2) => {
+    if (metric2 === "CLS") {
+      return value2.toFixed(3);
+    }
+    return value2.toFixed(0) + "ms";
+  };
   return `
         <div class="vital-card">
             <div class="vital-header">
                 <div class="vital-name">${name}</div>
                 <div class="vital-status">${status}</div>
             </div>
-            <div class="vital-value">${value.toFixed(0)}ms</div>
+            <div class="vital-value">${formatValue(value, metric)}</div>
             <div class="vital-description">${description}</div>
             <div class="vital-chart">
                 <div class="vital-chart-line"></div>
@@ -2525,8 +2538,7 @@ function formatBytes(bytes) {
 }
 async function startVitalsObservation(page, options) {
   const useObserver = options?.usePerformanceObserver ?? true;
-  const allowPackage = options?.fallbackToPackage ?? false;
-  if (!useObserver && allowPackage) {
+  if (!useObserver) {
     const initScript2 = `
       (function(){
         if (window.__wvg && window.__wvg.started) return;
@@ -2536,7 +2548,6 @@ async function startVitalsObservation(page, options) {
     await page.addInitScript({ content: initScript2 });
     return;
   }
-  if (!useObserver) return;
   const initScript = `
     (function(){
       if (window.__wvg && window.__wvg.started) return;
@@ -2784,12 +2795,10 @@ async function measureWebVitalsWithObserver(page) {
 }
 async function measureWebVitals(page, options) {
   const useObserver = options?.usePerformanceObserver ?? true;
-  const allowFallback = options?.fallbackToPackage ?? false;
-  if (useObserver && !allowFallback) {
-    console.log("🔍 Measuring Web Vitals with PerformanceObserver (CSP-safe, no fallback)...");
+  if (useObserver) {
+    console.log("🔍 Measuring Web Vitals with PerformanceObserver...");
     return measureWebVitalsWithObserver(page);
-  }
-  if (!useObserver && allowFallback) {
+  } else {
     try {
       console.log("📦 Measuring Web Vitals with web-vitals package...");
       return measureWebVitalsWithPackage(page);
@@ -2798,27 +2807,6 @@ async function measureWebVitals(page, options) {
       return measureWebVitalsWithObserver(page);
     }
   }
-  try {
-    console.log("🔍 Measuring Web Vitals with PerformanceObserver (CSP-safe)...");
-    const observerResults = await measureWebVitalsWithObserver(page);
-    const hasMetrics = Object.keys(observerResults).length > 0;
-    if (hasMetrics) {
-      console.log("✅ Successfully measured Web Vitals with PerformanceObserver");
-      return observerResults;
-    }
-  } catch (error) {
-    console.warn("PerformanceObserver failed, trying web-vitals package:", error);
-  }
-  if (allowFallback) {
-    try {
-      console.log("📦 Attempting to load web-vitals package...");
-      return await measureWebVitalsWithPackage(page);
-    } catch (error) {
-      console.warn("⚠️  web-vitals package blocked by CSP, using PerformanceObserver fallback");
-      return await measureWebVitalsWithObserver(page);
-    }
-  }
-  console.warn("⚠️  PerformanceObserver failed and fallback disabled, returning empty metrics");
   return {};
 }
 async function measureWebVitalsWithPackage(page) {
@@ -3272,7 +3260,7 @@ async function runScenario(browser, scenario, config) {
     await startVitalsObservation(page, config?.webVitals);
     const cdpSession = await setupCDPNetworkMonitoring(page);
     await page.goto(scenario.url, { waitUntil: "networkidle" });
-    if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
+    if (config?.webVitals?.usePerformanceObserver === false) {
       await loadWebVitalsPackage(page);
     }
     let profileResponse = null;

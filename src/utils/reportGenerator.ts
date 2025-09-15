@@ -2063,12 +2063,12 @@ function createOverviewContent(reports: WebVitalsReport[]): string {
         <!-- Core Web Vitals Comparison -->
         <div class="core-web-vitals">
             <h2 class="section-title">Core Web Vitals Comparison</h2>
-            <div class="vitals-grid">
-                ${createVitalCard('First Contentful Paint', 'FCP', reports, 'Time when first text or image is painted', '1800ms')}
-                ${createVitalCard('Largest Contentful Paint', 'LCP', reports, 'Time when largest content element is painted', '2500ms')}
-                ${createVitalCard('Interaction to Next Paint', 'INP', reports, 'Responsiveness of page to user interactions', '200ms')}
-                ${createVitalCard('Time to First Byte', 'TTFB', reports, 'Time between request and first byte received', '600ms')}
-            </div>
+        <div class="vitals-grid">
+            ${createVitalCard('First Contentful Paint', 'FCP', reports, 'Time when first text or image is painted', '1800ms')}
+            ${createVitalCard('Largest Contentful Paint', 'LCP', reports, 'Time when largest content element is painted', '2500ms')}
+            ${createVitalCard('Cumulative Layout Shift', 'CLS', reports, 'Visual stability of the page', '0.1')}
+            ${createVitalCard('Time to First Byte', 'TTFB', reports, 'Time between request and first byte received', '600ms')}
+        </div>
         </div>
 
         <!-- Content Grid -->
@@ -2113,7 +2113,7 @@ function createScenarioContent(report: WebVitalsReport, index: number): string {
             <div class="vitals-grid">
                 ${createSingleVitalCard('First Contentful Paint', report.metrics?.FCP, 'Time when first text or image is painted', '1800ms')}
                 ${createSingleVitalCard('Largest Contentful Paint', report.metrics?.LCP, 'Time when largest content element is painted', '2500ms')}
-                ${createSingleVitalCard('Interaction to Next Paint', report.metrics?.INP, 'Responsiveness of page to user interactions', '200ms')}
+                ${createSingleVitalCard('Cumulative Layout Shift', report.metrics?.CLS, 'Visual stability of the page', '0.1')}
                 ${createSingleVitalCard('Time to First Byte', report.metrics?.TTFB, 'Time between request and first byte received', '600ms')}
             </div>
         </div>
@@ -2142,13 +2142,21 @@ function createVitalCard(name: string, metric: string, reports: WebVitalsReport[
     const average = values.length > 0 ? values.reduce((sum, val) => sum + (val as number), 0) / values.length : 0;
     const status = getVitalStatus(metric, average);
     
+    // Format value based on metric type
+    const formatValue = (value: number, metric: string): string => {
+        if (metric === 'CLS') {
+            return value.toFixed(3);
+        }
+        return value.toFixed(0) + 'ms';
+    };
+    
     return `
         <div class="vital-card">
             <div class="vital-header">
                 <div class="vital-name">${name}</div>
                 <div class="vital-status">${status}</div>
             </div>
-            <div class="vital-value">${average.toFixed(0)}ms</div>
+            <div class="vital-value">${formatValue(average, metric)}</div>
             <div class="vital-description">${description}</div>
             <div class="vital-chart">
                 <div class="vital-chart-line"></div>
@@ -2177,7 +2185,16 @@ function createSingleVitalCard(name: string, value: number | undefined, descript
         `;
     }
     
-    const status = getVitalStatus(name.split(' ')[0], value);
+    const metric = name.split(' ')[0];
+    const status = getVitalStatus(metric, value);
+    
+    // Format value based on metric type
+    const formatValue = (value: number, metric: string): string => {
+        if (metric === 'CLS') {
+            return value.toFixed(3);
+        }
+        return value.toFixed(0) + 'ms';
+    };
     
     return `
         <div class="vital-card">
@@ -2185,7 +2202,7 @@ function createSingleVitalCard(name: string, value: number | undefined, descript
                 <div class="vital-name">${name}</div>
                 <div class="vital-status">${status}</div>
             </div>
-            <div class="vital-value">${value.toFixed(0)}ms</div>
+            <div class="vital-value">${formatValue(value, metric)}</div>
             <div class="vital-description">${description}</div>
             <div class="vital-chart">
                 <div class="vital-chart-line"></div>

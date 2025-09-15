@@ -122,7 +122,6 @@ export declare interface GuardianConfig {
     };
     webVitals?: {
         usePerformanceObserver?: boolean;
-        fallbackToPackage?: boolean;
     };
     enableProfile?: boolean;
     variables?: Record<string, string | number | boolean>;
@@ -203,7 +202,6 @@ export declare function measurePerformanceMetrics(page: Page): Promise<WebVitals
  */
 export declare function measureWebVitals(page: Page, options?: {
     usePerformanceObserver?: boolean;
-    fallbackToPackage?: boolean;
 }): Promise<WebVitalsReport['metrics']>;
 
 /**
@@ -363,7 +361,6 @@ export declare function setupCDPNetworkMonitoring(page: Page): Promise<any>;
  */
 export declare function startVitalsObservation(page: Page, options?: {
     usePerformanceObserver?: boolean;
-    fallbackToPackage?: boolean;
 }): Promise<void>;
 
 export declare interface WebVitalsReport {

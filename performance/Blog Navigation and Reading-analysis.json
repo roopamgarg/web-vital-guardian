@@ -12,7 +12,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 85,
+    "hitCount": 81,
     "samples": 0
   },
   {
@@ -20,7 +20,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 7690,
+    "hitCount": 7741,
     "samples": 0
   },
   {
@@ -28,15 +28,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 28,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "InjectedScript",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 33,
     "samples": 0
   },
   {
@@ -44,7 +36,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -68,7 +60,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -76,7 +68,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 2,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -120,23 +112,7 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "previewNode",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "checkElementStates",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "elementState",
+    "originalFunctionName": "_promiseAwareJsonValueNoThrow",
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
@@ -144,7 +120,7 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "isElementVisible",
+    "originalFunctionName": "safeJson",
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
@@ -152,7 +128,31 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "box",
+    "originalFunctionName": "jsonValue",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "serializeAsCallArgument",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "serialize",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "__export",
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
@@ -180,7 +180,7 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 2,
+    "hitCount": 4,
     "samples": 0
   },
   {
@@ -188,7 +188,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 12,
+    "hitCount": 9,
     "samples": 0
   },
   {
@@ -208,11 +208,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "Q",
+    "originalFunctionName": "H",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -220,7 +220,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -228,7 +228,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -244,7 +244,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -264,11 +264,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "aj",
+    "originalFunctionName": "Q",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -276,15 +276,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 2,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "aQ",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -308,15 +300,95 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ry",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "g",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
     "hitCount": 1,
     "samples": 0
   },
   {
-    "originalFunctionName": "C",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalFunctionName": "d",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 3,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eS",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eb",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.qr",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.jx",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "w_",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ki.PL",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "I.XX",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "sG.YY",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -340,7 +412,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 2,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -372,7 +444,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -388,7 +460,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 5,
     "samples": 0
   },
   {
@@ -396,7 +468,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -404,159 +476,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 18,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "onBlur",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "t.<computed>",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "E.<computed>",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "e.mark",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "H",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "$",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "ry",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "g",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "eS",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "eb",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 7,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "value",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 2,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "iU",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "iV",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "e",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "forEach",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "I",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "iF",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "i9",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "tJ",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 13,
     "samples": 0
   },
   {
@@ -580,63 +500,135 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
     "originalLine": 0,
     "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.<computed>",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "E.<computed>",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "extractEvents",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nw",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "nv",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ng",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "$",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iF",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "ih",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 3,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iR",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rh",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iU",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iV",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "value",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aQ",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "o",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
     "hitCount": 2,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "w.forceUpdate",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "enqueueForceUpdate",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "N",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "t.Z",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "iu",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "ii",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "it",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
     "samples": 0
   },
   {
@@ -648,39 +640,15 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "et",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "iv",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "aP",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "l",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
     "originalFunctionName": "ki.yZ",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "GY",
     "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
     "originalLine": 0,
     "totalTime": 0,
@@ -688,19 +656,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "setTimeout",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 8,
-    "samples": 0
-  },
-  {
     "originalFunctionName": "i",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 15,
+    "hitCount": 13,
     "samples": 0
   },
   {
@@ -709,6 +669,14 @@
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 14,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "setTimeout",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 3,
     "samples": 0
   },
   {
@@ -724,23 +692,15 @@
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 3,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "GY",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
-    "originalLine": 0,
-    "totalTime": 0,
     "hitCount": 2,
     "samples": 0
   },
   {
-    "originalFunctionName": "now",
-    "originalSource": "",
+    "originalFunctionName": "Q_",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 3,
+    "hitCount": 2,
     "samples": 0
   },
   {
@@ -756,6 +716,22 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "e",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "l",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
     "hitCount": 0,
     "samples": 0
   },
@@ -764,7 +740,7 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 1,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -808,6 +784,14 @@
     "samples": 0
   },
   {
+    "originalFunctionName": "aP",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
     "originalFunctionName": "iI",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
@@ -820,23 +804,39 @@
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
+    "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "iv",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
     "hitCount": 0,
     "samples": 0
   },
   {
-    "originalFunctionName": "I.kJ",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "I.jx",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalFunctionName": "C",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 2,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "callback",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t._domBreadcrumb",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
     "samples": 0
   },
   {
@@ -880,35 +880,27 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "refreshHandler",
-    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "t",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 5,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "b",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 2,
-    "samples": 0
-  },
-  {
     "originalFunctionName": "t.on.getCtx.r.getCtx",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "buffer",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "get",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -920,35 +912,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "rh",
+    "originalFunctionName": "t.Z",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "d",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "X",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "z",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5378.ab068b3c.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -984,59 +952,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "j",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "ab",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "es",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
     "originalFunctionName": "post",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4094.ef965dbb.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "i.then",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "b.end",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "b._end",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -1069,6 +989,14 @@
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "removeChild",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 2,
     "samples": 0
   },
   {
@@ -1112,7 +1040,15 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "appendChild",
+    "originalFunctionName": "Jr",
+    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "setAttribute",
     "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
@@ -1120,11 +1056,35 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "r.executeAsync",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/LoginSignIn.4dac86ea.js",
+    "originalFunctionName": "iW",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rM",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a4",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a3",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -1144,7 +1104,23 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "eD",
+    "originalFunctionName": "b",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "j",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/3374.a6b5c682.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "rm",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
@@ -1152,7 +1128,15 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "S",
+    "originalFunctionName": "t.useMemo",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "eD",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
@@ -1168,8 +1152,8 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "setAttribute",
-    "originalSource": "",
+    "originalFunctionName": "F",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 1,
@@ -1181,6 +1165,30 @@
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "appendChild",
+    "originalSource": "",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "aj",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "i9",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
@@ -1200,14 +1208,6 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "removeChild",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 1,
-    "samples": 0
-  },
-  {
     "originalFunctionName": "i0",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
@@ -1216,7 +1216,7 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "x",
+    "originalFunctionName": "eR",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
@@ -1224,16 +1224,40 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "A.unitless.fontWeight",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
+    "originalFunctionName": "T",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "S",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7742.33112bd3.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "w.forceUpdate",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
     "samples": 0
   },
   {
-    "originalFunctionName": "lx",
+    "originalFunctionName": "enqueueForceUpdate",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "forEach.e.<computed>",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
@@ -1264,40 +1288,24 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "I.qr",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalFunctionName": "listener",
+    "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   },
   {
-    "originalFunctionName": "w_",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalFunctionName": "(garbage collector)",
+    "originalSource": "",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 10,
     "samples": 0
   },
   {
-    "originalFunctionName": "ki.PL",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "I.XX",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "sG.FX",
-    "originalSource": "https://www.gstatic.com/recaptcha/releases/44LqIOwVrGhp2lJ3fODa493O/recaptcha__en.js",
+    "originalFunctionName": "t",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/4836.a1b0f96e.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 0,
@@ -1320,8 +1328,32 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "t.useRef",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/1512.6f18a1ed.js",
+    "originalFunctionName": "aK",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "a$",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 0,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "Z",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/2050.017ad17f.js",
+    "originalLine": 0,
+    "totalTime": 0,
+    "hitCount": 1,
+    "samples": 0
+  },
+  {
+    "originalFunctionName": "t.findDOMNode",
+    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/7987.7e86d784.js",
     "originalLine": 0,
     "totalTime": 0,
     "hitCount": 1,
@@ -1344,43 +1376,11 @@
     "samples": 0
   },
   {
-    "originalFunctionName": "b.callback",
+    "originalFunctionName": "o._setStatusProperties",
     "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/static/js/async/5247.a159818d.js",
     "originalLine": 0,
     "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "(garbage collector)",
-    "originalSource": "",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 11,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "v.finish",
-    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "add",
-    "originalSource": "https://js-agent.newrelic.com/nr-spa-1.292.0.min.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
-    "samples": 0
-  },
-  {
-    "originalFunctionName": "o",
-    "originalSource": "https://assets-e2e.observe.ai/prod-4.0.0.1705/newRelic-v1.js",
-    "originalLine": 0,
-    "totalTime": 0,
-    "hitCount": 0,
+    "hitCount": 1,
     "samples": 0
   }
 ]

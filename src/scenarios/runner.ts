@@ -92,7 +92,7 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     await page.goto(scenario.url, { waitUntil: 'networkidle' });
     
     // Load web-vitals package if needed (after navigation, before steps)
-    if (config?.webVitals?.fallbackToPackage && !config?.webVitals?.usePerformanceObserver) {
+    if (config?.webVitals?.usePerformanceObserver === false) {
       await loadWebVitalsPackage(page);
     }
     let profileResponse = null;
@@ -105,9 +105,8 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     
     // Wait a bit for any final interactions to settle
     await page.waitForTimeout(2000);
-    const webVitals = await collectVitals(page);
     
-    // const webVitals = await webVitalsPromise;
+    const webVitals = await collectVitals(page);
     const performance = await measurePerformanceMetrics(page);
     const network = await measureNetworkRequestsEnhanced(page, cdpSession);
 

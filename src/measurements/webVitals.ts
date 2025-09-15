@@ -7,13 +7,12 @@ import type { WebVitalsReport, NetworkRequest, NetworkSummary } from '../types';
  */
 export async function startVitalsObservation(
   page: Page,
-  options?: { usePerformanceObserver?: boolean; fallbackToPackage?: boolean }
+  options?: { usePerformanceObserver?: boolean }
 ): Promise<void> {
   const useObserver = options?.usePerformanceObserver ?? true;
-  const allowPackage = options?.fallbackToPackage ?? false;
 
   // For web-vitals package, we'll load it after navigation but before steps
-  if (!useObserver && allowPackage) {
+  if (!useObserver) {
     // Just initialize the results object for now
     const initScript = `
       (function(){
@@ -24,8 +23,6 @@ export async function startVitalsObservation(
     await page.addInitScript({ content: initScript });
     return;
   }
-
-  if (!useObserver) return; // No observers requested
 
   const initScript = `
     (function(){
@@ -335,19 +332,15 @@ export async function measureWebVitalsWithObserver(page: Page): Promise<WebVital
  */
 export async function measureWebVitals(
   page: Page, 
-  options?: { usePerformanceObserver?: boolean; fallbackToPackage?: boolean }
+  options?: { usePerformanceObserver?: boolean }
 ): Promise<WebVitalsReport['metrics']> {
-  const useObserver = options?.usePerformanceObserver ?? true; // Default to CSP-safe approach
-  const allowFallback = options?.fallbackToPackage ?? false;   // Default to no fallback
+  const useObserver = options?.usePerformanceObserver ?? true; // Default to PerformanceObserver
   
-  // If forced to use PerformanceObserver, use it directly
-  if (useObserver && !allowFallback) {
-    console.log('🔍 Measuring Web Vitals with PerformanceObserver (CSP-safe, no fallback)...');
+  // Use PerformanceObserver by default (was working fine previously)
+  if (useObserver) {
+    console.log('🔍 Measuring Web Vitals with PerformanceObserver...');
     return measureWebVitalsWithObserver(page);
-  }
-  
-  // If forced to use web-vitals package, try it first
-  if (!useObserver && allowFallback) {
+  } else {
     try {
       console.log('📦 Measuring Web Vitals with web-vitals package...');
       return measureWebVitalsWithPackage(page);
@@ -356,36 +349,6 @@ export async function measureWebVitals(
       return measureWebVitalsWithObserver(page);
     }
   }
-  
-  // Default behavior: Try PerformanceObserver first, then web-vitals package if allowed
-  try {
-    console.log('🔍 Measuring Web Vitals with PerformanceObserver (CSP-safe)...');
-    const observerResults = await measureWebVitalsWithObserver(page);
-    
-    // If we got at least some metrics, use them
-    const hasMetrics = Object.keys(observerResults).length > 0;
-    if (hasMetrics) {
-      console.log('✅ Successfully measured Web Vitals with PerformanceObserver');
-      return observerResults;
-    }
-  } catch (error) {
-    console.warn('PerformanceObserver failed, trying web-vitals package:', error);
-  }
-  
-  // Fallback to web-vitals package if allowed (may be blocked by CSP)
-  if (allowFallback) {
-    try {
-      console.log('📦 Attempting to load web-vitals package...');
-      return await measureWebVitalsWithPackage(page);
-    } catch (error) {
-      console.warn('⚠️  web-vitals package blocked by CSP, using PerformanceObserver fallback');
-      // Final fallback to PerformanceObserver
-      return await measureWebVitalsWithObserver(page);
-    }
-  }
-  
-  // If no fallback allowed and PerformanceObserver failed, return empty metrics
-  console.warn('⚠️  PerformanceObserver failed and fallback disabled, returning empty metrics');
   return {};
 }
 

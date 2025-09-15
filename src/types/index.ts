@@ -155,8 +155,7 @@ export interface GuardianConfig {
   };
   // Web Vitals measurement options
   webVitals?: {
-    usePerformanceObserver?: boolean; // Force using PerformanceObserver (CSP-safe)
-    fallbackToPackage?: boolean;      // Allow fallback to web-vitals package
+    usePerformanceObserver?: boolean; // Use PerformanceObserver (default: true) or web-vitals package (false)
   };
   enableProfile?: boolean;
   // Global variables that can be used in scenario files
