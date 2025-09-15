@@ -2158,9 +2158,6 @@ function createVitalCard(name: string, metric: string, reports: WebVitalsReport[
             </div>
             <div class="vital-value">${formatValue(average, metric)}</div>
             <div class="vital-description">${description}</div>
-            <div class="vital-chart">
-                <div class="vital-chart-line"></div>
-            </div>
         </div>
     `;
 }
@@ -2178,9 +2175,6 @@ function createSingleVitalCard(name: string, value: number | undefined, descript
                 </div>
                 <div class="vital-value">N/A</div>
                 <div class="vital-description">${description}</div>
-                <div class="vital-chart">
-                    <div class="vital-chart-line"></div>
-                </div>
             </div>
         `;
     }
@@ -2204,9 +2198,7 @@ function createSingleVitalCard(name: string, value: number | undefined, descript
             </div>
             <div class="vital-value">${formatValue(value, metric)}</div>
             <div class="vital-description">${description}</div>
-            <div class="vital-chart">
-                <div class="vital-chart-line"></div>
-            </div>
+
         </div>
     `;
 }

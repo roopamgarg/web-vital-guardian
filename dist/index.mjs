@@ -2264,9 +2264,6 @@ function createVitalCard(name, metric, reports, description, threshold) {
             </div>
             <div class="vital-value">${formatValue(average, metric)}</div>
             <div class="vital-description">${description}</div>
-            <div class="vital-chart">
-                <div class="vital-chart-line"></div>
-            </div>
         </div>
     `;
 }
@@ -2280,9 +2277,6 @@ function createSingleVitalCard(name, value, description, threshold) {
                 </div>
                 <div class="vital-value">N/A</div>
                 <div class="vital-description">${description}</div>
-                <div class="vital-chart">
-                    <div class="vital-chart-line"></div>
-                </div>
             </div>
         `;
   }
@@ -2302,9 +2296,7 @@ function createSingleVitalCard(name, value, description, threshold) {
             </div>
             <div class="vital-value">${formatValue(value, metric)}</div>
             <div class="vital-description">${description}</div>
-            <div class="vital-chart">
-                <div class="vital-chart-line"></div>
-            </div>
+
         </div>
     `;
 }
