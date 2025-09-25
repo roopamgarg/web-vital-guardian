@@ -2,6 +2,7 @@ import type { Browser, Page } from 'playwright';
 import type { ScenarioStep, ScenarioFile, WebVitalsReport, GuardianConfig } from '../types';
 import { measureWebVitals, measurePerformanceMetrics, measureNetworkRequestsEnhanced, setupCDPNetworkMonitoring, startVitalsObservation, collectVitals, loadWebVitalsPackage } from '../measurements/webVitals';
 import { profileJs } from '../measurements/performanceObserver';
+import { generateProfileSummary } from '../utils/profileAnalyzer';
 
 /**
  * Executes a single scenario step
@@ -110,6 +111,19 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
     const performance = await measurePerformanceMetrics(page);
     const network = await measureNetworkRequestsEnhanced(page, cdpSession);
 
+    // Process profile data if available
+    let profileSummary = null;
+    if (profileResponse?.profile && config?.enableProfile) {
+      // Convert Profile to EnhancedProfile format
+      const enhancedProfile = {
+        nodes: profileResponse.profile.nodes || [],
+        samples: profileResponse.profile.samples || [],
+        startTime: profileResponse.profile.startTime || 0,
+        endTime: profileResponse.profile.endTime || 0
+      };
+      profileSummary = generateProfileSummary(enhancedProfile, performance.loadTime);
+    }
+
     // Generate report
     const report: WebVitalsReport = {
       scenario: scenario.name,
@@ -118,7 +132,10 @@ export async function runScenario(browser: Browser, scenario: ScenarioFile, conf
       metrics: webVitals,
       performance,
       network,
-      profile: profileResponse?.profile || null,
+      profile: profileSummary ? {
+        summary: profileSummary,
+        rawData: profileResponse?.profile || null
+      } : null,
     };
     
     // Clean up CDP session

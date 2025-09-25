@@ -106,7 +106,86 @@ export interface WebVitalsReport {
     requests: NetworkRequest[];
     summary: NetworkSummary;
   };
-  profile: any;
+  profile: {
+    summary: {
+      totalExecutionTime: number;
+      totalFunctions: number;
+      totalCalls: number;
+      longestFunctionTime: number;
+      topFunctions: Array<{
+        name: string;
+        time: number;
+        percentage: number;
+        calls: number;
+        averageTime: number;
+        source: string;
+        line: number;
+      }>;
+      functionCallFrequency: Record<string, number>;
+      thirdPartyImpact: {
+        totalTime: number;
+        percentage: number;
+        scripts: Array<{
+          domain: string;
+          time: number;
+          percentage: number;
+          functions: number;
+        }>;
+      };
+      executionEfficiency: {
+        jsExecutionPercentage: number;
+        idleTimePercentage: number;
+        mainThreadBlockingTime: number;
+      };
+      threadBlockingAnalysis: {
+        totalBlockingTime: number;
+        blockingPercentage: number;
+        longestBlockingEvent: number;
+        blockingEvents: Array<{
+          functionName: string;
+          blockingTime: number;
+          startTime: number;
+          endTime: number;
+          severity: 'low' | 'medium' | 'high' | 'critical';
+        }>;
+        blockingPatterns: {
+          continuousBlocking: number;
+          intermittentBlocking: number;
+          peakBlockingTime: number;
+          averageBlockingTime: number;
+        };
+        responsivenessImpact: {
+          userInteractionDelay: number;
+          frameDrops: number;
+          responsivenessScore: number;
+        };
+      };
+      cpuUsageAnalysis: {
+        totalCpuTime: number;
+        averageCpuUsage: number;
+        peakCpuUsage: number;
+        cpuIntensiveFunctions: Array<{
+          functionName: string;
+          cpuTime: number;
+          cpuPercentage: number;
+          calls: number;
+          averageCpuPerCall: number;
+        }>;
+        cpuUsagePatterns: {
+          highCpuPeriods: number;
+          lowCpuPeriods: number;
+          cpuSpikes: number;
+          averageCpuPerPeriod: number;
+        };
+        cpuEfficiency: {
+          cpuUtilizationScore: number;
+          cpuWastePercentage: number;
+          optimizationPotential: number;
+        };
+      };
+    };
+    rawData: any;
+  } | null;
 }
 
 // Scenario file structure

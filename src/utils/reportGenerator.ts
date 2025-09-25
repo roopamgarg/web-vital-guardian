@@ -1263,14 +1263,283 @@ function getCSS(): string {
         padding: 1.5rem;
     }
 
+    .profiler-section {
+        margin-bottom: 2rem;
+    }
+
+    .profiler-section h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+
+    /* Collapsible profiler sections */
+    .profiler-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 0.75rem 1rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        transition: background-color 0.2s ease;
+    }
+
+    .profiler-section-header:hover {
+        background: #f1f5f9;
+    }
+
+    .profiler-section-header h4 {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #374151;
+        border: none;
+        padding: 0;
+    }
+
+    .toggle-icon {
+        font-size: 0.875rem;
+        color: #6b7280;
+        transition: transform 0.2s ease;
+        user-select: none;
+    }
+
+    .profiler-section-content {
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+        max-height: 1000px;
+        opacity: 1;
+    }
+
+    .profiler-section-content.collapsed {
+        max-height: 0;
+        opacity: 0;
+    }
+
     .function-list {
         margin-bottom: 1.5rem;
+    }
+
+    /* Thread Blocking Analysis Styles */
+    .thread-blocking-content {
+        padding: 1rem;
+    }
+
+    .blocking-subsection {
+        margin-bottom: 2rem;
+    }
+
+    .blocking-subsection h5 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+
+    .blocking-events-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .blocking-event-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 0.75rem;
+    }
+
+    .blocking-function {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: 0.875rem;
+    }
+
+    .blocking-severity {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .severity-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        text-transform: uppercase;
+    }
+
+    .severity-badge.low {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .severity-badge.medium {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .severity-badge.high {
+        background: #fed7aa;
+        color: #c2410c;
+    }
+
+    .severity-badge.critical {
+        background: #fecaca;
+        color: #dc2626;
+    }
+
+    .blocking-time {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .blocking-details {
+        font-size: 0.75rem;
+        color: #6b7280;
+    }
+
+    .responsiveness-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .responsiveness-metric {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    /* CPU Usage Analysis Styles */
+    .cpu-usage-content {
+        padding: 1rem;
+    }
+
+    .cpu-subsection {
+        margin-bottom: 2rem;
+    }
+
+    .cpu-subsection h5 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+
+    .cpu-functions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .cpu-function-item {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 0.75rem;
+    }
+
+    .cpu-function-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        font-size: 0.875rem;
+    }
+
+    .cpu-usage-bar {
+        width: 100%;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+    }
+
+    .cpu-usage-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .cpu-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: #6b7280;
+    }
+
+    .cpu-time {
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .cpu-percentage {
+        font-weight: 600;
+        color: #3b82f6;
+    }
+
+    .cpu-calls {
+        color: #6b7280;
+    }
+
+    .cpu-efficiency-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .cpu-metric {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .cpu-metric .metric-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .cpu-metric .metric-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
     }
 
     .function-item {
         display: flex;
         align-items: center;
         margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .function-item:hover {
+        background: #f9fafb;
     }
 
     .function-name {
@@ -1279,6 +1548,7 @@ function getCSS(): string {
         color: #1f2937;
         margin-right: 1rem;
         min-width: 200px;
+        cursor: help;
     }
 
     .function-bar {
@@ -1295,13 +1565,133 @@ function getCSS(): string {
         height: 100%;
         background: #3b82f6;
         border-radius: 4px;
+        transition: width 0.3s ease;
     }
 
     .function-time {
         font-size: 0.75rem;
         color: #6b7280;
+        min-width: 120px;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .function-calls {
+        font-size: 0.65rem;
+        color: #9ca3af;
+        margin-top: 0.125rem;
+    }
+
+    /* Third-Party Impact Styles */
+    .third-party-impact {
+        margin-bottom: 1.5rem;
+    }
+
+    .third-party-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .third-party-item:hover {
+        background: #f9fafb;
+    }
+
+    .script-domain {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #1f2937;
+        margin-right: 1rem;
+        min-width: 200px;
+        word-break: break-all;
+    }
+
+    .script-bar {
+        flex: 1;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        margin-right: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .script-bar-fill {
+        height: 100%;
+        background: #f59e0b;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .script-stats {
+        font-size: 0.75rem;
+        color: #6b7280;
+        min-width: 120px;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .script-functions {
+        font-size: 0.65rem;
+        color: #9ca3af;
+        margin-top: 0.125rem;
+    }
+
+    /* Function Call Frequency Styles */
+    .call-frequency-list {
+        margin-bottom: 1.5rem;
+    }
+
+    .frequency-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .frequency-item:hover {
+        background: #f9fafb;
+    }
+
+    .frequency-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #1f2937;
+        margin-right: 1rem;
+        min-width: 200px;
+    }
+
+    .frequency-count {
+        font-size: 0.75rem;
+        color: #6b7280;
         min-width: 80px;
         text-align: right;
+        margin-right: 1rem;
+    }
+
+    .frequency-bar {
+        flex: 1;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .frequency-bar-fill {
+        height: 100%;
+        background: #10b981;
+        border-radius: 4px;
+        transition: width 0.3s ease;
     }
 
     .function-chart {
@@ -1432,6 +1822,22 @@ function getJavaScript(): string {
         initializeCharts();
         initializeNetworkTables();
     });
+
+    // Toggle function for collapsible profiler sections
+    function toggleSection(sectionId) {
+        const content = document.getElementById(sectionId);
+        const icon = document.getElementById(sectionId + '-icon');
+        
+        if (content && icon) {
+            if (content.classList.contains('collapsed')) {
+                content.classList.remove('collapsed');
+                icon.textContent = '▲';
+            } else {
+                content.classList.add('collapsed');
+                icon.textContent = '▼';
+            }
+        }
+    }
 
     function initializeTabs() {
         const tabs = document.querySelectorAll('.nav-tab');
@@ -2252,54 +2658,227 @@ function createNetworkAnalysisSection(reports: WebVitalsReport[]): string {
  * Creates JavaScript profiler section for overview
  */
 function createJavaScriptProfilerSection(reports: WebVitalsReport[]): string {
-    const totalExecutionTime = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalExecutionTime || 0), 0);
-    const totalFunctions = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalFunctions || 0), 0);
-    const totalCalls = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalCalls || 0), 0);
-    
-    return `
-        <div class="js-profiler">
-            <div class="section-header">
-                <h3>JavaScript Profiler</h3>
-                <div class="section-summary">
-                    <span>Total execution time: ${totalExecutionTime.toFixed(0)}ms</span>
-                </div>
-            </div>
-            <div class="profiler-content">
-                <div class="function-list">
-                    ${getTopFunctions(reports).map(func => `
-                        <div class="function-item">
-                            <div class="function-name">${func.name}()</div>
-                            <div class="function-bar">
-                                <div class="function-bar-fill" style="width: ${(func.time / totalExecutionTime * 100)}%"></div>
-                            </div>
-                            <div class="function-time">${func.time.toFixed(0)}ms (${((func.time / totalExecutionTime) * 100).toFixed(1)}%)</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="function-chart">
-                    <canvas id="functionChart"></canvas>
-                </div>
-                <div class="profiler-stats">
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${totalFunctions}</div>
-                        <div class="profiler-stat-label">Functions</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${totalCalls}</div>
-                        <div class="profiler-stat-label">Total Calls</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${getLongestFunction(reports).time.toFixed(0)}ms</div>
-                        <div class="profiler-stat-label">Longest Function</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${((totalExecutionTime / (reports[0]?.performance?.loadTime || 1)) * 100).toFixed(1)}%</div>
-                        <div class="profiler-stat-label">JS Time</div>
-                    </div>
-                </div>
-            </div>
+  const totalExecutionTime = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalExecutionTime || 0), 0);
+  const totalFunctions = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalFunctions || 0), 0);
+  const totalCalls = reports.reduce((sum, r) => sum + (r.profile?.summary?.totalCalls || 0), 0);
+  const avgJsExecutionPercentage = reports.reduce((sum, r) => sum + (r.profile?.summary?.executionEfficiency?.jsExecutionPercentage || 0), 0) / reports.length;
+  const avgIdleTimePercentage = reports.reduce((sum, r) => sum + (r.profile?.summary?.executionEfficiency?.idleTimePercentage || 0), 0) / reports.length;
+  
+  return `
+    <div class="js-profiler">
+      <div class="section-header">
+        <h3>JavaScript Profiler Analysis</h3>
+        <div class="section-summary">
+          <span>Total execution time: ${totalExecutionTime.toFixed(0)}ms</span>
+          <span>JS execution: ${avgJsExecutionPercentage.toFixed(1)}% of profiler time</span>
+          <span>Idle time: ${avgIdleTimePercentage.toFixed(1)}%</span>
         </div>
-    `;
+      </div>
+      <div class="profiler-content">
+        <!-- Top 10 Most Expensive Functions -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('overview-top-functions')">
+            <h4>Top 10 Most Expensive Functions</h4>
+            <span class="toggle-icon" id="overview-top-functions-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="overview-top-functions">
+            <div class="function-list">
+              ${getTopFunctions(reports).map(func => `
+                <div class="function-item">
+                  <div class="function-name" title="${func.source}:${func.line}">${func.name}()</div>
+                  <div class="function-bar">
+                    <div class="function-bar-fill" style="width: ${func.percentage}%"></div>
+                  </div>
+                  <div class="function-time">
+                    ${func.time.toFixed(0)}ms (${func.percentage.toFixed(1)}%)
+                    <span class="function-calls">${func.calls} calls</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Third-Party Script Impact -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('overview-third-party')">
+            <h4>Third-Party Script Impact</h4>
+            <span class="toggle-icon" id="overview-third-party-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="overview-third-party">
+            <div class="third-party-impact">
+              ${getThirdPartyImpact(reports).map(script => `
+                <div class="third-party-item">
+                  <div class="script-domain">${script.domain}</div>
+                  <div class="script-bar">
+                    <div class="script-bar-fill" style="width: ${script.percentage}%"></div>
+                  </div>
+                  <div class="script-stats">
+                    ${script.time.toFixed(0)}ms (${script.percentage.toFixed(1)}%)
+                    <span class="script-functions">${script.functions} functions</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Function Call Frequency -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('overview-call-frequency')">
+            <h4>Most Called Functions</h4>
+            <span class="toggle-icon" id="overview-call-frequency-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="overview-call-frequency">
+            <div class="call-frequency-list">
+              ${getMostCalledFunctions(reports).map(func => `
+                <div class="frequency-item">
+                  <div class="frequency-name">${func.name}()</div>
+                  <div class="frequency-count">${func.calls} calls</div>
+                  <div class="frequency-bar">
+                    <div class="frequency-bar-fill" style="width: ${(func.calls / getMostCalledFunctions(reports)[0]?.calls * 100)}%"></div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Thread Blocking Analysis -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('overview-thread-blocking')">
+            <h4>Thread Blocking Analysis</h4>
+            <span class="toggle-icon" id="overview-thread-blocking-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="overview-thread-blocking">
+            <div class="thread-blocking-content">
+              <!-- Top Blocking Events -->
+              <div class="blocking-subsection">
+                <h5>Top Blocking Events</h5>
+                <div class="blocking-events-list">
+                  ${getTopThreadBlockingEvents(reports).map(event => `
+                    <div class="blocking-event-item">
+                      <div class="blocking-function">${event.functionName}()</div>
+                      <div class="blocking-severity ${event.severity}">
+                        <span class="severity-badge">${event.severity.toUpperCase()}</span>
+                        <span class="blocking-time">${event.blockingTime.toFixed(1)}ms</span>
+                      </div>
+                      <div class="blocking-details">
+                        <span class="blocking-duration">${event.startTime.toFixed(1)}ms - ${event.endTime.toFixed(1)}ms</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Responsiveness Impact -->
+              <div class="blocking-subsection">
+                <h5>Responsiveness Impact</h5>
+                <div class="responsiveness-grid">
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Responsiveness Score</div>
+                    <div class="metric-value">${getAverageThreadBlockingMetrics(reports).responsivenessScore.toFixed(1)}%</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Frame Drops</div>
+                    <div class="metric-value">${getAverageThreadBlockingMetrics(reports).frameDrops.toFixed(0)}</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Interaction Delay</div>
+                    <div class="metric-value">${getAverageThreadBlockingMetrics(reports).userInteractionDelay.toFixed(1)}ms</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Longest Block</div>
+                    <div class="metric-value">${getAverageThreadBlockingMetrics(reports).longestBlockingEvent.toFixed(1)}ms</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CPU Usage Analysis -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('overview-cpu-usage')">
+            <h4>CPU Usage Analysis</h4>
+            <span class="toggle-icon" id="overview-cpu-usage-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="overview-cpu-usage">
+            <div class="cpu-usage-content">
+              <!-- Top CPU-Intensive Functions -->
+              <div class="cpu-subsection">
+                <h5>Top CPU-Intensive Functions</h5>
+                <div class="cpu-functions-list">
+                  ${getTopCpuIntensiveFunctions(reports).map(func => `
+                    <div class="cpu-function-item">
+                      <div class="cpu-function-name">${func.functionName}()</div>
+                      <div class="cpu-usage-bar">
+                        <div class="cpu-usage-fill" style="width: ${func.cpuPercentage}%"></div>
+                      </div>
+                      <div class="cpu-stats">
+                        <span class="cpu-time">${func.cpuTime.toFixed(1)}ms</span>
+                        <span class="cpu-percentage">${func.cpuPercentage.toFixed(1)}%</span>
+                        <span class="cpu-calls">${func.calls} calls</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- CPU Efficiency Metrics -->
+              <div class="cpu-subsection">
+                <h5>CPU Efficiency Metrics</h5>
+                <div class="cpu-efficiency-grid">
+                  <div class="cpu-metric">
+                    <div class="metric-label">CPU Utilization Score</div>
+                    <div class="metric-value">${getAverageCpuUsageMetrics(reports).cpuUtilizationScore.toFixed(1)}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Average CPU Usage</div>
+                    <div class="metric-value">${getAverageCpuUsageMetrics(reports).averageCpuUsage.toFixed(1)}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Peak CPU Usage</div>
+                    <div class="metric-value">${getAverageCpuUsageMetrics(reports).peakCpuUsage.toFixed(1)}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">CPU Waste</div>
+                    <div class="metric-value">${getAverageCpuUsageMetrics(reports).cpuWastePercentage.toFixed(1)}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Optimization Potential</div>
+                    <div class="metric-value">${getAverageCpuUsageMetrics(reports).optimizationPotential.toFixed(1)}%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="function-chart">
+          <canvas id="functionChart"></canvas>
+        </div>
+        <div class="profiler-stats">
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${totalFunctions}</div>
+            <div class="profiler-stat-label">Functions</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${totalCalls}</div>
+            <div class="profiler-stat-label">Total Calls</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${getLongestFunction(reports).time.toFixed(0)}ms</div>
+            <div class="profiler-stat-label">Longest Function</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${avgJsExecutionPercentage.toFixed(1)}%</div>
+            <div class="profiler-stat-label">JS Execution</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 /**
@@ -2341,64 +2920,239 @@ function createScenarioNetworkAnalysis(report: WebVitalsReport): string {
  * Creates JavaScript profiler for single scenario
  */
 function createScenarioJavaScriptProfiler(report: WebVitalsReport): string {
-    const profile = report.profile;
-    if (!profile || !profile.summary) {
-        return `
-            <div class="js-profiler">
-                <div class="section-header">
-                    <h3>JavaScript Profiler</h3>
-                </div>
-                <div class="profiler-content">
-                    <p>No profile data available</p>
-                </div>
-            </div>
-        `;
-    }
-    
+  const profile = report.profile;
+  if (!profile || !profile.summary) {
     return `
-        <div class="js-profiler">
-            <div class="section-header">
-                <h3>JavaScript Profiler</h3>
-                <div class="section-summary">
-                    <span>Total execution time: ${profile.summary.totalExecutionTime.toFixed(0)}ms</span>
-                </div>
-            </div>
-            <div class="profiler-content">
-                <div class="function-list">
-                    ${getTopFunctionsForScenario(report).map(func => `
-                        <div class="function-item">
-                            <div class="function-name">${func.name}()</div>
-                            <div class="function-bar">
-                                <div class="function-bar-fill" style="width: ${(func.time / profile.summary.totalExecutionTime * 100)}%"></div>
-                            </div>
-                            <div class="function-time">${func.time.toFixed(0)}ms (${((func.time / profile.summary.totalExecutionTime) * 100).toFixed(1)}%)</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="function-chart">
-                    <canvas data-chart-data='${JSON.stringify(getFunctionCallData(report))}'></canvas>
-                </div>
-                <div class="profiler-stats">
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${profile.summary.totalFunctions}</div>
-                        <div class="profiler-stat-label">Functions</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${profile.summary.totalCalls}</div>
-                        <div class="profiler-stat-label">Total Calls</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${profile.summary.longestFunctionTime.toFixed(0)}ms</div>
-                        <div class="profiler-stat-label">Longest Function</div>
-                    </div>
-                    <div class="profiler-stat">
-                        <div class="profiler-stat-value">${((profile.summary.totalExecutionTime / (report.performance?.loadTime || 1)) * 100).toFixed(1)}%</div>
-                        <div class="profiler-stat-label">JS Time</div>
-                    </div>
-                </div>
-            </div>
+      <div class="js-profiler">
+        <div class="section-header">
+          <h3>JavaScript Profiler</h3>
         </div>
+        <div class="profiler-content">
+          <p>No profile data available</p>
+        </div>
+      </div>
     `;
+  }
+  
+  return `
+    <div class="js-profiler">
+      <div class="section-header">
+        <h3>JavaScript Profiler Analysis</h3>
+        <div class="section-summary">
+          <span>Total execution time: ${profile.summary.totalExecutionTime.toFixed(0)}ms</span>
+          <span>JS execution: ${profile.summary.executionEfficiency?.jsExecutionPercentage?.toFixed(1) || 0}% of load time</span>
+          <span>Idle time: ${profile.summary.executionEfficiency?.idleTimePercentage?.toFixed(1) || 0}%</span>
+        </div>
+      </div>
+      <div class="profiler-content">
+        <!-- Top 10 Most Expensive Functions -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('scenario-top-functions')">
+            <h4>Top 10 Most Expensive Functions</h4>
+            <span class="toggle-icon" id="scenario-top-functions-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="scenario-top-functions">
+            <div class="function-list">
+              ${(profile.summary.topFunctions || []).map(func => `
+                <div class="function-item">
+                  <div class="function-name" title="${func.source}:${func.line}">${func.name}()</div>
+                  <div class="function-bar">
+                    <div class="function-bar-fill" style="width: ${func.percentage}%"></div>
+                  </div>
+                  <div class="function-time">
+                    ${func.time.toFixed(0)}ms (${func.percentage.toFixed(1)}%)
+                    <span class="function-calls">${func.calls} calls</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <!-- Third-Party Script Impact -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('scenario-third-party')">
+            <h4>Third-Party Script Impact</h4>
+            <span class="toggle-icon" id="scenario-third-party-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="scenario-third-party">
+            <div class="third-party-impact">
+              ${profile.summary.thirdPartyImpact?.scripts?.map(script => `
+                <div class="third-party-item">
+                  <div class="script-domain">${script.domain}</div>
+                  <div class="script-bar">
+                    <div class="script-bar-fill" style="width: ${script.percentage}%"></div>
+                  </div>
+                  <div class="script-stats">
+                    ${script.time.toFixed(0)}ms (${script.percentage.toFixed(1)}%)
+                    <span class="script-functions">${script.functions} functions</span>
+                  </div>
+                </div>
+              `).join('') || '<p>No third-party scripts detected</p>'}
+            </div>
+          </div>
+        </div>
+
+        <!-- Function Call Frequency -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('scenario-call-frequency')">
+            <h4>Most Called Functions</h4>
+            <span class="toggle-icon" id="scenario-call-frequency-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="scenario-call-frequency">
+            <div class="call-frequency-list">
+              ${Object.entries(profile.summary.functionCallFrequency || {})
+                .sort(([,a], [,b]) => (b as number) - (a as number))
+                .slice(0, 10)
+                .map(([name, calls]) => `
+                  <div class="frequency-item">
+                    <div class="frequency-name">${name}()</div>
+                    <div class="frequency-count">${calls} calls</div>
+                    <div class="frequency-bar">
+                      <div class="frequency-bar-fill" style="width: ${(calls as number / Math.max(...Object.values(profile.summary.functionCallFrequency || {}), 1) * 100).toFixed(1)}%"></div>
+                    </div>
+                  </div>
+                `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div class="function-chart">
+          <canvas data-chart-data='${JSON.stringify(getFunctionCallData(report))}'></canvas>
+        </div>
+
+        <!-- Thread Blocking Analysis -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('scenario-thread-blocking')">
+            <h4>Thread Blocking Analysis</h4>
+            <span class="toggle-icon" id="scenario-thread-blocking-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="scenario-thread-blocking">
+            <div class="thread-blocking-content">
+              <!-- Top Blocking Events -->
+              <div class="blocking-subsection">
+                <h5>Top Blocking Events</h5>
+                <div class="blocking-events-list">
+                  ${(profile.summary.threadBlockingAnalysis?.blockingEvents || []).slice(0, 5).map(event => `
+                    <div class="blocking-event-item">
+                      <div class="blocking-function">${event.functionName}()</div>
+                      <div class="blocking-severity ${event.severity}">
+                        <span class="severity-badge">${event.severity.toUpperCase()}</span>
+                        <span class="blocking-time">${event.blockingTime.toFixed(1)}ms</span>
+                      </div>
+                      <div class="blocking-details">
+                        <span class="blocking-duration">${event.startTime.toFixed(1)}ms - ${event.endTime.toFixed(1)}ms</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Responsiveness Impact -->
+              <div class="blocking-subsection">
+                <h5>Responsiveness Impact</h5>
+                <div class="responsiveness-grid">
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Responsiveness Score</div>
+                    <div class="metric-value">${profile.summary.threadBlockingAnalysis?.responsivenessImpact?.responsivenessScore?.toFixed(1) || 100}%</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Frame Drops</div>
+                    <div class="metric-value">${profile.summary.threadBlockingAnalysis?.responsivenessImpact?.frameDrops || 0}</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Interaction Delay</div>
+                    <div class="metric-value">${profile.summary.threadBlockingAnalysis?.responsivenessImpact?.userInteractionDelay?.toFixed(1) || 0}ms</div>
+                  </div>
+                  <div class="responsiveness-metric">
+                    <div class="metric-label">Longest Block</div>
+                    <div class="metric-value">${profile.summary.threadBlockingAnalysis?.longestBlockingEvent?.toFixed(1) || 0}ms</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CPU Usage Analysis -->
+        <div class="profiler-section">
+          <div class="profiler-section-header" onclick="toggleSection('scenario-cpu-usage')">
+            <h4>CPU Usage Analysis</h4>
+            <span class="toggle-icon" id="scenario-cpu-usage-icon">▼</span>
+          </div>
+          <div class="profiler-section-content collapsed" id="scenario-cpu-usage">
+            <div class="cpu-usage-content">
+              <!-- Top CPU-Intensive Functions -->
+              <div class="cpu-subsection">
+                <h5>Top CPU-Intensive Functions</h5>
+                <div class="cpu-functions-list">
+                  ${(profile.summary.cpuUsageAnalysis?.cpuIntensiveFunctions || []).slice(0, 5).map(func => `
+                    <div class="cpu-function-item">
+                      <div class="cpu-function-name">${func.functionName}()</div>
+                      <div class="cpu-usage-bar">
+                        <div class="cpu-usage-fill" style="width: ${func.cpuPercentage}%"></div>
+                      </div>
+                      <div class="cpu-stats">
+                        <span class="cpu-time">${func.cpuTime.toFixed(1)}ms</span>
+                        <span class="cpu-percentage">${func.cpuPercentage.toFixed(1)}%</span>
+                        <span class="cpu-calls">${func.calls} calls</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- CPU Efficiency Metrics -->
+              <div class="cpu-subsection">
+                <h5>CPU Efficiency Metrics</h5>
+                <div class="cpu-efficiency-grid">
+                  <div class="cpu-metric">
+                    <div class="metric-label">CPU Utilization Score</div>
+                    <div class="metric-value">${profile.summary.cpuUsageAnalysis?.cpuEfficiency?.cpuUtilizationScore?.toFixed(1) || 100}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Average CPU Usage</div>
+                    <div class="metric-value">${profile.summary.cpuUsageAnalysis?.averageCpuUsage?.toFixed(1) || 0}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Peak CPU Usage</div>
+                    <div class="metric-value">${profile.summary.cpuUsageAnalysis?.peakCpuUsage?.toFixed(1) || 0}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">CPU Waste</div>
+                    <div class="metric-value">${profile.summary.cpuUsageAnalysis?.cpuEfficiency?.cpuWastePercentage?.toFixed(1) || 0}%</div>
+                  </div>
+                  <div class="cpu-metric">
+                    <div class="metric-label">Optimization Potential</div>
+                    <div class="metric-value">${profile.summary.cpuUsageAnalysis?.cpuEfficiency?.optimizationPotential?.toFixed(1) || 0}%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profiler-stats">
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${profile.summary.totalFunctions}</div>
+            <div class="profiler-stat-label">Functions</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${profile.summary.totalCalls}</div>
+            <div class="profiler-stat-label">Total Calls</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${profile.summary.longestFunctionTime.toFixed(0)}ms</div>
+            <div class="profiler-stat-label">Longest Function</div>
+          </div>
+          <div class="profiler-stat">
+            <div class="profiler-stat-value">${profile.summary.executionEfficiency?.jsExecutionPercentage?.toFixed(1) || 0}%</div>
+            <div class="profiler-stat-label">JS Execution (of profiler)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 /**
@@ -2447,25 +3201,90 @@ function getTopNetworkRequests(reports: WebVitalsReport[]): any[] {
         .sort((a: any, b: any) => b.responseTime - a.responseTime)
 }
 
-function getTopFunctions(reports: WebVitalsReport[], limit: number = 5): any[] {
-    const allFunctions: any[] = [];
-    reports.forEach(report => {
-        if (report.profile?.summary?.topFunctions) {
-            allFunctions.push(...report.profile.summary.topFunctions);
-        }
-    });
-    
-    return allFunctions
-        .sort((a: any, b: any) => b.time - a.time)
-        .slice(0, limit);
+function getTopFunctions(reports: WebVitalsReport[], limit: number = 10): any[] {
+  const allFunctions: any[] = [];
+  reports.forEach(report => {
+    if (report.profile?.summary?.topFunctions && Array.isArray(report.profile.summary.topFunctions)) {
+      allFunctions.push(...report.profile.summary.topFunctions);
+    }
+  });
+  
+  // Group by function name and sum the times
+  const functionMap = new Map<string, any>();
+  const totalTime = allFunctions.reduce((sum, f) => sum + f.time, 0);
+  allFunctions.forEach(func => {
+    if (functionMap.has(func.name)) {
+      const existing = functionMap.get(func.name);
+      existing.time += func.time;
+      existing.calls += func.calls;
+      existing.percentage = totalTime > 0 ? (existing.time / totalTime) * 100 : 0;
+    } else {
+      functionMap.set(func.name, { ...func });
+    }
+  });
+  
+  return Array.from(functionMap.values())
+    .sort((a: any, b: any) => b.time - a.time)
+    .slice(0, limit);
+}
+
+function getThirdPartyImpact(reports: WebVitalsReport[]): any[] {
+  const allScripts: any[] = [];
+  reports.forEach(report => {
+    if (report.profile?.summary?.thirdPartyImpact?.scripts && Array.isArray(report.profile.summary.thirdPartyImpact.scripts)) {
+      allScripts.push(...report.profile.summary.thirdPartyImpact.scripts);
+    }
+  });
+  
+  // Group by domain and sum the times
+  const scriptMap = new Map<string, any>();
+  const totalScriptTime = allScripts.reduce((sum, s) => sum + s.time, 0);
+  allScripts.forEach(script => {
+    if (scriptMap.has(script.domain)) {
+      const existing = scriptMap.get(script.domain);
+      existing.time += script.time;
+      existing.functions += script.functions;
+      existing.percentage = totalScriptTime > 0 ? (existing.time / totalScriptTime) * 100 : 0;
+    } else {
+      scriptMap.set(script.domain, { ...script });
+    }
+  });
+  
+  return Array.from(scriptMap.values())
+    .sort((a: any, b: any) => b.time - a.time)
+    .slice(0, 5);
+}
+
+function getMostCalledFunctions(reports: WebVitalsReport[], limit: number = 10): any[] {
+  const allFunctions: any[] = [];
+  reports.forEach(report => {
+    if (report.profile?.summary?.functionCallFrequency && typeof report.profile.summary.functionCallFrequency === 'object') {
+      Object.entries(report.profile.summary.functionCallFrequency).forEach(([name, calls]) => {
+        allFunctions.push({ name, calls: calls as number });
+      });
+    }
+  });
+  
+  // Group by function name and sum the calls
+  const functionMap = new Map<string, any>();
+  allFunctions.forEach(func => {
+    if (functionMap.has(func.name)) {
+      functionMap.get(func.name).calls += func.calls;
+    } else {
+      functionMap.set(func.name, { ...func });
+    }
+  });
+  
+  return Array.from(functionMap.values())
+    .sort((a: any, b: any) => b.calls - a.calls)
+    .slice(0, limit);
 }
 
 function getTopFunctionsForScenario(report: WebVitalsReport, limit: number = 5): any[] {
     if (!report.profile?.summary?.topFunctions) return [];
     
-    return report.profile.summary.topFunctions
-        .sort((a: any, b: any) => b.time - a.time)
-        .slice(0, limit);
+    // topFunctions should already be sorted by time (descending) from generateProfileSummary
+    return report.profile.summary.topFunctions.slice(0, limit);
 }
 
 function getLongestFunction(reports: WebVitalsReport[]): any {
@@ -2476,6 +3295,92 @@ function getLongestFunction(reports: WebVitalsReport[]): any {
 function getFunctionCallData(report: WebVitalsReport): Record<string, number> {
     if (!report.profile?.summary?.functionCallFrequency) return {};
     return report.profile.summary.functionCallFrequency;
+}
+
+function getTopThreadBlockingEvents(reports: WebVitalsReport[], limit: number = 5): any[] {
+  const allEvents: any[] = [];
+  reports.forEach(report => {
+    if (report.profile?.summary?.threadBlockingAnalysis?.blockingEvents && Array.isArray(report.profile.summary.threadBlockingAnalysis.blockingEvents)) {
+      allEvents.push(...report.profile.summary.threadBlockingAnalysis.blockingEvents);
+    }
+  });
+  
+  return allEvents
+    .sort((a: any, b: any) => b.blockingTime - a.blockingTime)
+    .slice(0, limit);
+}
+
+function getAverageThreadBlockingMetrics(reports: WebVitalsReport[]): any {
+  const validReports = reports.filter(r => r.profile?.summary?.threadBlockingAnalysis);
+  if (validReports.length === 0) {
+    return {
+      totalBlockingTime: 0,
+      blockingPercentage: 0,
+      longestBlockingEvent: 0,
+      responsivenessScore: 100,
+      frameDrops: 0,
+      userInteractionDelay: 0
+    };
+  }
+  
+  const totalBlockingTime = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.totalBlockingTime || 0), 0);
+  const blockingPercentage = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.blockingPercentage || 0), 0);
+  const longestBlockingEvent = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.longestBlockingEvent || 0), 0);
+  const responsivenessScore = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.responsivenessImpact?.responsivenessScore || 100), 0);
+  const frameDrops = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.responsivenessImpact?.frameDrops || 0), 0);
+  const userInteractionDelay = validReports.reduce((sum, r) => sum + (r.profile?.summary?.threadBlockingAnalysis?.responsivenessImpact?.userInteractionDelay || 0), 0);
+  
+  return {
+    totalBlockingTime: totalBlockingTime / validReports.length,
+    blockingPercentage: blockingPercentage / validReports.length,
+    longestBlockingEvent: longestBlockingEvent / validReports.length,
+    responsivenessScore: responsivenessScore / validReports.length,
+    frameDrops: frameDrops / validReports.length,
+    userInteractionDelay: userInteractionDelay / validReports.length
+  };
+}
+
+function getTopCpuIntensiveFunctions(reports: WebVitalsReport[], limit: number = 5): any[] {
+  const allFunctions: any[] = [];
+  reports.forEach(report => {
+    if (report.profile?.summary?.cpuUsageAnalysis?.cpuIntensiveFunctions && Array.isArray(report.profile.summary.cpuUsageAnalysis.cpuIntensiveFunctions)) {
+      allFunctions.push(...report.profile.summary.cpuUsageAnalysis.cpuIntensiveFunctions);
+    }
+  });
+  
+  return allFunctions
+    .sort((a: any, b: any) => b.cpuTime - a.cpuTime)
+    .slice(0, limit);
+}
+
+function getAverageCpuUsageMetrics(reports: WebVitalsReport[]): any {
+  const validReports = reports.filter(r => r.profile?.summary?.cpuUsageAnalysis);
+  if (validReports.length === 0) {
+    return {
+      totalCpuTime: 0,
+      averageCpuUsage: 0,
+      peakCpuUsage: 0,
+      cpuUtilizationScore: 100,
+      cpuWastePercentage: 0,
+      optimizationPotential: 0
+    };
+  }
+  
+  const totalCpuTime = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.totalCpuTime || 0), 0);
+  const averageCpuUsage = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.averageCpuUsage || 0), 0);
+  const peakCpuUsage = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.peakCpuUsage || 0), 0);
+  const cpuUtilizationScore = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.cpuEfficiency?.cpuUtilizationScore || 100), 0);
+  const cpuWastePercentage = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.cpuEfficiency?.cpuWastePercentage || 0), 0);
+  const optimizationPotential = validReports.reduce((sum, r) => sum + (r.profile?.summary?.cpuUsageAnalysis?.cpuEfficiency?.optimizationPotential || 0), 0);
+  
+  return {
+    totalCpuTime: totalCpuTime / validReports.length,
+    averageCpuUsage: averageCpuUsage / validReports.length,
+    peakCpuUsage: peakCpuUsage / validReports.length,
+    cpuUtilizationScore: cpuUtilizationScore / validReports.length,
+    cpuWastePercentage: cpuWastePercentage / validReports.length,
+    optimizationPotential: optimizationPotential / validReports.length
+  };
 }
 
 /**

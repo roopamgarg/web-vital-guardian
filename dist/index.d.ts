@@ -1,10 +1,13 @@
 import { Browser } from 'playwright';
+import { CpuUsageAnalysisResult } from './cpuUsageAnalyzer';
+import { MemoryAnalysisResult } from './memoryAnalyzer';
 import { Page } from 'playwright';
 import { Page as Page_2 } from '@playwright/test';
 import { Protocol } from 'playwright-core/types/protocol';
+import { ThreadBlockingAnalysisResult } from './threadBlockingAnalyzer';
 
 /**
- * Analyzes profile data and returns function performance statistics
+ * Analyzes profile data and returns comprehensive function performance statistics
  */
 export declare function analyzeProfile(profile: EnhancedProfile): {
     originalFunctionName: string;
@@ -13,6 +16,8 @@ export declare function analyzeProfile(profile: EnhancedProfile): {
     totalTime: number;
     hitCount: number;
     samples: number;
+    averageTime: number;
+    domain: string;
 }[];
 
 /**
@@ -74,6 +79,8 @@ export declare function formatProfileAnalysis(profile: EnhancedProfile): {
     totalTime: number;
     hitCount: number;
     samples: number;
+    averageTime: number;
+    domain: string;
 }[];
 
 /**
@@ -82,6 +89,44 @@ export declare function formatProfileAnalysis(profile: EnhancedProfile): {
  * @param outputPath - Path to save the HTML report
  */
 export declare function generateHTMLReport(result: GuardianResult, outputPath: string): void;
+
+/**
+ * Generates comprehensive profile summary with Phase 1 metrics
+ */
+export declare function generateProfileSummary(profile: EnhancedProfile, totalLoadTime?: number): {
+    totalExecutionTime: number;
+    totalFunctions: number;
+    totalCalls: number;
+    longestFunctionTime: number;
+    topFunctions: {
+        name: string;
+        time: number;
+        percentage: number;
+        calls: number;
+        averageTime: number;
+        source: string;
+        line: number;
+    }[];
+    functionCallFrequency: Record<string, number>;
+    thirdPartyImpact: {
+        totalTime: number;
+        percentage: number;
+        scripts: {
+            domain: string;
+            time: number;
+            percentage: number;
+            functions: number;
+        }[];
+    };
+    executionEfficiency: {
+        jsExecutionPercentage: number;
+        idleTimePercentage: number;
+        mainThreadBlockingTime: number;
+    };
+    memoryAnalysis: MemoryAnalysisResult;
+    threadBlockingAnalysis: ThreadBlockingAnalysisResult;
+    cpuUsageAnalysis: CpuUsageAnalysisResult;
+};
 
 /**
  * Filters functions by source file
@@ -93,6 +138,8 @@ export declare function getFunctionsBySource(profile: EnhancedProfile, sourcePat
     totalTime: number;
     hitCount: number;
     samples: number;
+    averageTime: number;
+    domain: string;
 }[];
 
 /**
@@ -105,6 +152,8 @@ export declare function getTopExpensiveFunctions(profile: EnhancedProfile, limit
     totalTime: number;
     hitCount: number;
     samples: number;
+    averageTime: number;
+    domain: string;
 }[];
 
 export declare interface GuardianConfig {
@@ -384,7 +433,86 @@ export declare interface WebVitalsReport {
         requests: NetworkRequest[];
         summary: NetworkSummary;
     };
-    profile: any;
+    profile: {
+        summary: {
+            totalExecutionTime: number;
+            totalFunctions: number;
+            totalCalls: number;
+            longestFunctionTime: number;
+            topFunctions: Array<{
+                name: string;
+                time: number;
+                percentage: number;
+                calls: number;
+                averageTime: number;
+                source: string;
+                line: number;
+            }>;
+            functionCallFrequency: Record<string, number>;
+            thirdPartyImpact: {
+                totalTime: number;
+                percentage: number;
+                scripts: Array<{
+                    domain: string;
+                    time: number;
+                    percentage: number;
+                    functions: number;
+                }>;
+            };
+            executionEfficiency: {
+                jsExecutionPercentage: number;
+                idleTimePercentage: number;
+                mainThreadBlockingTime: number;
+            };
+            threadBlockingAnalysis: {
+                totalBlockingTime: number;
+                blockingPercentage: number;
+                longestBlockingEvent: number;
+                blockingEvents: Array<{
+                    functionName: string;
+                    blockingTime: number;
+                    startTime: number;
+                    endTime: number;
+                    severity: 'low' | 'medium' | 'high' | 'critical';
+                }>;
+                blockingPatterns: {
+                    continuousBlocking: number;
+                    intermittentBlocking: number;
+                    peakBlockingTime: number;
+                    averageBlockingTime: number;
+                };
+                responsivenessImpact: {
+                    userInteractionDelay: number;
+                    frameDrops: number;
+                    responsivenessScore: number;
+                };
+            };
+            cpuUsageAnalysis: {
+                totalCpuTime: number;
+                averageCpuUsage: number;
+                peakCpuUsage: number;
+                cpuIntensiveFunctions: Array<{
+                    functionName: string;
+                    cpuTime: number;
+                    cpuPercentage: number;
+                    calls: number;
+                    averageCpuPerCall: number;
+                }>;
+                cpuUsagePatterns: {
+                    highCpuPeriods: number;
+                    lowCpuPeriods: number;
+                    cpuSpikes: number;
+                    averageCpuPerPeriod: number;
+                };
+                cpuEfficiency: {
+                    cpuUtilizationScore: number;
+                    cpuWastePercentage: number;
+                    optimizationPotential: number;
+                };
+            };
+        };
+        rawData: any;
+    } | null;
 }
 
 export { }
